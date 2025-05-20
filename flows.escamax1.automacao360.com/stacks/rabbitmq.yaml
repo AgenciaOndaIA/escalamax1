@@ -1,0 +1,33 @@
+x-variaveis: &variaveis
+    RABBITMQ_DEFAULT_USER: "admin"
+    RABBITMQ_DEFAULT_PASS: "@escamax1.automacao360.com2025"
+    RABBITMQ_ERLANG_COOKIE: "server"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    environment:
+      <<: *variaveis
+    #ports:
+    #  - 25672:25672
+    #  - 15672:15672
+    #  - 5672:5672
+    #  - 4369:4369
+    networks:
+      - externa
+      - interna
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.rabbitmq.entrypoints: "websecure"
+        traefik.http.routers.rabbitmq.tls.certresolver: "le"
+        traefik.http.services.rabbitmq.loadbalancer.server.port: 15672
+        traefik.http.routers.rabbitmq.service: "rabbitmq"
+        traefik.http.routers.rabbitmq.rule: "Host(`rabbit.escamax1.automacao360.com`)"
+
+networks:
+  externa:
+    external: true
+  interna:
+    external: true
+
