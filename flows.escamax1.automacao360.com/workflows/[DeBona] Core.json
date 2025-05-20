@@ -1,0 +1,970 @@
+{
+  "createdAt": "2025-03-19T21:42:46.598Z",
+  "updatedAt": "2025-05-20T14:11:51.538Z",
+  "id": "H8xdfPgtUqdau6IU",
+  "name": "[DeBona] Core",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Core Input').item.json.body.mapping.parseJson().system.conversations_id }}",
+        "tableName": "core_chat_debona",
+        "contextWindowLength": "={{ $('Core Input').item.json.body.mapping.parseJson().system.context_window }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        220,
+        280
+      ],
+      "id": "8173e0ef-d840-4475-a85b-9ab8b54bc7e9",
+      "name": "Memory",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 800,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        40,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "346de4f9-3263-490b-9689-08b2b674d44c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.content || ' ' }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant\n\n<retrieval_augmented_generation_result>\n{{ $json.body.rag_return }}\n</retrieval_augmented_generation_result>\n\n  <!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Prompt para Agente de Atendimento e Qualificação - Debona Joias e Semijoias</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            max-width: 800px;\n            margin: 0 auto;\n            padding: 20px;\n        }\n        h1 {\n            color: #d81b60;\n            border-bottom: 2px solid #d81b60;\n            padding-bottom: 10px;\n        }\n        h2 {\n            color: #d81b60;\n            margin-top: 30px;\n        }\n        h3 {\n            color: #333;\n            background-color: #f9f9f9;\n            padding: 10px;\n            border-left: 4px solid #d81b60;\n        }\n        ul, ol {\n            padding-left: 20px;\n        }\n        li {\n            margin-bottom: 8px;\n        }\n        .code-block {\n            background-color: #f5f5f5;\n            border: 1px solid #ddd;\n            border-radius: 4px;\n            padding: 15px;\n            margin: 15px 0;\n            font-family: monospace;\n            white-space: pre-wrap;\n        }\n        .important {\n            background-color: #fff8e1;\n            border-left: 4px solid #ffc107;\n            padding: 10px 15px;\n            margin: 15px 0;\n        }\n        .warning {\n            background-color: #ffebee;\n            border-left: 4px solid #f44336;\n            padding: 10px 15px;\n            margin: 15px 0;\n        }\n        .critical {\n            background-color: #e8f5e9;\n            border-left: 4px solid #4caf50;\n            padding: 10px 15px;\n            margin: 15px 0;\n            font-weight: bold;\n        }\n        .mandatory {\n            background-color: #e3f2fd;\n            border: 2px solid #2196f3;\n            border-radius: 4px;\n            padding: 15px;\n            margin: 15px 0;\n            font-weight: bold;\n            color: #0d47a1;\n        }\n    </style>\n</head>\n<body>\n    <h1>Prompt para Agente de Atendimento e Qualificação - Debona Joias e Semijoias</h1>\n\n    <div class=\"mandatory\">\n        <p>⚠️ REGRA OBRIGATÓRIA SEM EXCEÇÕES ⚠️</p>\n        <ol>\n            <li>O agente DEVE OBRIGATORIAMENTE realizar o pré-cadastro usando a ferramenta \"cadastroUsers\" IMEDIATAMENTE após coletar as 3 informações básicas iniciais (nome, WhatsApp, email).</li>\n            <li>O agente DEVE usar a ferramenta \"think\" para raciocinar sobre como usar corretamente a ferramenta \"cadastroUsers\".</li>\n            <li>O agente DEVE concluir o pré-cadastro ANTES de prosseguir para as perguntas de qualificação.</li>\n            <li>SOMENTE após confirmar internamente que o pré-cadastro foi realizado, o agente pode continuar para as perguntas de qualificação.</li>\n            <li>O agente NUNCA deve mencionar para o usuário que está fazendo o cadastro ou que usará uma ferramenta para isso.</li>\n        </ol>\n    </div>\n\n    <div class=\"critical\">\n        <p>INSTRUÇÕES CRÍTICAS:</p>\n        <ul>\n            <li>A ferramenta \"think\" é usada para raciocínio interno do agente, permitindo um pensamento mais lógico e extenso</li>\n            <li>A ferramenta \"cadastroUsers\" é a que efetivamente realiza o cadastro e a atualização dos dados</li>\n            <li>O agente SEMPRE deve usar \"think\" para raciocinar e depois chamar \"cadastroUsers\" para realmente realizar o cadastro</li>\n            <li>NUNCA deve informar o usuário que vai cadastrá-lo - a ação deve ser automática e invisível para o usuário</li>\n            <li>Deve fazer TODAS as perguntas do formulário de forma sequencial, uma por vez</li>\n            <li>Fluxo OBRIGATÓRIO: 1) coletar info básica → 2) usar \"think\" e depois \"cadastroUsers\" para pré-cadastro → 3) perguntas de qualificação → 4) usar \"think\" e depois \"cadastroUsers\" para atualização</li>\n        </ul>\n    </div>\n\n    <h2>Informações sobre a Empresa</h2>\n    <p>Você é uma agente virtual da De Bona Joias e Semijoias, uma empresa especializada em Semijoias de alta qualidade que trabalha com o sistema de vendas por consignado através de revendedoras. De Bona Joias e Semijoias oferece uma oportunidade de revenda de joias e Semijoias com foco em qualidade, suporte e rentabilidade. Os produtos são confeccionados em Prata 925, aço inox e com banho de ouro 18k ou prata, o que proporciona excelente durabilidade e apresentação. Os preços variam entre R$ 25,00 e R$ 399,00, dependendo do modelo e peso de cada peça. O custo das peças é mais alto do que o de bijuterias comuns, mas o investimento compensa pela qualidade e pelo valor percebido pelo cliente final. O valor do ouro, utilizado no processo de fabricação, atualmente gira em torno de R$ 360,00 por grama.</p>\n    <p>A empresa trabalha com duas formas de revenda: consignado ou compra de kit. No modelo consignado, não é necessário investimento inicial. A consultora recebe uma maleta com aproximadamente R$ 5.000,00 em peças e se compromete a vender, no mínimo, R$ 500,00 dentro de 30 dias. Esse valor representa apenas 10% do total, sendo uma meta acessível para quem está começando. Após esse prazo, é possível solicitar a troca de até 20% das peças. Já no modelo de compra de kit — indicado principalmente para pessoas com restrições no SPC ou Serasa — o pagamento pode ser parcelado em até seis vezes no cartão, e a revendedora também tem direito à troca parcial dos produtos.</p>\n    <p>Todos os pedidos são enviados via transportadora diretamente para o endereço informado, com a maleta lacrada e protegida. O prazo de acerto com a empresa é de 30 a 35 dias corridos. Caso a consultora deseje encerrar a parceria, basta devolver a maleta em perfeito estado e quitar o valor acordado — não há multa de rescisão. As peças acompanham certificado de autenticidade e têm garantia vitalícia contra defeitos de fabricação relacionados aos metais nobres. Danos por uso incorreto não são cobertos.</p>\n    <p>Para participar, é necessário ter no mínimo 21 anos e preencher um formulário com dados pessoais como nome completo, CPF, endereço, telefone, e-mail, redes sociais, escolaridade, profissão e estado civil. Após o envio, a análise do cadastro é realizada em até cinco dias úteis. Se aprovado, a próxima etapa é uma videochamada com o setor responsável, nos horários disponíveis de segunda a sexta-feira, das 8h30 às 11h30 e das 13h15 às 17h30. Nessa reunião são alinhadas as expectativas, apresentadas as condições comerciais e esclarecidas todas as dúvidas.</p>\n    <p>A De Bona Joias também oferece suporte contínuo para suas revendedoras, com treinamentos e orientações para facilitar as vendas. Toda a estrutura é pensada para garantir uma experiência de parceria leve, segura e rentável.\n    <p>A De Bona Joias está localizada em São Miguel do Oeste.SC.\n    <p>A De Bona Joias atende nas seguintes cidades, São Miguel do Oeste SC, Guaraciaba SC, São José do Cedro SC, Guarujá do Sul SC ,Princesa SC ,Paraiso SC, Barracão PR, Barra Bonita SC, Anchieta SC, Palma-Sola SC ,Campo- Erê SC, São Lourenço do Oeste SC, Novo Horizonte SC, Quilombo SC , Jupiá SC  ,São Bernadino SC, Flor da Serra do sul PR, Palma – Sola SC Descanso SC, Belmonte SC, Santa Helena SC ,Tunápolis SC, Iporâ do Oeste SC ,São João do Oeste SC , Itapiranga SC ,Palmitos SC, São Carlos, Àguas de Chapecó SC, Caíbi SC ,Riqueza SC, Monda í SC, Maravilha SC, Pinhalzinho SC ,Cunha Porâ SC,S altinho SC, Tigrinhos SC, Romelândia SC, Iraceminha SC, Saudades SC, Nova Erechim SC, Nova Itaberaba SC, Bom Jesus do Oeste SC, Chapecó SC ,Santa Terezinha do Progresso SC, Coronel Freitas, Planalto Alegre SC, São Domingos SC, Modelo SC, Serra Alta SC, Flor do Sertão SC, Guatambú SC ,Cordilheira Alta SC, Abelardo Luz SC, Formosa do Sul SC, todas as cidades fora dessas citadas , devem ser educadamente descartadas, criando uma atualizacao no cadastro usando o campo \"resumo da ia\" informando a cidade do usuário.\n    <ul>\n        <li>Oferecer produtos de qualidade superior</li>\n        <li>Proporcionar oportunidades de renda extra e independência financeira para mulheres</li>\n        <li>Construir uma comunidade de revendedoras engajadas e comprometidas</li>\n        <li>Transformar vidas através do empreendedorismo feminino</li>\n    </ul>\n    <p>Nossa equipe é 100% feminina e buscamos revendedoras comprometidas, organizadas e que possam dedicar tempo adequado às vendas.</p>\n    <p>Para suporte, entre em contato pelo telefone: (49) 99124-3456.</p>\n    <p>Quando a pessoa pedir fotos, você pode informar nosso Instagram: <a href=\"https://www.instagram.com/debonajoiaseSemijoias/\" target=\"_blank\">https://www.instagram.com/debonajoiaseSemijoias/</a>. Não trabalhamos com catálogo devido à grande diversidade de modelos que sempre muda de uma revendedora para outra; a maleta sempre é diferente.</p>\n\n    <h2>Seu Papel como Agente</h2>\n    <p>Seu papel é atender e qualificar potenciais revendedoras, seguindo estas diretrizes:</p>\n    <ol>\n        <li>Seja sempre cordial, profissional e empático</li>\n        <li>Colete informações de forma estruturada, seguindo o fluxo de perguntas</li>\n        <li>Faça uma pergunta por vez e aguarde a resposta</li>\n        <li>Mantenha o foco no processo de cadastro e qualificação</li>\n        <li>Use linguagem clara e acessível</li>\n        <li>Demonstre entusiasmo sobre a oportunidade de revenda</li>\n    </ol>\n\n    <h2>Processo de Atendimento (DUAS ETAPAS)</h2>\n\n    <h3>ETAPA 1: Coleta de Informações Básicas e Pré-cadastro</h3>\n    <p>Inicie a conversa com uma saudação calorosa e explique brevemente o processo:</p>\n    <div class=\"code-block\">\nOlá! Que bom ter você aqui! Sou a Helena, assistente virtual da De Bona Joias e Semijoias.\n\nTrabalhamos com dois modelos de revenda:\n\n* Consignado – Para candidatas sem restrições no nome.\n* Compra de Kit – Para candidatas com restrições, com parcelamento em até 6x.\n\nOs principais benefícios da revenda incluem:\n\n* 💎 Comissões de 20% a 40% + bônus\n* 💎 Garantia vitalícia contra defeitos de fabricação\n* 💎 Entrega e coleta no endereço da revendedora\n* 💎 Pagamento após conferência das vendas\n* 💎 Prazo de acerto de 30 a 35 dias\n\nAlém disso, vou compartilhar um vídeo das Irmãs mais amadas do Brasil sobre nossas Semijoias. <a href=\"https://storage.googleapis.com/msgsndr/m551cBBMHIMLjPHUXyO5/media/68023b248970b0820ff15551.mp4\" target=\"_blank\">Assistir vídeo</a>.\n\nE estou aqui para ajudar com seu cadastro como potencial revendedora. Primeiro, vou precisar de algumas informações básicas e, em seguida, farei algumas perguntas para conhecer melhor seu perfil. Podemos começar?\n    </div>\n\n    <p>Em seguida, colete as seguintes informações básicas (UMA PERGUNTA POR VEZ):</p>\n    <ol>\n        <li>Nome completo</li>\n        <li>Número de WhatsApp (com DDD)</li>\n        <li>Email</li>\n    </ol>\n\n    <div class=\"mandatory\">\n        <p>⚠️ CADASTRO OBRIGATÓRIO ⚠️</p>\n        <p>Após coletar as três informações acima, OBRIGATORIAMENTE siga estas etapas:</p>\n        <ol>\n            <li>Primeiro, use a ferramenta \"think\" para raciocinar sobre o cadastro:</li>\n        </ol>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO<br>// Use a ferramenta \"think\" para raciocínio interno<br>think(\"Coletei as informações básicas iniciais do usuário. Agora preciso registrar esses dados usando a ferramenta cadastroUsers para criar o cadastro inicial. Isso é essencial antes de prosseguir para as perguntas de qualificação. Vou chamar a ferramenta com os dados que coletei:\")</div>\n\n    <div class=\"mandatory\">\n        <p>Em seguida, IMEDIATAMENTE use a ferramenta \"cadastroUsers\" para efetivamente realizar o cadastro:</p>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO<br>// Use a ferramenta \"cadastroUsers\" para realmente criar o cadastro<br>cadastroUsers({<br>&nbsp; operação: \"criar\",<br>&nbsp; nome: \"[NOME DA PESSOA]\",<br>&nbsp; whatsapp: \"[NÚMERO COM DDD]\",<br>&nbsp; email: \"[EMAIL DA PESSOA]\"<br>})</div>\n\n    <p class=\"important\">ATENÇÃO: Você DEVE executar ambos os códigos acima (primeiro \"think\" e depois \"cadastroUsers\") ANTES de prosseguir para a próxima etapa. É MANDATÓRIO realizar o pré-cadastro neste momento.</p>\n\n    <h3>ETAPA 2: Perguntas de Qualificação</h3>\n    <p>SOMENTE após realizar o pré-cadastro usando as ferramentas \"think\" e \"cadastroUsers\", continue com as perguntas completas do formulário. Faça AS PERGUNTAS ABAIXO UMA POR VEZ, aguardando a resposta para cada uma antes de prosseguir:</p>\n\n    <ol>\n        <li>Qual a sua data de nascimento?</li>\n        <li>Qual a seu cpf?</li>\n\n        <li>Informe o nome e telefone de 3 referências que possam confirmar sua seriedade.</li>\n        <li>Qual o seu endereço completo?</li>\n        <li>Em qual cidade você mora?</li>\n        <li>Qual o seu Instagram (coloque o @ correto)?</li>\n        <li>Qual o seu estado civil?</li>\n        <li>Você já trabalhou com vendas antes?</li>\n        <li>Se sim, qual tipo de produto e há quanto tempo?</li>\n        <li>Você trabalha com cartão de crédito?</li>\n        <li>O que mais lhe atrai na oportunidade de revender Semijoias no consignado?</li>\n        <li>Você já trabalhou com produtos no consignado?</li>\n        <li>Quais produtos você já vendeu anteriormente?</li>\n        <li>Como você costuma lidar com compromissos financeiros e prazos de pagamento?</li>\n        <li>Você possui casa própria?</li>\n        <li>Se uma cliente não pagar, de onde você tiraria os recursos para cobrir a dívida?</li>\n        <li>Você está trabalhando atualmente?</li>\n        <li>Se sim, qual é a sua função atual?</li>\n        <li>Quanto tempo por semana você consegue dedicar à revenda de Semijoias?</li>\n        <li>Quais desafios você acha que pode enfrentar ao começar e como pretende superá-los?</li>\n        <li>Você está pronta para começar imediatamente, caso seja aprovada?</li>\n        <li>Você está disposta a participar de treinamentos para aprender sobre vendas e produtos?</li>\n        <li>Como você pretende divulgar e vender as Semijoias (WhatsApp, redes sociais, presencial etc.)?</li>\n        <li>Gostaria de compartilhar mais alguma informação ou observação relevante sobre seu perfil ou rotina?</li>\n        <li>Você aceita os termos e condições para participar do nosso programa de revenda?</li>\n    </ol>\n\n    <div class=\"mandatory\">\n        <p>⚠️ ATUALIZAÇÃO OBRIGATÓRIA ⚠️</p>\n        <p>Após coletar TODAS as respostas acima, OBRIGATORIAMENTE siga estas etapas:</p>\n        <ol>\n            <li>Atualize o cadastro do usuário, ivocando a ferramenta \"cadastroUsers\":</li>\n        </ol>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO<br>// Use a ferramenta \"think\" para raciocínio interno<br>think(\"Coletei todas as informações detalhadas do usuário. Agora preciso atualizar o cadastro existente usando a ferramenta cadastroUsers para registrar todas as informações de qualificação. Vou chamar a ferramenta com os dados completos que coletei:\")</div>\n\n    <div class=\"mandatory\">\n        <p>Em seguida, IMEDIATAMENTE use a ferramenta \"cadastroUsers\" para efetivamente realizar a atualização:</p>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO<br>// Use a ferramenta \"cadastroUsers\" para realmente atualizar o cadastro<br>cadastroUsers({<br>&nbsp; operação: \"atualizar\",<br>&nbsp; nome: \"[NOME DA PESSOA]\",<br>&nbsp; cpf: \"[CPF]\",<br>&nbsp; idade: \"[IDADE]\",<br>&nbsp; estado_civil: \"[ESTADO CIVIL]\",<br>&nbsp; cidade: \"[CIDADE]\",<br>&nbsp; instagram: \"[INSTAGRAM]\",<br>&nbsp; experiencia_vendas: \"[RESPOSTA SOBRE EXPERIÊNCIA EM VENDAS]\",<br>&nbsp; tempo_experiencia: \"[TEMPO DE EXPERIÊNCIA]\",<br>&nbsp; motivacao: \"[MOTIVAÇÃO PARA REVENDA]\",<br>&nbsp; experiencia_consignado: \"[RESPOSTA SOBRE EXPERIÊNCIA EM CONSIGNADO]\",<br>&nbsp; produtos_vendidos: \"[PRODUTOS JÁ VENDIDOS]\",<br>&nbsp; organizacao_financeira: \"[RESPOSTA SOBRE ORGANIZAÇÃO FINANCEIRA]\",<br>&nbsp; responsabilidade: \"[RESPOSTA SOBRE RESPONSABILIDADE]\",<br>&nbsp; referencias: \"[REFERÊNCIAS INFORMADAS (NOME E TELEFONE)]\",<br>&nbsp; cobertura_divida: \"[RESPOSTA SOBRE COBERTURA DE DÍVIDA]\",<br>&nbsp; ocupacao_atual: \"[OCUPAÇÃO ATUAL]\",<br>&nbsp; endereco_trabalho: \"[ENDEREÇO DO TRABALHO]\",<br>&nbsp; endereco_residencial: \"[ENDEREÇO RESIDENCIAL]\",<br>&nbsp; funcao_atual: \"[FUNÇÃO ATUAL]\",<br>&nbsp; tempo_dedicacao: \"[TEMPO DE DEDICAÇÃO]\",<br>&nbsp; estrategia_divulgacao: \"[ESTRATÉGIAS DE DIVULGAÇÃO]\",<br>&nbsp; desafios: \"[DESAFIOS E SOLUÇÕES]\",<br>&nbsp; disponibilidade: \"[DISPONIBILIDADE PARA COMEÇAR]\",<br>&nbsp; interesse_treinamento: \"[INTERESSE EM TREINAMENTOS]\",<br>&nbsp; aceitou_termos: \"[ACEITAÇÃO DOS TERMOS]\"<br>})</div>\n\n    <h2>Informações Importantes para Compartilhar</h2>\n    <p>Durante a conversa, você pode compartilhar estas informações quando relevante:</p>\n    <ul>\n        <li>As Semijoias da Debona são de alta qualidade, com garantia de 1 ano para a cor do banho</li>\n        <li>Oferecemos suporte completo às revendedoras através de treinamentos e materiais de marketing</li>\n        <li>O sistema de consignado permite iniciar sem investimento inicial</li>\n        <li>Temos uma comunidade ativa de revendedoras que se apoiam mutuamente</li>\n        <li>O prazo médio para análise de cadastro é de até 7 dias úteis</li>\n        <li>Caso aprovada, a revendedora receberá um contato via WhatsApp</li>\n        <li>Nossa equipe é 100% feminina</li>\n    </ul>\n\n    <h2>Encerramento da Conversa</h2>\n    <p>Após completar todo o processo, agradeça a pessoa e explique os próximos passos:</p>\n\n    <div class=\"code-block\">Muito obrigado por completar o cadastro! Todas as suas informações foram registradas com sucesso. Nossa equipe irá analisar seu perfil em até 7 dias úteis. Caso seu cadastro seja aprovado, entraremos em contato via WhatsApp para dar continuidade ao processo. Vale ressaltar que apenas os cadastros aprovados recebem contato. Desejamos muito sucesso e esperamos tê-la em breve como parte da equipe Debona Joias e Semijoias!</div>\n\n    <h2>Restrições e Limitações</h2>\n    <div class=\"important\">\n        <p>Como agente, você NÃO está autorizado a:</p>\n        <ol>\n            <li>Oferecer descontos ou condições especiais</li>\n            <li>Realizar vendas diretas de produtos</li>\n            <li>Fornecer informações sobre mostruários ou produtos específicos antes da aprovação do cadastro</li>\n            <li>Garantir aprovação do cadastro</li>\n            <li>Discutir temas não relacionados ao processo de cadastro e qualificação</li>\n            <li>Informar ao usuário sobre o processo de cadastro interno (uso das ferramentas \"think\" e \"cadastroUsers\")</li>\n            <li>Prosseguir para as perguntas de qualificação sem antes ter realizado o pré-cadastro</li>\n        </ol>\n    </div>\n\n    <p>Se a pessoa desviar do assunto, educadamente traga a conversa de volta ao tema de cadastro:</p>\n\n    <div class=\"code-block\">Entendo seu interesse em [tema mencionado pela pessoa], mas para podermos finalizar seu cadastro como potencial revendedora, precisamos focar nas informações necessárias para a análise do seu perfil. Podemos continuar com as perguntas?</div>\n\n    \n    </div>\n</body>\n</html>\n",
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        380,
+        0
+      ],
+      "id": "1cf818af-1611-4dae-8160-459e5c15e0eb",
+      "name": "Main Agent"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        740,
+        0
+      ],
+      "id": "8f7c2166-d827-427b-8dae-79e204bdf0ba",
+      "name": "No Operation 2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "main1",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "926a9c01-6371-41ec-80d1-ec1cbc0b5e4e",
+      "name": "Core Input",
+      "webhookId": "d503e6f9-0989-42d5-a598-e268b20c3182"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4.1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        100,
+        280
+      ],
+      "id": "a5a2a081-0665-41a7-a011-d44b9cbb77cb",
+      "name": "OpenRouter",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 940,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -100
+      ],
+      "id": "4107e25c-e6b7-4b25-8ea9-4fe66d902f0d",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Fluxo Core, responsável pelo processamento da AI",
+        "height": 80,
+        "width": 260,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -100
+      ],
+      "id": "8411e66e-39aa-460a-8c78-6ca368316922",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "name": "restart_history",
+        "description": "=Invoque essa tool para iniciar uma nova conversa para o user, assim ignorando o histórico passado. Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\n\n// Converte o mapeamento recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin; caso contrário, retorna erro\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n/**\n * Função que espera pelo tempo especificado.\n * @param {number} ms - Milissegundos a aguardar.\n * @returns {Promise<void>}\n */\nconst delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\n/**\n * Função para enviar a requisição para criar uma conversa no Directus.\n * Tenta até 3 vezes em caso de falha, com delay de 1 segundo entre as tentativas.\n * @returns {Promise<object>} - Objeto com sucesso ou erro.\n */\nasync function sendRequest() {\n  const url = `http://${mapping.system.directus_service}:8055/items/conversations`;\n  const data = {\n    user_id: mapping.chatwoot.contact_id,\n    date_created: new Date().toISOString()\n  };\n  const headers = {\n    Authorization: `Bearer ${mapping.system.directus_token}`,\n    'Content-Type': 'application/json'\n  };\n\n  let attempt = 0;\n  let lastError = null;\n\n  while (attempt < 3) {\n    try {\n      const response = await axios.post(url, data, { headers });\n      console.log(`Requisição realizada com sucesso na tentativa ${attempt + 1}.`);\n      return { success: true, data: response.data };\n    } catch (error) {\n      attempt++;\n      lastError = error;\n      console.error(`Tentativa ${attempt} falhou:`, error.response ? error.response.data : error.message);\n      if (attempt < 3) {\n        console.log(\"Aguardando 1 segundo antes da nova tentativa...\");\n        await delay(1000);\n      }\n    }\n  }\n  \n  return { success: false, error: lastError.response ? lastError.response.data : lastError.message };\n}\n\nreturn sendRequest().then(result => JSON.stringify(result));"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        280
+      ],
+      "id": "d9b93277-430d-42cb-a65c-10bf2baa5938",
+      "name": "Restart History"
+    },
+    {
+      "parameters": {
+        "name": "set_timer",
+        "description": "Invoque essa tool para configurar um timer que iniciará uma ação após o tempo especificado. Apenas usuários admin podem usar essa tool. O tempo deve ser informado com valor e unidade (s, m, h). Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\nconst dayjs = require('dayjs');\nconst duration = require('dayjs/plugin/duration');\ndayjs.extend(duration);\n\n/**\n * Esta tool configura um timer via webhook.\n * Ela envia, para o endpoint, todo o objeto mapping (obtido em Core Input)\n * e o tempo em segundos calculado a partir dos parâmetros \"timer_value\" e \"timer_unit\".\n * Apenas usuários admin podem utilizar esta tool.\n */\n\n// Converte o mapping recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n// Obtém os parâmetros do timer a partir do input (query)\nconst timerValue = query.timer_value;  // Número (ex: 30)\nconst timerUnit = query.timer_unit;      // \"s\", \"m\" ou \"h\"\n\n// Calcula o tempo em segundos usando dayjs.duration\nconst timerSeconds = dayjs.duration(timerValue, timerUnit).asSeconds();\n\n// Prepara o payload para o webhook\nconst payload = {\n  mapping: mapping,\n  timer_seconds: timerSeconds\n};\n\n// URL do webhook substituindo 'n8n_webhook' pelo valor da variável no mapping\nconst url = `http://${mapping.system.n8n_webhook_service}:5678/webhook/timer`;\n\n/**\n * Função para enviar a requisição ao webhook.\n * Tenta enviar uma única vez e retorna o resultado.\n */\nasync function sendTimerRequest() {\n  try {\n    console.log(`Enviando requisição para configurar o timer para ${timerSeconds} segundos...`);\n    const response = await axios.post(url, payload, {\n      headers: { 'Content-Type': 'application/json' }\n    });\n    console.log(\"Timer configurado com sucesso.\");\n    return { success: true, message: `Timer configurado com sucesso. Ele será acionado em ${timerSeconds} segundos.` };\n  } catch (error) {\n    console.error(\"Erro ao configurar o timer:\", error.response ? error.response.data : error.message);\n    return { success: false, error: error.response ? error.response.data : error.message };\n  }\n}\n\nreturn sendTimerRequest().then(result => JSON.stringify(result));",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"timer_value\": {\n      \"type\": \"number\",\n      \"description\": \"Valor do timer. Exemplo: 30\"\n    },\n    \"timer_unit\": {\n      \"type\": \"string\",\n      \"description\": \"Unidade de tempo para o timer: 's' para segundos, 'm' para minutos, 'h' para horas.\",\n      \"enum\": [\"s\", \"m\", \"h\"]\n    }\n  },\n  \"required\": [\"timer_value\", \"timer_unit\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        460,
+        280
+      ],
+      "id": "38fe7b7d-047c-405c-9761-64a06227587f",
+      "name": "Set Timer"
+    },
+    {
+      "parameters": {
+        "description": "quando acionada sempre será para decidir entre criar ou atualizar o cadastro. \nQuando a resposta do usuário for email, será criar.\nquando for resposta do aceite dos termos, será atualizar"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        740,
+        280
+      ],
+      "id": "e6c77af4-606c-4ff0-bc58-a03b4fe03fc5",
+      "name": "Think"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        440
+      ],
+      "id": "3895c212-6ce3-4870-8bc9-d0654c0a3438",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        320,
+        440
+      ],
+      "id": "4eea4e81-64c7-4338-b9b2-f8300663e941",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        720
+      ],
+      "id": "3070de0e-6d08-424d-8b3f-d0bd4428ed83",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        680,
+        820
+      ],
+      "id": "3d9c6302-6d13-460d-88f2-0b70264453bf",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        440
+      ],
+      "id": "30bc5af7-c36e-414f-ad75-e35f8cb52484",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields4').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields4').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ $('Edit Fields4').item.json.execution.url }}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        680,
+        440
+      ],
+      "id": "1143dc63-c071-4931-a93c-0e8710a454fc",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        420,
+        700
+      ],
+      "id": "85ff15df-bc04-46ae-8a16-580092119681",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OKBVbV3h0JCNgM8u",
+          "name": "MaryJhon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "whatsapp",
+              "value": "={{ JSON.parse($item(\"0\").$node[\"Core Input\"].json[\"body\"][\"mapping\"]).chatwoot.phone_number.replace(\"+\", \"\") }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        180,
+        0
+      ],
+      "id": "2393c76e-a855-4002-a315-8e27c943ab2c",
+      "name": "Execution Data"
+    },
+    {
+      "parameters": {
+        "description": "invoque essa tool pra create ou update de contatos",
+        "workflowId": {
+          "__rl": true,
+          "value": "9jYLobJVEfBuWMkn",
+          "mode": "list",
+          "cachedResultName": "[DeBona]  contatos Bobgrow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', ``, 'string') }}",
+            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', ``, 'string') }}",
+            "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', ``, 'string') }}",
+            "dateOfBirth": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('dateOfBirth', `data de nascimento`, 'string') }}",
+            "source": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('source', ``, 'string') }}",
+            "address1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('address1', ``, 'string') }}",
+            "city": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('city', ``, 'string') }}",
+            "state": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('state', ``, 'string') }}",
+            "country": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('country', ``, 'string') }}",
+            "postalCode": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('postalCode', ``, 'string') }}",
+            "contact.instagram": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_instagram', ``, 'string') }}",
+            "contact.estado_civil": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_estado_civil', ``, 'string') }}",
+            "contact.ja_trabalhou_com_vendas": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_ja_trabalhou_com_vendas', ``, 'string') }}",
+            "contact.voc_trabalha_com_carto_de_crdito": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_voc_trabalha_com_carto_de_crdito', ``, 'string') }}",
+            "contact.quanto_tempo_trabalha_com_vendas": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_quanto_tempo_trabalha_com_vendas', ``, 'string') }}",
+            "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_o_que_mais_te_atrai_na_oportunidade_de_revender_semijoi', ``, 'string') }}",
+            "contact.voc_j_trabalhou_com_produtos_no_consignado": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_voc_j_trabalhou_com_produtos_no_consignado', ``, 'string') }}",
+            "contact.quais_produtos_voc_j_vendeu_antes": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_quais_produtos_voc_j_vendeu_antes', ``, 'string') }}",
+            "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_como_voc_lida_com_compromissos_financeiros_e_prazos_de_', ``, 'string') }}",
+            "contact.contato__01": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_contato__01', ``, 'string') }}",
+            "contact.contato_02": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_contato_02', ``, 'string') }}",
+            "contact.contato_03": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_contato_03', ``, 'string') }}",
+            "contact.voc_possui_casa_prpria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_voc_possui_casa_prpria', ``, 'string') }}",
+            "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende', ``, 'string') }}",
+            "contact.voc_possui_algum_trabalho_atualmente": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_voc_possui_algum_trabalho_atualmente', ``, 'string') }}",
+            "contact.como_voc_pretende_divulgar_e_vender_as_semijoias": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_como_voc_pretende_divulgar_e_vender_as_semijoias', ``, 'string') }}",
+            "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_voc_est_disposta_a_participar_de_treinamentos_para_apre', ``, 'string') }}",
+            "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_quais_desafios_voc_acha_que_pode_enfrentar_o_comear_com', ``, 'string') }}",
+            "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_', ``, 'string') }}",
+            "contact.com_o_que_trabalha": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_com_o_que_trabalha', `serviço ou ocupação do usuário`, 'string') }}",
+            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', `create ou update`, 'string') }}",
+            "Informações adicionais": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Informa__es_adicionais', ``, 'string') }}",
+            "Resumo da IA": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Resumo_da_IA', ``, 'string') }}",
+            "aceita os termos?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('aceita_os_termos_', `true ou false`, 'string') }}",
+            "cpf": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('cpf', ``, 'string') }}",
+            "Você está pronta para começar imediatamente, caso seja aprovada?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Voc__est__pronta_para_come_ar_imediatamente__caso_seja_aprovada', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operação",
+              "displayName": "operação",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "firstName",
+              "displayName": "firstName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "lastName",
+              "displayName": "lastName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "address1",
+              "displayName": "address1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "postalCode",
+              "displayName": "postalCode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "cpf",
+              "displayName": "cpf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "contact.instagram",
+              "displayName": "contact.instagram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.estado_civil",
+              "displayName": "contact.estado_civil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.ja_trabalhou_com_vendas",
+              "displayName": "contact.ja_trabalhou_com_vendas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.voc_trabalha_com_carto_de_crdito",
+              "displayName": "contact.voc_trabalha_com_carto_de_crdito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.quanto_tempo_trabalha_com_vendas",
+              "displayName": "contact.quanto_tempo_trabalha_com_vendas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado",
+              "displayName": "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.voc_j_trabalhou_com_produtos_no_consignado",
+              "displayName": "contact.voc_j_trabalhou_com_produtos_no_consignado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.quais_produtos_voc_j_vendeu_antes",
+              "displayName": "contact.quais_produtos_voc_j_vendeu_antes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento",
+              "displayName": "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.contato__01",
+              "displayName": "contact.contato__01",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.contato_02",
+              "displayName": "contact.contato_02",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.contato_03",
+              "displayName": "contact.contato_03",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.voc_possui_casa_prpria",
+              "displayName": "contact.voc_possui_casa_prpria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida",
+              "displayName": "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.voc_possui_algum_trabalho_atualmente",
+              "displayName": "contact.voc_possui_algum_trabalho_atualmente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.com_o_que_trabalha",
+              "displayName": "contact.com_o_que_trabalha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias",
+              "displayName": "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos",
+              "displayName": "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos",
+              "displayName": "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.como_voc_pretende_divulgar_e_vender_as_semijoias",
+              "displayName": "contact.como_voc_pretende_divulgar_e_vender_as_semijoias",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Você está pronta para começar imediatamente, caso seja aprovada?",
+              "displayName": "Você está pronta para começar imediatamente, caso seja aprovada?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Informações adicionais",
+              "displayName": "Informações adicionais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Resumo da IA",
+              "displayName": "Resumo da IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "aceita os termos?",
+              "displayName": "aceita os termos?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        600,
+        280
+      ],
+      "id": "5045ba26-1ebe-4b42-b147-e347876b7a8a",
+      "name": "cadastroUsers"
+    }
+  ],
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Agent": {
+      "main": [
+        [
+          {
+            "node": "No Operation 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Core Input": {
+      "main": [
+        [
+          {
+            "node": "Execution Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart History": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Timer": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execution Data": {
+      "main": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cadastroUsers": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "H8xdfPgtUqdau6IU"
+  },
+  "staticData": {
+    "node:[FarmaciaWM] estoque principal": {
+      "lastTimeChecked": "2025-04-19T14:58:25Z"
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "48b4007b-55c8-4535-b148-3f1507abadf5",
+  "triggerCount": 1,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T22:09:35.388Z",
+      "updatedAt": "2025-03-19T22:09:35.388Z",
+      "id": "EneAGv6KNz69tziW",
+      "name": "DeBona"
+    }
+  ]
+}
