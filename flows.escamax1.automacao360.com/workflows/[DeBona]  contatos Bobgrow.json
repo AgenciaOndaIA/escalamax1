@@ -1,0 +1,847 @@
+{
+  "createdAt": "2025-03-19T22:08:39.109Z",
+  "updatedAt": "2025-05-14T22:17:31.681Z",
+  "id": "9jYLobJVEfBuWMkn",
+  "name": "[DeBona]  contatos Bobgrow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5204bb98-c216-43c7-b7d6-c43d8ec122f0",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        660
+      ],
+      "id": "b92aceee-624e-4bf4-9fcd-b7823012d4c9",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        720,
+        660
+      ],
+      "id": "ad8e9e65-4026-4243-88ee-8b7c7fe59906",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('When Executed by Another Workflow').item.json.email }}",
+        "phone": "={{ $('When Executed by Another Workflow').item.json.phone }}",
+        "additionalFields": {
+          "firstName": "={{ $('When Executed by Another Workflow').item.json.firstName }}",
+          "lastName": "={{ $('When Executed by Another Workflow').item.json.lastName }}",
+          "tags": "atendida pela ia"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        480,
+        560
+      ],
+      "id": "1fe726b3-3805-45c8-b92c-5bd56972e8d8",
+      "name": "CreateContact",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "TzV76Ju4J42MfSaS",
+          "name": "DeBona"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('When Executed by Another Workflow').item.json.email }}",
+        "phone": "={{ $('When Executed by Another Workflow').item.json.phone }}",
+        "additionalFields": {
+          "address1": "={{ $('When Executed by Another Workflow').item.json.address1 }}",
+          "city": "={{ $('When Executed by Another Workflow').item.json.city }}",
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "ugSVyN8XuYcqb9k4L7em",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.instagram'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "pu6x4I2qcxCeU0aoMPCc",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.estado_civil'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "ZwWaHqkPqdEvnvlrMZv3",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.ja_trabalhou_com_vendas'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "aVecJUwPhONUZSsxwfvQ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.voc_trabalha_com_carto_de_crdito'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SRWHzjtTipvmzmHNBpfO",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.quanto_tempo_trabalha_com_vendas'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "5QduUgCqYqWrYXtl9kLi",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "w69r1L9kNcbOMhccDxRC",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.voc_j_trabalhou_com_produtos_no_consignado'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "B8FV5RXdo94AdfO3R51e",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.quais_produtos_voc_j_vendeu_antes'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "jtthAicgaPQ4wYbl9lQs",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "AX6KpseRtWG2rBMtNPjX",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.contato__01'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "NymIrbU6YmdoMvDndSbR",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.contato_02'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "JjnYdl04EZrumjanwKqm",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.contato_03'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "fSO39dVkXwmkpEQKSHDq",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.voc_possui_casa_prpria'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "1LTipnh7bbqJnJ7FraK6",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "VNd38kHgd3j37TBw690f",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.voc_possui_algum_trabalho_atualmente'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "V4Y6fs48hzrta2o8flLg",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.com_o_que_trabalha'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "tMZ3r4QDkrhdJqLX9BbJ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "lZTWUlDFWbjxEkhsZWgi",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "TmtNvVkQDOAfmc97SxUU",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "9Sg85rh2JSVsInHM6oAD",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['contact.como_voc_pretende_divulgar_e_vender_as_semijoias'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "XpR4zFhp9p3akFFj7jgw",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json.cpf }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "tMI9zvUcVWwurITk20LG",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['Informações adicionais'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SDplDR3I30ejUrRrVfiT",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['Resumo da IA'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "tFbOy69B37TynKAtWLYK",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('When Executed by Another Workflow').item.json['aceita os termos?'] }}"
+              }
+            ]
+          },
+          "firstName": "={{ $('When Executed by Another Workflow').item.json.firstName }}",
+          "lastName": "={{ $('When Executed by Another Workflow').item.json.lastName }}",
+          "postalCode": "={{ $('When Executed by Another Workflow').item.json.postalCode }}",
+          "source": "Entrevista com o IA",
+          "tags": "registro finalizado"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        480,
+        780
+      ],
+      "id": "6bd383af-6347-4a48-9dda-b0c7e7d4b56a",
+      "name": "UpdateContacts",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "TzV76Ju4J42MfSaS",
+          "name": "DeBona"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "query": "={{ $json.firstName }} {{ $json.lastName }}"
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        20,
+        660
+      ],
+      "id": "b6c24130-3270-481f-ad95-6ef41c6e76c1",
+      "name": "Busca",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "TzV76Ju4J42MfSaS",
+          "name": "DeBona"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
+              "name": "response",
+              "value": "={{ $item(\"0\").$node[\"Merge\"].json }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2ee32884-5dc4-4e96-a527-5f7fe9603229",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        920,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "operação"
+            },
+            {
+              "name": "firstName"
+            },
+            {
+              "name": "lastName"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "phone"
+            },
+            {
+              "name": "dateOfBirth"
+            },
+            {
+              "name": "source"
+            },
+            {
+              "name": "address1"
+            },
+            {
+              "name": "city"
+            },
+            {
+              "name": "state"
+            },
+            {
+              "name": "country"
+            },
+            {
+              "name": "postalCode"
+            },
+            {
+              "name": "cpf"
+            },
+            {
+              "name": "contact.instagram"
+            },
+            {
+              "name": "contact.estado_civil"
+            },
+            {
+              "name": "contact.ja_trabalhou_com_vendas"
+            },
+            {
+              "name": "contact.voc_trabalha_com_carto_de_crdito"
+            },
+            {
+              "name": "contact.quanto_tempo_trabalha_com_vendas"
+            },
+            {
+              "name": "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado"
+            },
+            {
+              "name": "contact.voc_j_trabalhou_com_produtos_no_consignado"
+            },
+            {
+              "name": "contact.quais_produtos_voc_j_vendeu_antes"
+            },
+            {
+              "name": "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento"
+            },
+            {
+              "name": "contact.contato__01"
+            },
+            {
+              "name": "contact.contato_02"
+            },
+            {
+              "name": "contact.contato_03"
+            },
+            {
+              "name": "contact.voc_possui_casa_prpria"
+            },
+            {
+              "name": "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida"
+            },
+            {
+              "name": "contact.voc_possui_algum_trabalho_atualmente"
+            },
+            {
+              "name": "contact.com_o_que_trabalha"
+            },
+            {
+              "name": "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias"
+            },
+            {
+              "name": "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos"
+            },
+            {
+              "name": "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos"
+            },
+            {
+              "name": "contact.como_voc_pretende_divulgar_e_vender_as_semijoias"
+            },
+            {
+              "name": "Você está pronta para começar imediatamente, caso seja aprovada?"
+            },
+            {
+              "name": "Informações adicionais"
+            },
+            {
+              "name": "Resumo da IA"
+            },
+            {
+              "name": "aceita os termos?"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -220,
+        660
+      ],
+      "id": "4028b009-8ff2-4b2c-bcd0-e8cae4432b0b",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        980
+      ],
+      "id": "ed0ecb61-149c-4219-beaa-dccc7f901d0c",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        420,
+        980
+      ],
+      "id": "de527291-133b-4522-b207-a980d7240b92",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        1180
+      ],
+      "id": "621d628b-4828-46e8-97ee-5524ec4a4cc5",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        780,
+        1360
+      ],
+      "id": "afac8e0a-00de-4b5a-a504-3a21beac9d75",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        980
+      ],
+      "id": "0b32deda-aef9-4e4c-985d-91cf98db59a9",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields4').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields4').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ $('Edit Fields4').item.json.execution.url.replace('webhook', 'flow') }}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        780,
+        980
+      ],
+      "id": "2bf5f783-c645-4a65-8d10-6f4fa99f1449",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        440,
+        1160
+      ],
+      "id": "721cc596-10f6-46dc-954a-c140da620822",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OKBVbV3h0JCNgM8u",
+          "name": "MaryJhon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://rest.gohighlevel.com/v1/custom-fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im5rRVhOelhZT2x3OFdoOFJrVTlKIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4NzY1MDIyNDc3LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.9SDXh20Cs79v5lQCmLAPskIgEFmaVh8HP4yXzMmG1Uc"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        960
+      ],
+      "id": "6f13dafc-7bf6-424a-a89a-15614553efe5",
+      "name": "HTTP Request",
+      "credentials": {
+        "highLevelApi": {
+          "id": "nTI2khzYnfGc1Q8D",
+          "name": "API -DeBona"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "CreateContact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UpdateContacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateContact": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContacts": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Busca": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "9jYLobJVEfBuWMkn"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "5ea505c2-d260-487b-96f9-9de75eaf2ecc",
+  "triggerCount": 0,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T22:09:35.388Z",
+      "updatedAt": "2025-03-19T22:09:35.388Z",
+      "id": "EneAGv6KNz69tziW",
+      "name": "DeBona"
+    }
+  ]
+}
