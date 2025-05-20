@@ -1,0 +1,759 @@
+{
+  "createdAt": "2025-04-06T20:51:34.112Z",
+  "updatedAt": "2025-05-14T21:26:00.241Z",
+  "id": "Op1RR3U4qIupUBQz",
+  "name": "[Finna Joias] Core",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Core Input').item.json.body.mapping.parseJson().system.conversations_id }}",
+        "tableName": "core_chat_finna",
+        "contextWindowLength": "={{ $('Core Input').item.json.body.mapping.parseJson().system.context_window }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        20,
+        260
+      ],
+      "id": "d890c281-e494-42ae-bcdf-a14cffd4271a",
+      "name": "Memory",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 860,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -180,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "d8ff5fc8-b412-49b1-bae1-04a40e2263be",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.content || ' ' }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant\n\n<retrieval_augmented_generation_result>\n{{ $json.body.rag_return }}\n</retrieval_augmented_generation_result>\n\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Prompt para Agente Virtual - Finna Semijoias</title>\n  <style>\n    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; margin: 20px auto; max-width: 800px; }\n    h1 { color: #b03060; margin-bottom: 10px; }\n    h2 { color: #b03060; margin-top: 30px; }\n    .mandatory, .critical, .warning, .important { padding: 15px; margin: 15px 0; border-radius: 4px; }\n    .mandatory { background-color: #e3f2fd; border-left: 4px solid #2196f3; }\n    .critical { background-color: #fce4ec; border-left: 4px solid #d81b60; }\n    .warning { background-color: #fff8e1; border-left: 4px solid #ffb300; }\n    .important { background-color: #f3e5f5; border-left: 4px solid #8e24aa; }\n    .code-block { background-color: #f5f5f5; border: 1px solid #ddd; padding: 15px; border-radius: 4px; font-family: monospace; white-space: pre-wrap; }\n    ul, ol { padding-left: 20px; }\n    li { margin-bottom: 8px; }\n  </style>\n</head>\n<body>\n  <h1>Prompt para Agente Virtual - Finna Semijoias</h1>\n\n  <div class=\"mandatory\">\n    <strong>⚠️ Regras Obrigatórias ⚠️</strong>\n    <ul>\n      <li>Coletar Nome, WhatsApp e E‑mail e executar pré‑cadastro (think + cadastroUsers) imediatamente.</li>\n      <li>Nunca informar ao usuário sobre o uso das ferramentas internas.</li>\n    </ul>\n  </div>\n\n  <div class=\"critical\">\n    <strong>Instruções Críticas:</strong>\n    <ul>\n      <li>Tools: <code>think</code> para raciocínio interno e <code>cadastroUsers</code> para criar/atualizar cadastro.</li>\n      <li>Fluxo: Informações Básicas → Pré‑cadastro → Qualificação → Atualização → Encerramento.</li>\n    </ul>\n  </div>\n\n  <h2>Sobre a Finna Semijoias</h2>\n  <p><strong>Razão Social:</strong> Finna Semijoias Ltda (CNPJ 47.131.300/0001-73).<br>\n  <strong>Fundadora:</strong> Priscila Martins Ramos.<br>\n  <strong>Há 5 anos</strong> no mercado de semijoias em consignação, com <strong>200 consultores ativos</strong> em Joinville e região (SC).<br>\n  <strong>Equipe:</strong> 7 colaboradores (suporte, logística, marketing, administrativo).</p>\n\n  <h2>Informações Institucionais</h2>\n  <ul>\n    <li><strong>Missão:</strong> Proporcionar renda extra ou principal para consultores, valorizando a independência financeira.</li>\n    <li><strong>Visão:</strong> Ser referência nacional em semijoias consignadas, com carreira sólida para nossos consultores.</li>\n    <li><strong>Valores:</strong> Qualidade, transparência, empoderamento e comunidade.</li>\n    <li><strong>Canais:</strong> WhatsApp, Instagram, pontos presenciais e Instagram (@finnasemijoias).</li>\n  </ul>\n\n  <h2>Produtos e Garantia</h2>\n  <ul>\n    <li><strong>Materiais:</strong> Banho de ouro 18k, prata mil e aço cirúrgico.</li>\n    <li><strong>Piedras:</strong> Zircônias de alta qualidade, hipoalergênicas.</li>\n    <li><strong>Garantia:</strong> 3 anos no banho. Cobre apenas defeitos de fabricação, não mau uso.</li>\n    <li><strong>Cuidados:</strong> Evitar contato com produtos químicos e água salgada; limpar com água morna, detergente neutro, escova macia e secar com flanela.</li>\n  </ul>\n\n  <h2>Etapa 1: Coleta de Informações Básicas</h2>\n  <ol>\n    <li>Nome Completo</li>\n    <li>WhatsApp (DDD + número)</li>\n    <li>E‑mail</li>\n  </ol>\n  <div class=\"mandatory\">\n    <p><strong>Pré‑cadastro Obrigatório:</strong></p>\n    <div class=\"code-block\">think(\"Validar dados básicos e iniciar pré‑cadastro.\")</div>\n    <div class=\"code-block\">cadastroUsers({ operação:\"criar\", nome:\"[NOME]\", whatsapp:\"[WHATSAPP]\", email:\"[EMAIL]\" })</div>\n  </div>\n\n <div atendimento inicial>\nOlá! Sou Alice, atendente da Finna Joias. Fico muito feliz em saber que você está interessada em se tornar uma revendedora de semijoias da nossa coleção!\n</div>\n\n  <h2>Etapa 2: Perguntas de Qualificação</h2>\n  <ol>\n    <li>Idade</li>\n    <li>CPF</li>\n    <li>Endereço completo</li>\n    <li>Tem filhos? Quantos?</li>\n    <li>Link do Instagram (com @)</li>\n    <li>Como conheceu a Finna?</li>\n    <li>Profissão</li>\n    <li>Já revendeu semijoias?</li>\n    <li>Disponibilidade de horários e períodos</li>\n    <li>É renda extra ou principal?</li>\n    <li>Possui residência própria?</li>\n    <li>Possui restrição de nome?</li>\n  </ol>\n\n  <div class=\"mandatory\">\n    <p><strong>Atualização Obrigatória:</strong></p>\n    <div class=\"code-block\">think(\"Dados de qualificação coletados; atualizar cadastro.\")</div>\n    <div class=\"code-block\">cadastroUsers({ operação:\"atualizar\", nome:\"[NOME]\", whatsapp:\"[WHATSAPP]\", email:\"[EMAIL]\", idade:\"[IDADE]\", cpf:\"[CPF]\", endereco:\"[ENDEREÇO]\", filhos:\"[FILHOS]\", instagram:\"[INSTAGRAM]\", como_conheceu:\"[COMO]\", profissao:\"[PROFISSÃO]\", revendeu:\"[REVENDEU]\", disponibilidade:\"[DISPONIBILIDADE]\", renda:\"[RENDA]\", residencia:\"[RESIDÊNCIA]\", restricao:\"[RESTRIÇÃO]\" })</div>\n  </div>\n\n  <h2>Base de Conhecimento (FAQ)</h2>\n  <ul>\n    <li><strong>Como ser consultora:</strong> Contato via WhatsApp na bio, preenchimento de formulário e análise em até 5 dias úteis.</li>\n    <li><strong>Prazos de entrega:</strong> Entrega gratuita no endereço, em até 7 dias úteis para Joinville; regiões distantes podem levar até 10 dias úteis.</li>\n    <li><strong>Acertos:</strong> Presenciais a cada 30 dias para troca de maleta e acerto de valores.</li>\n    <li><strong>Comissionamento:</strong> 20% (até R$500), 30% (R$500–R$1.000), 40% (>R$1.000); até 50% via plano de carreira.</li>\n    <li><strong>Plano de carreira:</strong> Níveis Pérola → Esmeralda → Diamante, com bônus e reconhecimento.</li>\n    <li><strong>Suporte:</strong> Equipe de atendimento interno, grupo de WhatsApp exclusivo, materiais em vídeo e PDF.</li>\n  </ul>\n\n  <h2>Encerramento</h2>\n  <p>Obrigado por concluir seu cadastro! Recebemos suas informações e entraremos em contato em até 5 dias úteis. Ficamos à disposição para qualquer dúvida.</p>\n\n  <h2>Restrições do Agente</h2>\n  <div class=\"important\">\n    <ul>\n      <li>Não prometer aprovação ou ganhos.</li>\n      <li>Não realizar vendas diretas ao usuário.</li>\n    </ul>\n  </div>\n\n  <h2>Aviso Legal</h2>\n  <div class=\"warning\">\n    <p>A não devolução das peças consignadas ou inadimplência pode configurar apropriação indébita, com penalidades previstas em contrato e lei.</p>\n  </div>\n</body>\n</html>\n",
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        140,
+        0
+      ],
+      "id": "6c01d099-2b68-4eda-855a-c8f7f3c375c0",
+      "name": "Main Agent"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        500,
+        0
+      ],
+      "id": "28bcba0d-f4d4-43e0-be36-5a4c7cd6cf27",
+      "name": "No Operation 2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "main5",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        0
+      ],
+      "id": "49584c80-7a0f-4544-afbb-6b04a73ce3e7",
+      "name": "Core Input",
+      "webhookId": "006367a9-b1a1-4cc3-a93f-60dabfbae291"
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        260
+      ],
+      "id": "e0e0b748-2bd5-40dc-8b09-9cfaa2e9487e",
+      "name": "OpenRouter",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 940,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        -80
+      ],
+      "id": "b2fa7241-aadc-46ad-ae87-ea402d52641e",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Fluxo Core, responsável pelo processamento da AI",
+        "height": 80,
+        "width": 260,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        -80
+      ],
+      "id": "80859715-d752-45f8-87ec-ccef77452144",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "name": "restart_history",
+        "description": "=Invoque essa tool para iniciar uma nova conversa para o user, assim ignorando o histórico passado. Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\n\n// Converte o mapeamento recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin; caso contrário, retorna erro\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n/**\n * Função que espera pelo tempo especificado.\n * @param {number} ms - Milissegundos a aguardar.\n * @returns {Promise<void>}\n */\nconst delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\n/**\n * Função para enviar a requisição para criar uma conversa no Directus.\n * Tenta até 3 vezes em caso de falha, com delay de 1 segundo entre as tentativas.\n * @returns {Promise<object>} - Objeto com sucesso ou erro.\n */\nasync function sendRequest() {\n  const url = `http://${mapping.system.directus_service}:8055/items/conversations`;\n  const data = {\n    user_id: mapping.chatwoot.contact_id,\n    date_created: new Date().toISOString()\n  };\n  const headers = {\n    Authorization: `Bearer ${mapping.system.directus_token}`,\n    'Content-Type': 'application/json'\n  };\n\n  let attempt = 0;\n  let lastError = null;\n\n  while (attempt < 3) {\n    try {\n      const response = await axios.post(url, data, { headers });\n      console.log(`Requisição realizada com sucesso na tentativa ${attempt + 1}.`);\n      return { success: true, data: response.data };\n    } catch (error) {\n      attempt++;\n      lastError = error;\n      console.error(`Tentativa ${attempt} falhou:`, error.response ? error.response.data : error.message);\n      if (attempt < 3) {\n        console.log(\"Aguardando 1 segundo antes da nova tentativa...\");\n        await delay(1000);\n      }\n    }\n  }\n  \n  return { success: false, error: lastError.response ? lastError.response.data : lastError.message };\n}\n\nreturn sendRequest().then(result => JSON.stringify(result));"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        140,
+        260
+      ],
+      "id": "761bd145-7363-4526-a1d6-321e0739c444",
+      "name": "Restart History"
+    },
+    {
+      "parameters": {
+        "name": "set_timer",
+        "description": "Invoque essa tool para configurar um timer que iniciará uma ação após o tempo especificado. Apenas usuários admin podem usar essa tool. O tempo deve ser informado com valor e unidade (s, m, h). Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\nconst dayjs = require('dayjs');\nconst duration = require('dayjs/plugin/duration');\ndayjs.extend(duration);\n\n/**\n * Esta tool configura um timer via webhook.\n * Ela envia, para o endpoint, todo o objeto mapping (obtido em Core Input)\n * e o tempo em segundos calculado a partir dos parâmetros \"timer_value\" e \"timer_unit\".\n * Apenas usuários admin podem utilizar esta tool.\n */\n\n// Converte o mapping recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n// Obtém os parâmetros do timer a partir do input (query)\nconst timerValue = query.timer_value;  // Número (ex: 30)\nconst timerUnit = query.timer_unit;      // \"s\", \"m\" ou \"h\"\n\n// Calcula o tempo em segundos usando dayjs.duration\nconst timerSeconds = dayjs.duration(timerValue, timerUnit).asSeconds();\n\n// Prepara o payload para o webhook\nconst payload = {\n  mapping: mapping,\n  timer_seconds: timerSeconds\n};\n\n// URL do webhook substituindo 'n8n_webhook' pelo valor da variável no mapping\nconst url = `http://${mapping.system.n8n_webhook_service}:5678/webhook/timer`;\n\n/**\n * Função para enviar a requisição ao webhook.\n * Tenta enviar uma única vez e retorna o resultado.\n */\nasync function sendTimerRequest() {\n  try {\n    console.log(`Enviando requisição para configurar o timer para ${timerSeconds} segundos...`);\n    const response = await axios.post(url, payload, {\n      headers: { 'Content-Type': 'application/json' }\n    });\n    console.log(\"Timer configurado com sucesso.\");\n    return { success: true, message: `Timer configurado com sucesso. Ele será acionado em ${timerSeconds} segundos.` };\n  } catch (error) {\n    console.error(\"Erro ao configurar o timer:\", error.response ? error.response.data : error.message);\n    return { success: false, error: error.response ? error.response.data : error.message };\n  }\n}\n\nreturn sendTimerRequest().then(result => JSON.stringify(result));",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"timer_value\": {\n      \"type\": \"number\",\n      \"description\": \"Valor do timer. Exemplo: 30\"\n    },\n    \"timer_unit\": {\n      \"type\": \"string\",\n      \"description\": \"Unidade de tempo para o timer: 's' para segundos, 'm' para minutos, 'h' para horas.\",\n      \"enum\": [\"s\", \"m\", \"h\"]\n    }\n  },\n  \"required\": [\"timer_value\", \"timer_unit\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        280,
+        260
+      ],
+      "id": "40177fa2-70db-4465-b602-530f0103558b",
+      "name": "Set Timer"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        580,
+        260
+      ],
+      "id": "31de0692-0e37-43f7-8482-66a3a321f663",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "whatsapp",
+              "value": "={{ JSON.parse($item(\"0\").$node[\"Core Input\"].json[\"body\"][\"mapping\"]).chatwoot.phone_number.replace(\"+\", \"\") }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        0
+      ],
+      "id": "76c09e95-8ddd-442b-b972-39ef338708cc",
+      "name": "Execution Data"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        560
+      ],
+      "id": "5345c409-37ae-4c84-ab29-f99d0e931602",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        160,
+        560
+      ],
+      "id": "11ef9e56-836c-4499-8149-90e05ae920b1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        760
+      ],
+      "id": "001295d9-8ed5-423d-b64f-cef133d654d4",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        940
+      ],
+      "id": "da9a02e2-fa9a-4172-a675-e60dc7762060",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -40,
+        560
+      ],
+      "id": "933472b4-887f-4c0f-98b7-808068bd47c2",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields4').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields4').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ $('Edit Fields4').item.json.execution.url }}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        520,
+        560
+      ],
+      "id": "1153a1b9-7cbe-46ea-99b1-4534daf6d826",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        180,
+        740
+      ],
+      "id": "317702fe-df45-4928-90f6-5c23055d50f1",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "oGXKMTsg9Gf02Zqi",
+          "mode": "list",
+          "cachedResultName": "[Finna Joias] - contatos BobGrow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', ``, 'string') }}",
+            "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', ``, 'string') }}",
+            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', ``, 'string') }}",
+            "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', ``, 'string') }}",
+            "city": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('city', ``, 'string') }}",
+            "address1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('address1', ``, 'string') }}",
+            "source": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('source', ``, 'string') }}",
+            "Tem filhos? Se sim, quantos?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tem_filhos__Se_sim__quantos_', ``, 'string') }}",
+            "Nos mande o link do seu instagram": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nos_mande_o_link_do_seu_instagram', ``, 'string') }}",
+            "Como conhecer a Finna?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Como_conhecer_a_Finna_', ``, 'string') }}",
+            "Qual é a sua profissão?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Qual___a_sua_profiss_o_', ``, 'string') }}",
+            "Já Revendeu Semijoias antes?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('J__Revendeu_Semijoias_antes_', ``, 'string') }}",
+            "Tem disponibilidade de horários? Quais períodos?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tem_disponibilidade_de_hor_rios__Quais_per_odos_', ``, 'string') }}",
+            "Renda Extra ou Renda Principal?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Renda_Extra_ou_Renda_Principal_', ``, 'string') }}",
+            "Tem Residência própria?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tem_Resid_ncia_pr_pria_', ``, 'string') }}",
+            "Tem restrição em seu nome?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tem_restri__o_em_seu_nome_', ``, 'string') }}",
+            "cpf": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('cpf', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operação",
+              "displayName": "operação",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "firstName",
+              "displayName": "firstName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "lastName",
+              "displayName": "lastName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "address1",
+              "displayName": "address1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Tem filhos? Se sim, quantos?",
+              "displayName": "Tem filhos? Se sim, quantos?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Nos mande o link do seu instagram",
+              "displayName": "Nos mande o link do seu instagram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Como conhecer a Finna?",
+              "displayName": "Como conhecer a Finna?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Qual é a sua profissão?",
+              "displayName": "Qual é a sua profissão?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Já Revendeu Semijoias antes?",
+              "displayName": "Já Revendeu Semijoias antes?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Tem disponibilidade de horários? Quais períodos?",
+              "displayName": "Tem disponibilidade de horários? Quais períodos?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Renda Extra ou Renda Principal?",
+              "displayName": "Renda Extra ou Renda Principal?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Tem Residência própria?",
+              "displayName": "Tem Residência própria?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Tem restrição em seu nome?",
+              "displayName": "Tem restrição em seu nome?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "cpf",
+              "displayName": "cpf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        260
+      ],
+      "id": "6d9dc450-dd6b-40e9-a419-790b7e9ed6c3",
+      "name": "cadastroUsers"
+    }
+  ],
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Agent": {
+      "main": [
+        [
+          {
+            "node": "No Operation 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Core Input": {
+      "main": [
+        [
+          {
+            "node": "Execution Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart History": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Timer": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execution Data": {
+      "main": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cadastroUsers": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "Op1RR3U4qIupUBQz"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "c9fd436d-8a99-4e60-98b6-e5e337d6f266",
+  "triggerCount": 1,
+  "tags": []
+}
