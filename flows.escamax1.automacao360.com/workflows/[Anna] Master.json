@@ -1,0 +1,1731 @@
+{
+  "createdAt": "2025-03-06T14:15:19.217Z",
+  "updatedAt": "2025-05-02T21:19:41.563Z",
+  "id": "WKzWasOhVoJwKyRO",
+  "name": "[Anna] Master",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Mapping').first().json.chatwoot.contact_id.toString() }}",
+        "messageData": "={{ JSON.stringify({\n    'content': $('Mapping').first().json.chatwoot.content,\n    'data_url': $('Mapping').first().json.chatwoot.data_url,\n    'timestamp': $now,\n    'message_id': $('Mapping').first().json.chatwoot.message_id\n}) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        680
+      ],
+      "id": "f38efd9f-18ce-4c0c-98b4-7983a19e7de0",
+      "name": "Add to List",
+      "credentials": {
+        "redis": {
+          "id": "gHtZUxxjN2QN1FNL",
+          "name": "Redis escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "data",
+        "key": "={{ $('Mapping').first().json.chatwoot.contact_id.toString() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        680
+      ],
+      "id": "2b512577-c712-425a-b6bd-1b0d6841e09f",
+      "name": "Get List",
+      "credentials": {
+        "redis": {
+          "id": "gHtZUxxjN2QN1FNL",
+          "name": "Redis escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        300,
+        480
+      ],
+      "id": "31dc41d2-ba03-4e7a-b3d8-0251d3df8e8a",
+      "name": "No Operation"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"data\": {{ \n    (() => {\n      const sourceNodeName = $('Get Final List 2').isExecuted ? 'Get Final List 2' : $prevNode.name;\n      const data = $(sourceNodeName).first().json.data;\n      const uniqueIds = new Set();\n      const messages = [];\n\n      data.reduce((_, buffer) => {\n        const parsed = JSON.parse(buffer);\n        if (!uniqueIds.has(parsed.message_id)) {\n          uniqueIds.add(parsed.message_id);\n\n          let index = messages.findIndex(msg => msg.message_id > parsed.message_id);\n          if (index === -1) index = messages.length;\n          messages.splice(index, 0, parsed);\n        }\n      }, []);\n\n      return messages.reduce((acc, msg) => {\n        delete msg.message_id;\n        acc.push({ content: msg, loop_reset: true });\n        return acc;\n      }, []);\n\n    })()\n  }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        780
+      ],
+      "id": "56c62db7-ba58-43d5-a741-90a3f788e2fb",
+      "name": "Parse JSON"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        1300
+      ],
+      "id": "f6938961-3079-4917-9a71-afa7cdee37c9",
+      "name": "Split Itens"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $json.loop_reset }}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1100,
+        1300
+      ],
+      "id": "2557f44f-a46d-4be9-9fbb-54445cd3adc5",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.content.data_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -700,
+        1300
+      ],
+      "id": "287e6687-337c-4e05-bc09-c3c3a5708a3e",
+      "name": "Download Media"
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 3,
+        "output": "={{\n  $binary.data?.fileExtension === 'oga' \n    ? 0 \n    : !$binary.data || ['png', 'jpg', 'jpeg'].includes($binary.data.fileExtension)\n      ? 1 \n      : $binary.data.fileExtension === 'pdf' \n        ? 2 \n        : 3\n}}"
+      },
+      "id": "fafc6665-bdb2-4bc8-8e73-3e97fd6ecee7",
+      "name": "Switch 02",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -500,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 600,
+        "width": 2300,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1400,
+        380
+      ],
+      "typeVersion": 1,
+      "id": "3890e33b-6500-44d7-8045-200c46b52135",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 1360,
+        "width": 2340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1420,
+        360
+      ],
+      "typeVersion": 1,
+      "id": "235863e6-541c-44bf-a7a1-6487b692c76e",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Mapping').first().json.chatwoot.contact_id.toString() }}"
+      },
+      "id": "384e7cbb-da65-4ed7-b144-3fd3b80f402b",
+      "name": "Reset List",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        300,
+        1300
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "redis": {
+          "id": "gHtZUxxjN2QN1FNL",
+          "name": "Redis escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "data",
+        "key": "={{ $('Mapping').first().json.chatwoot.contact_id.toString() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        1100
+      ],
+      "id": "a58746f8-dcd6-4e0d-afb9-76120bdd9e61",
+      "name": "Get Final List 2",
+      "credentials": {
+        "redis": {
+          "id": "gHtZUxxjN2QN1FNL",
+          "name": "Redis escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "data",
+        "key": "={{ $('Mapping').first().json.chatwoot.contact_id.toString() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        500,
+        580
+      ],
+      "id": "68f9ccba-54cc-45d3-b489-e83cdde81ec8",
+      "name": "Get Final List 1",
+      "credentials": {
+        "redis": {
+          "id": "gHtZUxxjN2QN1FNL",
+          "name": "Redis escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=30"
+      },
+      "id": "90e3fce7-6625-46c9-9b27-4cf2ced01be5",
+      "name": "Reset List 2",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        700,
+        580
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "redis": {
+          "id": "gHtZUxxjN2QN1FNL",
+          "name": "Redis escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": "={{ \n  $('Mapping').first().json.system.cooldown - $now.diffTo(\n    JSON.parse($('Get List').item.json.data.last()).timestamp,\n    'seconds'\n  )\n}}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        300,
+        680
+      ],
+      "id": "4b699b17-228b-4dd1-ad1f-f1ce74a09ea4",
+      "name": "Cooldown",
+      "webhookId": "816f562a-62f9-4197-b5da-004f01f371fe"
+    },
+    {
+      "parameters": {
+        "queue": "main-n8n",
+        "options": {
+          "acknowledge": "executionFinishesSuccessfully",
+          "jsonParseBody": true,
+          "onlyContent": true
+        }
+      },
+      "type": "n8n-nodes-base.rabbitmqTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        580
+      ],
+      "id": "bf8a1e4f-8f98-41dc-8d9a-d286086c9630",
+      "name": "Consumer",
+      "credentials": {
+        "rabbitmq": {
+          "id": "u9qkhAUFq4YJcqYK",
+          "name": "RabbitMQ escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 2,
+        "output": "={{ \n  $node[\"Get Final List 2\"].runIndex === 0\n    ? (\n        JSON.parse($('Get Final List 1').first().json.data.last()).timestamp ===\n        JSON.parse($('Get Final List 2').first().json.data.last()).timestamp\n      ) ? 1 : 0\n    : (\n          JSON.parse($('Get Final List 2').all(0, $runIndex - 0).first().json.data.last()).timestamp ===\n          JSON.parse($('Get Final List 2').all(0, $runIndex - 1).first().json.data.last()).timestamp\n      ) ? 1 : 0\n}}"
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        100,
+        1200
+      ],
+      "id": "a2a6018c-f2d1-4e0d-89d9-189183c39b8d",
+      "name": "Switch 3"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 700,
+        "width": 2300,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1400,
+        1000
+      ],
+      "typeVersion": 1,
+      "id": "3aecf5ab-87b5-4291-9d18-5eebbc1928d8",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "DO $$\nBEGIN\n  IF NOT EXISTS (\n    SELECT 1 \n    FROM ai_agents\n    WHERE account_id = {{ $json.body.account.id }}\n      AND {{ $json.body.inbox.id }} = ANY(string_to_array(inboxes_ids, ',')::int[])\n  ) THEN\n    RAISE EXCEPTION 'Nenhum AI Agent encontrado para a conta % e inbox %', {{ $json.body.account.id }}, {{ $json.body.inbox.id }};\n  END IF;\nEND $$;\n\nWITH\n-- 1) Seleciona o AI Agent associado à conta e à caixa de entrada\nselected_ai AS (\n    SELECT ai.*\n    FROM ai_agents ai\n    WHERE ai.account_id = {{ $json.body.account.id }}\n      AND {{ $json.body.inbox.id }} = ANY(string_to_array(ai.inboxes_ids, ',')::int[])\n    LIMIT 1\n),\n/*\nSeleciona um AI Agent específico baseado no account_id e no inbox.id.\n- Filtra os agentes pela conta (account_id).\n- Converte a string inboxes_ids para array de inteiros e verifica se contém o inbox.id.\n- Retorna apenas um AI Agent (LIMIT 1).\n*/\n\n-- 2) Seleciona as variáveis globais (assume-se que seja um singleton)\nselected_gv AS (\n    SELECT *\n    FROM global_vars\n    LIMIT 1\n),\n/*\nRecupera as variáveis globais da tabela global_vars.\n- Como se assume que há apenas um conjunto de variáveis globais, retorna apenas uma linha (LIMIT 1).\n*/\n\n-- 3) Faz o upsert do usuário: insere se não existir, caso contrário, ignora\nupsert_user AS (\n    INSERT INTO users (id, date_created, picture_url)\n    VALUES ({{ $json.body.sender.id }}, NOW(), '{{ $json.body.sender.avatar }}')\n    ON CONFLICT (id) DO NOTHING\n    RETURNING *\n),\n/*\nInsere um novo usuário na tabela users caso ele ainda não exista.\n- Se o usuário já existir (id conflitante), a inserção é ignorada.\n- Retorna os dados do usuário recém-inserido.\n*/\n\n-- 4) Seleciona o usuário (recém-inserido ou existente)\nfinal_user AS (\n    SELECT * FROM upsert_user\n    UNION\n    SELECT * FROM users\n    WHERE id = {{ $json.body.sender.id }}\n),\n/*\nGarante que o usuário está disponível para os próximos passos.\n- Se o usuário foi inserido no passo anterior (upsert_user), ele é retornado.\n- Caso contrário, seleciona o usuário existente na tabela users.\n- Usa UNION para combinar as duas possibilidades.\n*/\n\n-- 5) Cria uma nova conversa apenas se não existir nenhuma para esse usuário\nmaybe_new_conversation AS (\n    INSERT INTO conversations (id, user_id, date_created)\n    SELECT gen_random_uuid(), final_user.id, NOW()\n    FROM final_user\n    WHERE NOT EXISTS (\n        SELECT 1\n        FROM conversations\n        WHERE user_id = final_user.id\n    )\n    RETURNING *\n),\n/*\nCria uma nova conversa apenas se o usuário ainda não tiver uma.\n- Gera um UUID para a nova conversa.\n- Define a date_created como o timestamp atual.\n- Usa WHERE NOT EXISTS para evitar criar conversas duplicadas para o mesmo usuário.\n- Retorna os dados da conversa recém-criada.\n*/\n\n-- 6) Seleciona a última conversa do usuário (nova ou existente)\nlast_conversation AS (\n    SELECT * FROM maybe_new_conversation\n    UNION\n    SELECT * FROM conversations\n    WHERE user_id = (SELECT id FROM final_user)\n    ORDER BY date_created DESC\n    LIMIT 1\n)\n/*\nSeleciona a última conversa do usuário, seja ela recém-criada ou já existente.\n- Combina os resultados de maybe_new_conversation (se foi criada) com as conversas já existentes.\n- Filtra as conversas pelo user_id correspondente.\n- Ordena por date_created em ordem decrescente para garantir que a mais recente seja selecionada.\n- Retorna apenas a conversa mais recente (LIMIT 1).\n*/\n\n-- 7) Retorna os resultados no formato JSON\nSELECT\n    (SELECT row_to_json(ai) FROM selected_ai ai) AS ai_agents,\n    (SELECT row_to_json(gv) FROM selected_gv gv) AS global_vars,\n    (SELECT row_to_json(final_user) FROM final_user) AS users,\n    (SELECT row_to_json(last_conversation) FROM last_conversation) AS conversations;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1100,
+        580
+      ],
+      "id": "5dc52430-9223-4274-8491-de1754c40d62",
+      "name": "Get Vars",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://{{ $('Mapping').item.json.system.stirling_pdf_service }}:8080/api/v1/convert/pdf/img",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-KEY",
+              "value": "={{ $('Mapping').first().json.system.stirling_pdf_key }}"
+            },
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "imageFormat",
+              "value": "jpg"
+            },
+            {
+              "name": "singleOrMultiple",
+              "value": "single"
+            },
+            {
+              "name": "colorType",
+              "value": "color"
+            },
+            {
+              "name": "dpi",
+              "value": "80"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "fileInput",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1ebf6a5-de30-4492-8e13-943761e79db6",
+      "name": "Convert PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -300,
+        1400
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/audio/transcriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Mapping').first().json.system.openai_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "whisper-1"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d3c25024-7b73-4ab9-8880-981c27068ba9",
+      "name": "Transcription",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -300,
+        1200
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "content": "Fluxo de processamento principal",
+        "height": 80,
+        "width": 260,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1380,
+        400
+      ],
+      "id": "a6d3c581-b365-4c04-bbba-74261115544a",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\nconst FormData = require('form-data');\n\nconst mappingData = $('Mapping').first().json; // Obtém todo o conteúdo de 'Mapping'\nconsole.log(\"Mapping Data:\", mappingData);\n\nconst baseWebhookUrl = `http://${mappingData.system.n8n_webhook_service}:5678/webhook/`;\nconst finalWorkflowPath = mappingData.system.workflow_path;\nconst defaultFinalUrl = `${baseWebhookUrl}${finalWorkflowPath}`;\n\nconst formData = new FormData();\n\n// Unifica os valores de \"content\" com quebra de linha dupla\nconst unifiedContent = items\n  .map(item => item.json.content)\n  .filter(content => content) // Remove itens vazios ou undefined\n  .join('\\n\\n');\nconsole.log(\"Unified Content:\", unifiedContent);\n\n// Monta o JSON separado para o corpo da requisição\nconst jsonData = {\n  content: unifiedContent,\n  mapping: mappingData\n};\n\n// Adiciona os dados JSON ao FormData\nformData.append('content', jsonData.content);\nformData.append('mapping', JSON.stringify(jsonData.mapping));\n\n// Adiciona arquivos binários mantendo os nomes originais\nitems.forEach((item) => {\n  if (item.binary) {\n    Object.keys(item.binary).forEach((key) => {\n      const file = item.binary[key];\n      formData.append(key, Buffer.from(file.data, 'base64'), {\n        filename: file.fileName || key,\n        contentType: file.mimeType,\n      });\n    });\n  }\n});\n\nif (mappingData.system.enabled_rag === true || mappingData.system.enabled_rag === 'true') {\n  console.log(\"RAG is enabled. Sending request to the RAG endpoint first.\");\n  const ragUrl = `${baseWebhookUrl}rag`;\n  console.log(`Sending RAG request to: ${ragUrl}`);\n\n  return axios.post(ragUrl, formData, { headers: formData.getHeaders() })\n    .then(ragResponse => {\n      console.log(\"RAG Response received:\", ragResponse.data);\n      // Ajuste: obter o valor de \"output\" em vez de \"rag_return\"\n      const rag_return = ragResponse.data.output;\n      jsonData.rag_return = rag_return; // Inclui o retorno do RAG no JSON\n\n      // Reconstroi o FormData com os dados atualizados (incluindo rag_return)\n      const finalFormData = new FormData();\n      finalFormData.append('content', jsonData.content);\n      finalFormData.append('mapping', JSON.stringify(jsonData.mapping));\n      finalFormData.append('rag_return', rag_return);\n      items.forEach((item) => {\n        if (item.binary) {\n          Object.keys(item.binary).forEach((key) => {\n            const file = item.binary[key];\n            finalFormData.append(key, Buffer.from(file.data, 'base64'), {\n              filename: file.fileName || key,\n              contentType: file.mimeType,\n            });\n          });\n        }\n      });\n      \n      // Recupera a URL final do mapping; se não existir, usa a URL padrão\n      let finalUrl = mappingData.system.rag_return;\n      if (!finalUrl) {\n        console.error(\"mappingData.system.rag_return is undefined. Using default final URL instead.\");\n        finalUrl = defaultFinalUrl;\n      }\n      console.log(`Mapping system.rag_return value: \"${finalUrl}\"`);\n      console.log(\"Sending final request to the RAG final endpoint...\");\n\n      return axios.post(finalUrl, finalFormData, { headers: finalFormData.getHeaders() })\n        .then(finalResponse => {\n          console.log(\"Final Response received:\", finalResponse.data);\n          return [{\n            json: {\n              rag: ragResponse.data,\n              final: finalResponse.data,\n              logs: [\n                `RAG request sent to: ${ragUrl}`,\n                `RAG response received with output: ${rag_return}`,\n                `Final request sent to: ${finalUrl}`,\n                `Final response received successfully.`\n              ]\n            }\n          }];\n        })\n        .catch(finalError => {\n          console.error(`Final request error for URL (${finalUrl}):`, finalError.message);\n          return [{\n            json: {\n              error: finalError.message,\n              rag: ragResponse.data,\n              logs: [\n                `RAG request sent to: ${ragUrl}`,\n                `RAG response received with output: ${rag_return}`,\n                `Attempted final request to: ${finalUrl}`,\n                `Final request error: ${finalError.message}`\n              ]\n            }\n          }];\n        });\n    })\n    .catch(ragError => {\n      console.error(\"RAG request error:\", ragError.message);\n      return [{\n        json: {\n          error: ragError.message,\n          logs: [\n            `RAG request sent to: ${baseWebhookUrl}rag`,\n            `RAG request error: ${ragError.message}`\n          ]\n        }\n      }];\n    });\n} else {\n  console.log(\"RAG is not enabled. Sending request directly to the default final URL:\", defaultFinalUrl);\n  return axios.post(defaultFinalUrl, formData, { headers: formData.getHeaders() })\n    .then(response => {\n      console.log(\"Final Response received:\", response.data);\n      return [{\n        json: {\n          final: response.data,\n          logs: [\n            `Final request sent to: ${defaultFinalUrl}`,\n            `Final response received successfully.`\n          ]\n        }\n      }];\n    })\n    .catch(error => {\n      console.error(\"Final request error:\", error.message);\n      return [{\n        json: {\n          error: error.message,\n          logs: [\n            `Final request error for URL (${defaultFinalUrl}): ${error.message}`\n          ]\n        }\n      }];\n    });\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        1100
+      ],
+      "id": "c554b7b7-9e86-4318-8c13-b220a7bb8b46",
+      "name": "Execute Core"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Obtém o último item da tabela conversations com base no campo 'date_created'\nWITH last_conversation AS (\n    SELECT id \n    FROM conversations\n    WHERE user_id = {{ $('Mapping').first().json.chatwoot.contact_id }}\n    ORDER BY date_created DESC\n    LIMIT 1\n),\n\n-- Obtém os últimos dois registros da tabela core_chat_histories com base no session_id\nlast_two_chat_histories AS (\n    SELECT id \n    FROM core_chat_histories\n    WHERE session_id = (SELECT id FROM last_conversation)\n    ORDER BY id DESC\n    LIMIT 2\n)\n\n-- Deleta os últimos dois registros encontrados\nDELETE FROM core_chat_histories\nWHERE id IN (SELECT id FROM last_two_chat_histories);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        500,
+        1100
+      ],
+      "id": "b39ad79d-99b1-48ce-8fde-ee081dd48322",
+      "name": "Clear History",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 3,
+        "output": "={{\n  $json.content.data_url?.match(/\\.(oga|png|jpg|jpeg|txt|pdf)$/i) !== null \n  && !!$json.content.data_url \n    ? 0 \n    : !!$json.content.content \n      ? 1\n      : 2\n}}"
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -900,
+        1500
+      ],
+      "id": "d7a5fbdf-6e60-4d93-8d49-6c16ce8f5965",
+      "name": "Switch 2"
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 3,
+        "output": "={{ \n  $('Add to List').item.json.chatwoot.message_id !==\n  JSON.parse($('Get List').item.json.data.first()).message_id\n    ? 0\n    : $now.minus($('Mapping').first().json.system.cooldown, 'seconds').diffTo(\n        JSON.parse($('Get List').item.json.data.last()).timestamp,\n        'seconds'\n      ) >= 0\n      ? 1\n      : 2\n}}\n\n\n\n"
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        100,
+        580
+      ],
+      "id": "be373b6a-08f3-45d3-b4b5-4bcaacf1f5fe",
+      "name": "Switch 1"
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 2,
+        "output": "={{\n  (\n    $('Mapping').first().json.chatwoot.channel !== 'WhatsApp Web Group' ||\n    (\n      $('Mapping').first().json.system.allow_whatsapp_groups === 'always_enabled' ||\n      (\n        $('Mapping').first().json.system.allow_whatsapp_groups === 'enabled_when_mentioned' &&\n        $('Mapping').first().json.system.agent_mentioned\n      )\n    )\n  )\n  &&\n  {\n    'pending_status': \n      $('Mapping').first().json.chatwoot.sender_type === 'Contact' &&\n      $('Mapping').first().json.chatwoot.conversation_status === 'pending',\n\n    'all_status': \n      $('Mapping').first().json.chatwoot.sender_type === 'Contact',\n\n    'not_assigned': \n      $('Mapping').first().json.chatwoot.sender_type === 'Contact' &&\n      !$('Mapping').first().json.chatwoot.assignee\n  }[$('Mapping').first().json.system.enabled_condition]\n    ? 1\n    : 0\n}}"
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -500,
+        580
+      ],
+      "id": "fa7fce13-38d7-435a-bc81-1e7aa9471bf9",
+      "name": "Switch 0"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7cade77f-2498-4515-991a-cbe2d5ffe67a",
+              "name": "content",
+              "value": "={{\n  $json.content?.content \n  || $json.text \n  || (\n    $('Switch 2').item.json.content.data_url.endsWith('.txt') \n      ? $json.data + '\\n\\n' + $('Switch 2').item.json.content?.content \n      : null\n  )\n}}",
+              "type": "string"
+            },
+            {
+              "id": "e8da4202-58a2-4990-9e36-9a56f18c7263",
+              "name": "loop_reset",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "selected",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        100,
+        1500
+      ],
+      "id": "8e0bfa01-3df5-4f79-a805-9cada188d368",
+      "name": "Keep Loop"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "core_chat_histories",
+          "mode": "list",
+          "cachedResultName": "core_chat_histories"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "date_created": "={{ $now }}",
+            "session_id": "={{ $json.system.conversations_id }}",
+            "message": "={{ JSON.parse(JSON.stringify({\n  \"type\": \"human\",\n  \"content\": $json.chatwoot.content,\n  \"user_name\": $json.chatwoot.user_name\n})) }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_created",
+              "displayName": "date_created",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -300,
+        480
+      ],
+      "id": "995200dd-f24d-4c62-86cf-459a81b1805b",
+      "name": "Update History",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\nconst mapping = $('Mapping').first().json;\nconst { system, chatwoot } = mapping;\n\nif (\n  system.allow_human_interruption &&\n  system.enabled_condition === 'pending_status' &&\n  chatwoot.sender_type === 'User' &&\n  chatwoot.conversation_status !== 'open'\n) {\n  const chatwootService = system.chatwoot_service;\n  return axios.post(\n    `http://${chatwootService}:3000/api/v1/accounts/${chatwoot.account_id}/conversations/${chatwoot.conversation_id}/toggle_status`,\n    { status: \"open\" },\n    { headers: { api_access_token: chatwoot.bot_token } }\n  )\n  .then(res => [{ json: res.data }])\n  .catch(err => [{ json: { error: err.response?.data || err.message } }]);\n}\n\nreturn [{ json: { message: \"Nenhuma ação realizada\" } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -100,
+        480
+      ],
+      "id": "75d385e0-847d-406c-b433-32be456f9bbd",
+      "name": "Open Conversation"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Código final para enviar a resposta da AI para o Chatwoot, com três modos:\n * \"text\", \"audio\" e \"smart\".\n *\n * Dependendo do modo, o texto original é segmentado e enviado:\n *  - \"text\": Divide o texto em blocos de aproximadamente DESIRED_TEXT_SEGMENT_SIZE e envia como texto.\n *  - \"audio\": Divide o texto em blocos de aproximadamente DESIRED_AUDIO_SEGMENT_SIZE (cerca de 30s de fala),\n *             converte cada segmento para áudio via Elevenlabs e envia como mensagem de áudio.\n *  - \"smart\": Segmenta o texto em sentenças e, para cada sentença, aplica regras:\n *             • Se contém dígitos ou tem tamanho < 80 ou > 600, envia como texto.\n *             • Caso contrário, agrupa sentenças para áudio (aprox. DESIRED_AUDIO_SEGMENT_SIZE).\n *             Após segmentação, segmentos com menos de MIN_SEGMENT_LENGTH são mesclados.\n *\n * Os envios para o Chatwoot usam o endpoint:\n *   http://{chatwoot_service}:3000/api/v1/accounts/{account_id}/conversations/{conversation_id}/messages\n * O token é enviado no header \"api_access_token\".\n */\n\nconst axios = require('axios');\nconst FormData = require('form-data');\n\n// Funções de log para console (não serão retornadas)\nfunction logMessage(msg) {\n  console.log(msg);\n}\nfunction logError(msg) {\n  console.error(msg);\n}\n\n// ------------------------------\n// Configurações Gerais\n// ------------------------------\nconst MIN_TOTAL_LENGTH = 50;               // Texto menor que 50 caracteres: enviar inteiro.\nconst MIN_SEGMENT_LENGTH = 20;             // Segmentos menores que 20 caracteres serão mesclados.\nconst DESIRED_TEXT_SEGMENT_SIZE = 200;       // Tamanho ideal para segmentos no modo \"text\".\nconst DESIRED_AUDIO_SEGMENT_SIZE = 450;      // Tamanho ideal para segmentos no modo \"audio\" (~30s).\nconst DELAY_FACTOR = 200;                  // Delay: 200ms por 100 caracteres.\n\nconst delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\n// ------------------------------\n// Parâmetros obtidos dos nós\n// ------------------------------\nconst mapping = $('Mapping').first().json;\nconst chatwootData = mapping.chatwoot;\nconst accountId = chatwootData.account_id;\nconst conversationId = chatwootData.conversation_id;\nconst botToken = chatwootData.bot_token;\n\nconst system = mapping.system;\nconst outputFormat = system.output_format.toLowerCase(); // \"text\", \"audio\" ou \"smart\"\nconst elevenlabsKey = system.elevenlabs_key;\nconst elevenlabsVoice = system.elevenlabs_voice || \"JBFqnCBsd6RMkjVDRZzb\";\nconst elevenlabsModel = system.elevenlabs_model || \"eleven_multilingual_v2\";\nconst chatwootService = system.chatwoot_service; // Valor para a URL do Chatwoot\n\n// Texto original (ajustado para acessar o payload final corretamente)\nconst originalText = $('Execute Core').first().json.final.output;\nlogMessage(`[Main] Texto original possui ${originalText.length} caracteres.`);\nlogMessage(`[Main] Modo de saída: ${outputFormat}`);\n\n// Endpoint do Chatwoot (ajustado para usar chatwootService)\nconst chatwootUrl = `http://${chatwootService}:3000/api/v1/accounts/${encodeURIComponent(accountId)}/conversations/${encodeURIComponent(conversationId)}/messages`;\nlogMessage(`[Main] Chatwoot URL: ${chatwootUrl}`);\n\n// ------------------------------\n// Função para enviar mensagem de texto\n// ------------------------------\nasync function sendTextMessage(content) {\n  const payload = { content };\n  const headers = {\n    \"api_access_token\": botToken,\n    \"Content-Type\": \"application/json\"\n  };\n  logMessage(`[sendTextMessage] Enviando mensagem de texto.`);\n  logMessage(`[sendTextMessage] URL: ${chatwootUrl}`);\n  logMessage(`[sendTextMessage] Payload: ${JSON.stringify(payload)}`);\n  logMessage(`[sendTextMessage] Headers: ${JSON.stringify(headers)}`);\n  try {\n    const response = await axios.post(chatwootUrl, payload, { headers });\n    logMessage(`[sendTextMessage] Resposta do Chatwoot: status ${response.status}, data: ${JSON.stringify(response.data)}`);\n    return response.data;\n  } catch (error) {\n    logError(`[sendTextMessage] Erro ao enviar mensagem de texto: ${error.toString()}`);\n    logError(`[sendTextMessage] Erro Response: ${error.response ? JSON.stringify(error.response.data) : 'N/A'}`);\n    throw error;\n  }\n}\n\n// ------------------------------\n// Função para enviar mensagem de áudio\n// ------------------------------\nasync function sendAudioMessage(audioBuffer) {\n  const form = new FormData();\n  form.append(\"attachments[]\", audioBuffer, { filename: \"audio.mp3\", contentType: \"audio/mpeg\" });\n  const headers = {\n    \"api_access_token\": botToken,\n    ...form.getHeaders()\n  };\n  logMessage(`[sendAudioMessage] Enviando mensagem de áudio.`);\n  logMessage(`[sendAudioMessage] URL: ${chatwootUrl}`);\n  logMessage(`[sendAudioMessage] Headers: ${JSON.stringify(headers)}`);\n  try {\n    const response = await axios.post(chatwootUrl, form, { headers });\n    logMessage(`[sendAudioMessage] Resposta do Chatwoot: status ${response.status}, data: ${JSON.stringify(response.data)}`);\n    return response.data;\n  } catch (error) {\n    logError(`[sendAudioMessage] Erro ao enviar mensagem de áudio: ${error.toString()}`);\n    logError(`[sendAudioMessage] Erro Response: ${error.response ? JSON.stringify(error.response.data) : 'N/A'}`);\n    throw error;\n  }\n}\n\n// ------------------------------\n// Função para converter texto em áudio via Elevenlabs\n// ------------------------------\nasync function convertTextToSpeech(text) {\n  const url = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(elevenlabsVoice)}?output_format=mp3_44100_128`;\n  const headers = {\n    \"xi-api-key\": elevenlabsKey,\n    \"Content-Type\": \"application/json\"\n  };\n  const payload = {\n    text: text,\n    model_id: elevenlabsModel\n  };\n  logMessage(`[convertTextToSpeech] Convertendo texto para áudio (primeiros 50 caracteres): \"${text.substring(0,50)}...\"`);\n  try {\n    const response = await axios.post(url, payload, { headers, responseType: 'arraybuffer' });\n    logMessage(`[convertTextToSpeech] Conversão realizada com sucesso. Status: ${response.status}`);\n    return response.data;\n  } catch (error) {\n    logError(`[convertTextToSpeech] Erro ao converter texto para áudio: ${error.toString()}`);\n    logError(`[convertTextToSpeech] Erro Response: ${error.response ? JSON.stringify(error.response.data) : 'N/A'}`);\n    throw error;\n  }\n}\n\n// ------------------------------\n// Função para mesclar segmentos curtos (para modos text e audio)\n// ------------------------------\nfunction mergeShortSegments(segments, minLength) {\n  const merged = [];\n  let buffer = \"\";\n  for (const seg of segments) {\n    if ((buffer + \" \" + seg).trim().length < minLength) {\n      buffer = (buffer + \" \" + seg).trim();\n    } else {\n      if (buffer) {\n        merged.push(buffer);\n        buffer = \"\";\n      }\n      merged.push(seg);\n    }\n  }\n  if (buffer) {\n    if (merged.length > 0) {\n      merged[merged.length - 1] += \" \" + buffer;\n    } else {\n      merged.push(buffer);\n    }\n  }\n  return merged;\n}\n\n// ------------------------------\n// Função de segmentação genérica (evita quebrar palavras)\n// ------------------------------\nfunction segmentTextGeneric(text, desiredMaxLength) {\n  if (text.length <= desiredMaxLength) return [text];\n  \n  let segments = [];\n  // Tenta dividir por quebra de linha dupla\n  if (text.includes(\"\\n\\n\")) {\n    segments = text.split(/\\n\\s*\\n/).map(seg => seg.trim()).filter(seg => seg.length > 0);\n  }\n  // Se não houver, ou se não gerar resultados, dividir por delimitadores naturais (ponto, ?, !, vírgula, ;, :)\n  if (segments.length === 0) {\n    segments = text.split(/(?<=[.?!,;:])\\s+/).map(seg => seg.trim()).filter(seg => seg.length > 0);\n  }\n  \n  // Mescla segmentos curtos\n  segments = mergeShortSegments(segments, MIN_SEGMENT_LENGTH);\n  \n  // Se algum segmento for muito longo, subdivide-o por espaços, sem quebrar palavras\n  const finalSegments = [];\n  segments.forEach(seg => {\n    if (seg.length > desiredMaxLength * 1.5) {\n      const words = seg.split(\" \");\n      let current = \"\";\n      for (const word of words) {\n        if ((current + \" \" + word).trim().length > desiredMaxLength) {\n          finalSegments.push(current.trim());\n          current = word;\n        } else {\n          current += \" \" + word;\n        }\n      }\n      if (current.trim()) finalSegments.push(current.trim());\n    } else {\n      finalSegments.push(seg);\n    }\n  });\n  \n  return finalSegments;\n}\n\n// ------------------------------\n// Funções de segmentação para cada modo\n// ------------------------------\nfunction segmentForText(text) {\n  return segmentTextGeneric(text, DESIRED_TEXT_SEGMENT_SIZE);\n}\n\nfunction segmentForAudio(text) {\n  return segmentTextGeneric(text, DESIRED_AUDIO_SEGMENT_SIZE);\n}\n\n/**\n * Função \"smartSegment\":\n * - Divide o texto em sentenças usando delimitadores finais.\n * - Para cada sentença, se ela contiver dígitos ou tiver menos de 80 ou mais de 600 caracteres,\n *   ela será marcada para envio como texto.\n * - Caso contrário, a sentença é considerada \"audio\".\n * - As sentenças marcadas para áudio são agrupadas até atingirem aproximadamente DESIRED_AUDIO_SEGMENT_SIZE.\n * - Após a segmentação, os segmentos do tipo \"text\" com menos que MIN_SEGMENT_LENGTH são mesclados.\n * \n * Retorna um array de objetos: { type: \"text\" | \"audio\", content: string }.\n */\nfunction smartSegment(text) {\n  const sentences = text.split(/(?<=[.?!])\\s+/).map(s => s.trim()).filter(s => s);\n  const segments = [];\n  let audioBuffer = \"\";\n  \n  for (const sentence of sentences) {\n    if (/\\d/.test(sentence) || sentence.length < 80 || sentence.length > 600) {\n      if (audioBuffer) {\n        segments.push({ type: \"audio\", content: audioBuffer.trim() });\n        audioBuffer = \"\";\n      }\n      segments.push({ type: \"text\", content: sentence });\n    } else {\n      if ((audioBuffer + \" \" + sentence).trim().length > DESIRED_AUDIO_SEGMENT_SIZE) {\n        segments.push({ type: \"audio\", content: audioBuffer.trim() });\n        audioBuffer = sentence;\n      } else {\n        audioBuffer = (audioBuffer + \" \" + sentence).trim();\n      }\n    }\n  }\n  if (audioBuffer) {\n    segments.push({ type: \"audio\", content: audioBuffer.trim() });\n  }\n  \n  const mergedSegments = [];\n  for (let i = 0; i < segments.length; i++) {\n    const seg = segments[i];\n    if (seg.type === \"text\" && seg.content.length < MIN_SEGMENT_LENGTH) {\n      if (mergedSegments.length > 0 && mergedSegments[mergedSegments.length - 1].type === \"text\") {\n        mergedSegments[mergedSegments.length - 1].content += \" \" + seg.content;\n      } else if (i < segments.length - 1 && segments[i+1].type === \"text\") {\n        segments[i+1].content = seg.content + \" \" + segments[i+1].content;\n      } else {\n        mergedSegments.push(seg);\n      }\n    } else {\n      mergedSegments.push(seg);\n    }\n  }\n  \n  return mergedSegments;\n}\n\n// ------------------------------\n// Função principal para segmentar e enviar a mensagem\n// ------------------------------\nasync function main() {\n  try {\n    logMessage(`[Main] Modo de saída selecionado: ${outputFormat}`);\n  \n    if (outputFormat === \"audio\") {\n      const segments = segmentForAudio(originalText);\n      logMessage(`[Main] Texto segmentado em ${segments.length} segmento(s) para áudio.`);\n      for (const segment of segments) {\n        const audioBuffer = await convertTextToSpeech(segment);\n        await sendAudioMessage(audioBuffer);\n        logMessage(`[Main] Segmento de áudio enviado: \"${segment.substring(0,50)}...\"`);\n        const delayTime = Math.ceil(segment.length / 100) * DELAY_FACTOR;\n        logMessage(`[Main] Aguardando ${delayTime}ms antes do próximo segmento de áudio.`);\n        await delay(delayTime);\n      }\n      return { message: \"Mensagem de áudio enviada com sucesso.\" };\n    } else if (outputFormat === \"smart\") {\n      const segments = smartSegment(originalText);\n      logMessage(`[Main] Texto segmentado em ${segments.length} parte(s) (smart mode).`);\n      for (const seg of segments) {\n        if (seg.type === \"audio\") {\n          const audioBuffer = await convertTextToSpeech(seg.content);\n          await sendAudioMessage(audioBuffer);\n          logMessage(`[Main] Segmento de áudio enviado: \"${seg.content.substring(0,50)}...\"`);\n        } else {\n          await sendTextMessage(seg.content);\n          logMessage(`[Main] Segmento de texto enviado: \"${seg.content.substring(0,50)}...\"`);\n        }\n        const delayTime = Math.ceil(seg.content.length / 100) * DELAY_FACTOR;\n        logMessage(`[Main] Aguardando ${delayTime}ms antes do próximo segmento.`);\n        await delay(delayTime);\n      }\n      return { message: \"Mensagem smart enviada com sucesso.\" };\n    } else {\n      const segments = segmentForText(originalText);\n      logMessage(`[Main] Texto segmentado em ${segments.length} segmento(s) para texto.`);\n      for (const segment of segments) {\n        await sendTextMessage(segment);\n        logMessage(`[Main] Segmento de texto enviado: \"${segment.substring(0,50)}...\"`);\n        const delayTime = Math.ceil(segment.length / 100) * DELAY_FACTOR;\n        logMessage(`[Main] Aguardando ${delayTime}ms antes do próximo segmento de texto.`);\n        await delay(delayTime);\n      }\n      return { message: \"Mensagens de texto enviadas com sucesso.\" };\n    }\n  } catch (error) {\n    logError(`[Main] Erro: ${error.toString()}`);\n    return { error: error.toString() };\n  }\n}\n\nreturn main().then(result => [{ json: result }]);\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        1300
+      ],
+      "id": "3aa4b08c-0994-4cb9-9118-8b32ff38d404",
+      "name": "Chatwoot Output"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH last_conversation AS (\n  -- Encontra a última conversa do usuário\n  SELECT id\n  FROM conversations\n  WHERE user_id = {{ $('Mapping').first().json.chatwoot.contact_id }}\n  ORDER BY date_created DESC\n  LIMIT 1\n),\nlast_two_chat_histories AS (\n  -- Obtém os dois últimos históricos da conversa e define uma ordem para identificar o penúltimo\n  SELECT \n    id,\n    ROW_NUMBER() OVER (ORDER BY id DESC) AS rn\n  FROM core_chat_histories\n  WHERE session_id = (SELECT id FROM last_conversation)\n  ORDER BY id DESC\n  LIMIT 2\n),\nupdate_chat_histories AS (\n  UPDATE core_chat_histories c\n  SET \n    date_created = NOW(),\n    message = (\n      CASE \n        WHEN l.rn = 2 \n          THEN jsonb_set(c.message::jsonb, '{user_name}', to_jsonb('{{ $('Mapping').first().json.chatwoot.user_name }}'::text), true)\n        ELSE c.message::jsonb\n      END\n    )::json\n  FROM last_two_chat_histories l\n  WHERE c.id = l.id\n  RETURNING 1\n)\nUPDATE users u\nSET date_updated = NOW()\nWHERE u.id = {{ $('Mapping').first().json.chatwoot.contact_id }};",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        700,
+        1300
+      ],
+      "id": "26d99333-8bcc-482d-b8c4-4e641412db17",
+      "name": "Add Register",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "tableName": {
+          "__rl": true,
+          "value": "knowledge",
+          "mode": "list",
+          "cachedResultName": "knowledge"
+        },
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        1860
+      ],
+      "id": "b7185a67-4bc6-4b45-a71a-c1de89231c0f",
+      "name": "Knowledge Trigger",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  k.*,\n  n.value AS namespace,\n  ph.value AS pinecone_host,\n  (\n    SELECT json_agg(ku.url)\n    FROM knowledge_urls ku\n    WHERE ku.knowledge_id = k.id\n  ) AS urls,\n  (\n    SELECT json_agg(kf.directus_files_id)\n    FROM knowledge_files kf\n    WHERE kf.knowledge_id = k.id\n  ) AS files_id,\n  (\n    SELECT row_to_json(gv)\n    FROM global_vars gv\n    LIMIT 1\n  ) AS global_vars\nFROM knowledge k\nLEFT JOIN namespace n ON n.id = k.name_id\nLEFT JOIN pinecone_host ph ON ph.id = k.pinecone_host_id\nWHERE k.id = {{ $('Knowledge Trigger').first().json.payload.id }};\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1100,
+        1860
+      ],
+      "id": "42909b41-9d9d-4e31-9968-b83ea887b063",
+      "name": "Get Global Vars",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\n// Delay configurável\nfunction delay(ms) {\n  return new Promise(resolve => setTimeout(resolve, ms));\n}\n\n// Executa requisição GET com retry, usando parâmetros configuráveis.\nasync function axiosGetWithRetry(url, config, maxAttempts = 3, delayMs = 1000) {\n  let attempt = 1;\n  while (attempt <= maxAttempts) {\n    try {\n      return await axios.get(url, config);\n    } catch (err) {\n      console.error(`Tentativa ${attempt} para ${url} falhou:`, {\n        message: err.message,\n        status: err.response?.status,\n        data: err.response?.data,\n      });\n      if (attempt === maxAttempts) throw err;\n      attempt++;\n      await delay(delayMs);\n    }\n  }\n}\n\n// Prompt para gerar resumo de um bloco de texto\nconst SUMMARY_PROMPT = `Analise o texto a seguir e elabore um resumo conciso e direto, destacando os principais tópicos e informações essenciais. Esse resumo servirá de base para compor a descrição geral do documento.\n\nTexto:\n{conteudo}\n\nResumo:`;\n\n// Prompt para criar a descrição diretamente a partir do texto completo\nconst DIRECT_DESCRIPTION_PROMPT = `Analise o texto a seguir e crie uma descrição clara e objetiva do conteúdo geral do documento. A resposta deve ser um único parágrafo conciso de texto simples, sem formatação, com aproximadamente 300 caracteres.\n\nTexto:\n{conteudo}\n\nDescrição:`;\n\n// Prompt para gerar a descrição final a partir dos resumos\nconst FINAL_DESCRIPTION_PROMPT = `Com base nos resumos a seguir, elabore uma descrição clara e objetiva do conteúdo geral do documento. A resposta deve ser um único parágrafo conciso de texto simples, sem formatação, com aproximadamente 300 caracteres.\n\nResumos:\n{conteudo}\n\nDescrição:`;\n\n// Cria chunks de forma orgânica, sem misturar conteúdos de diferentes scrapings\nfunction createChunks(text, chunkLength, overlapPercentage) {\n  const overlapLength = Math.floor(chunkLength * (overlapPercentage / 100));\n  const chunks = [];\n  let currentPos = 0;\n  while (currentPos < text.length) {\n    let endPos = currentPos + chunkLength;\n    if (endPos >= text.length) {\n      endPos = text.length;\n    } else {\n      const searchStart = Math.max(currentPos, endPos - 100);\n      let breakPos = -1;\n      let pos = text.lastIndexOf(\"\\n\\n\", endPos);\n      if (pos >= searchStart) {\n        breakPos = pos + 2;\n      } else {\n        pos = text.lastIndexOf(\"\\n\", endPos);\n        if (pos >= searchStart) {\n          breakPos = pos + 1;\n        } else {\n          pos = text.lastIndexOf(\".\", endPos);\n          if (pos >= searchStart) {\n            breakPos = pos + 1;\n          } else {\n            pos = text.lastIndexOf(\"?\", endPos);\n            if (pos >= searchStart) {\n              breakPos = pos + 1;\n            } else {\n              pos = text.lastIndexOf(\"!\", endPos);\n              if (pos >= searchStart) {\n                breakPos = pos + 1;\n              }\n            }\n          }\n        }\n      }\n      if (breakPos > currentPos) {\n        endPos = breakPos;\n      }\n    }\n    const chunk = text.substring(currentPos, endPos).trim();\n    if (chunk.length > 0) chunks.push(chunk);\n    if (endPos === text.length) break;\n    currentPos = endPos - overlapLength;\n    if (currentPos < 0) currentPos = 0;\n  }\n  return chunks;\n}\n\n// Função para atualizar o campo \"description\" da tabela \"knowledge\" no Directus\nasync function updateDirectusDescription(newDescription, globalVars, globalId) {\n  const patchUrl = `http://${globalVars.directus_service}:8055/items/knowledge/${globalId}`;\n  const patchPayload = { description: newDescription };\n  const headers = {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": `Bearer ${globalVars.directus_token}`\n  };\n  let attempts = 0;\n  while (attempts < 3) {\n    try {\n      const response = await axios.patch(patchUrl, patchPayload, { headers });\n      console.log(`Directus update successful: ${JSON.stringify(response.data)}`);\n      return response.data;\n    } catch (error) {\n      attempts++;\n      console.error(`Directus update attempt ${attempts} failed: ${error.message}`);\n      if (attempts < 3) {\n        await delay(1000);\n      } else {\n        throw error;\n      }\n    }\n  }\n}\n\nasync function processScraping() {\n  // Extrai dados do nó Get Global Vars\n  const globalData = $('Get Global Vars').first().json;\n  const globalVars = globalData.global_vars;\n  const filesIds = Array.isArray(globalData.files_id) ? globalData.files_id : [];\n  const originalUrls = Array.isArray(globalData.urls) ? globalData.urls : [];\n  // Usa s3_url definido em global_vars\n  const host = globalVars.s3_url;\n  const directusToken = globalVars.directus_token;\n  const jinaToken = globalVars.jina_ai_token;\n  const openrouterKey = globalVars.openrouter_key;\n  const directusService = globalVars.directus_service;\n  const n8nWebhookService = globalVars.n8n_webhook_service;\n  const chunkLength = globalData.chunks_length || 2000; // fallback default\n  const overlapPercentage = globalData.overlap || 0;      // fallback default\n  \n  // Extrai o valor de Knowledge Trigger\n  const knowledgeTriggerId = $('Knowledge Trigger').first().json.payload.id;\n\n  // Processa arquivos para obter finalUrl com retry (se existirem)\n  const fileResults = await Promise.all(\n    filesIds.map(async (fileId) => {\n      try {\n        const response = await axiosGetWithRetry(\n          `http://${directusService}:8055/files/${fileId}`,\n          { headers: { Authorization: `Bearer ${directusToken}` } }\n        );\n        const filename_disk = response.data.data.filename_disk;\n        // Retira o \"s3\" pois já está incluso na URL\n        const finalUrl = `${host}/directus/${filename_disk}`;\n        return { type: 'file', fileId, url: finalUrl };\n      } catch (err) {\n        return {\n          type: 'file',\n          fileId,\n          error: err.message,\n          status: err.response?.status,\n          responseData: err.response?.data,\n        };\n      }\n    })\n  );\n\n  // Prepara URLs para scraping (se existirem)\n  const originalUrlsToScrape = originalUrls.map(url => ({ type: 'original', url }));\n  const allUrlsToScrape = [\n    ...fileResults.filter(item => item.url),\n    ...originalUrlsToScrape\n  ];\n\n  // Executa scraping com retry para cada URL (se houver)\n  const scrapeResults = await Promise.all(\n    allUrlsToScrape.map(async (item) => {\n      try {\n        const scrapingUrl = `https://r.jina.ai/${item.url}`;\n        const response = await axiosGetWithRetry(\n          scrapingUrl,\n          { headers: { Authorization: `Bearer ${jinaToken}` } }\n        );\n        return { ...item, scrapeData: response.data };\n      } catch (err) {\n        return {\n          ...item,\n          scrapeError: err.message,\n          status: err.response?.status,\n          errorData: err.response?.data,\n        };\n      }\n    })\n  );\n\n  // Agrega e limpa conteúdo dos scrapings para gerar chunks e descrição\n  const scrapedTexts = scrapeResults.map(item => item.scrapeData ? JSON.stringify(item.scrapeData) : '');\n  const aggregatedContent = scrapedTexts.join(' ');\n  const cleanedContent = aggregatedContent.replace(/[^a-zA-Z0-9\\s]/g, ' ');\n\n  // Gera chunks dos scrapings (mantendo conteúdo orgânico por scraping)\n  const chunks = [];\n  scrapeResults.forEach(item => {\n    if (item.scrapeData) {\n      const text = JSON.stringify(item.scrapeData);\n      const itemChunks = createChunks(text, chunkLength, overlapPercentage);\n      itemChunks.forEach(chunk => {\n        chunks.push({ chunk, source: item.url });\n      });\n    }\n  });\n\n  // Geração da descrição do conteúdo\n  const blockSize = 200000;\n  let finalDescription;\n  async function enviarPrompt(promptContent) {\n    const response = await axios.post(\n      'https://openrouter.ai/api/v1/chat/completions',\n      {\n        model: 'google/gemini-pro',\n        messages: [{ role: 'user', content: promptContent }]\n      },\n      { headers: { Authorization: `Bearer ${openrouterKey}` } }\n    );\n    return response.data;\n  }\n  if (cleanedContent.length > blockSize) {\n    const blocks = [];\n    for (let i = 0; i < cleanedContent.length; i += blockSize) {\n      blocks.push(cleanedContent.substring(i, i + blockSize));\n    }\n    const summaries = await Promise.all(\n      blocks.map(async (block) => {\n        const prompt = `<dados>${block}</dados>\\n` + SUMMARY_PROMPT.replace('{conteudo}', block);\n        try {\n          const summaryResponse = await enviarPrompt(prompt);\n          return (summaryResponse.choices && summaryResponse.choices[0].message.content) || '';\n        } catch (err) {\n          return '';\n        }\n      })\n    );\n    const aggregatedSummaries = summaries.join(' ');\n    const descriptionPrompt = `<dados>${aggregatedSummaries}</dados>\\n` + FINAL_DESCRIPTION_PROMPT.replace('{conteudo}', aggregatedSummaries);\n    try {\n      const descriptionResponse = await enviarPrompt(descriptionPrompt);\n      finalDescription = descriptionResponse;\n    } catch (err) {\n      finalDescription = { error: err.message, status: err.response?.status, errorData: err.response?.data };\n    }\n  } else {\n    const directPrompt = `<dados>${cleanedContent}</dados>\\n` + DIRECT_DESCRIPTION_PROMPT.replace('{conteudo}', cleanedContent);\n    try {\n      const descriptionResponse = await enviarPrompt(directPrompt);\n      finalDescription = descriptionResponse;\n    } catch (err) {\n      finalDescription = { error: err.message, status: err.response?.status, errorData: err.response?.data };\n    }\n  }\n  \n  // Extrai somente o conteúdo da descrição, se disponível\n  if (finalDescription && finalDescription.choices && finalDescription.choices[0] && finalDescription.choices[0].message) {\n    finalDescription = finalDescription.choices[0].message.content;\n  }\n\n  // Atualiza o campo \"description\" na tabela \"knowledge\" no Directus\n  try {\n    const updateResponse = await updateDirectusDescription(finalDescription, globalVars, globalData.id);\n    console.log(\"Directus update response:\", updateResponse);\n  } catch (error) {\n    console.error(\"Falha ao atualizar o Directus após 3 tentativas:\", error.message);\n  }\n\n  // Geração dos vetores a partir dos chunks\n  for (const chunkItem of chunks) {\n    const vectorPromptBody = {\n      messages: [\n        {\n          role: \"user\",\n          content: `Você é um agente interno de um sistema especializado em extrair perguntas e respostas de documentos. Sua tarefa é analisar o chunk fornecido, que representa um segmento de um documento completo, e gerar perguntas e respostas baseadas nas informações contidas nele. \n\nContexto do documento: ${globalData.Instruction_Prompt}\n\nDiretrizes:\n1. Extraia informações relevantes (respostas) do chunk fornecido. Essas informações devem ser associadas a perguntas principais, mantendo sempre o tom e o estilo do texto original.\n2. Para cada resposta extraída:\n   - Crie uma pergunta principal (q) que tenha como resposta a informação extraída (a).\n   - Identifique o trecho específico do documento (t) de onde a resposta foi retirada.\n   - Formule perguntas alternativas (sq) que poderiam ser feitas para obter a mesma resposta (a).\n3. Sempre que encontrar múltiplas informações relevantes, crie múltiplas perguntas e respostas.\n4. Mantenha a originalidade e fidelidade ao conteúdo fornecido.\n\nChunk:\n${chunkItem.chunk}`\n        }\n      ],\n      response_format: {\n        type: \"json_schema\",\n        json_schema: {\n          name: \"extracted_data\",\n          strict: true,\n          schema: {\n            type: \"object\",\n            properties: {\n              results: {\n                type: \"array\",\n                items: {\n                  type: \"object\",\n                  properties: {\n                    a: { type: \"string\", description: \"A resposta ou informação extraída.\" },\n                    t: { type: \"string\", description: \"O trecho exato do documento de onde a resposta foi retirada.\" },\n                    q: { type: \"string\", description: \"A pergunta principal que leva à resposta.\" },\n                    sq: { type: \"array\", items: { type: \"string\" }, description: \"Perguntas alternativas que poderiam obter a mesma resposta.\" }\n                  },\n                  required: [\"a\", \"t\", \"q\", \"sq\"],\n                  additionalProperties: false\n                }\n              }\n            },\n            required: [\"results\"],\n            additionalProperties: false\n          }\n        }\n      }\n    };\n    try {\n      const vectorResponse = await axios.post(\n        'https://openrouter.ai/api/v1/chat/completions',\n        vectorPromptBody,\n        { headers: { Authorization: `Bearer ${openrouterKey}` } }\n      );\n      // Envia a resposta para o webhook incluindo global_vars, knowledge_trigger_id, pinecone_host e namespace\n      await axios.post(\n        `http://${n8nWebhookService}:5678/webhook/vector`,\n        {\n          ...vectorResponse.data,\n          global_vars: globalVars,\n          knowledge_trigger_id: knowledgeTriggerId,\n          pinecone_host: globalData.pinecone_host,\n          namespace: globalData.namespace\n        }\n      );\n    } catch (err) {\n      console.error('Erro ao gerar vetor para chunk:', err.message);\n    }\n    // Aguarda 10 segundos antes da próxima requisição\n    await delay(10000);\n  }\n\n  return { files: fileResults, scraping: scrapeResults, description: finalDescription, chunks };\n}\n\nreturn processScraping()\n  .then(result => [{ json: result }])\n  .catch(error => {\n    console.error('Erro geral:', { message: error.message, details: error });\n    return [{ json: { error: error.message, details: error } }];\n  });"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        1860
+      ],
+      "id": "c2119d41-b433-48e6-9ebf-8a8e3b14dc0e",
+      "name": "Process Docs"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vector",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -580,
+        1860
+      ],
+      "id": "9409bd76-0209-4faf-b1c6-8366498d25f4",
+      "name": "Vector Trigger",
+      "webhookId": "31a23ccc-c8b7-4a93-980c-783c0490d567"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Vector Trigger').first().json.body.global_vars.openai_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "input",
+              "value": "={{ `Context: ${$('Split Vectors').item.json.t} Question: ${$('Split Vectors').item.json.q} Answer: ${$('Split Vectors').item.json.a} Similar Questions: ${$('Split Vectors').item.json.sq.join(\", \")}` }}"
+            },
+            {
+              "name": "model",
+              "value": "text-embedding-3-small"
+            },
+            {
+              "name": "dimensions",
+              "value": "={{ 1536 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        20,
+        1860
+      ],
+      "id": "495d7b40-b13f-433f-84cf-f7b455df6cdf",
+      "name": "Embeddings",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.body.choices[0].message.content.parseJson() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -380,
+        1860
+      ],
+      "id": "2ceeb8fc-b92f-40e2-8c70-e114a08fcbd1",
+      "name": "Parse JSON 2"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        1860
+      ],
+      "id": "3c0916ed-56a7-4e32-9e9c-3e0b71c9ef09",
+      "name": "Split Vectors"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH new_vector AS (\n  INSERT INTO vectors \n    (id, date_created, question, answer, context, similar_questions, knowledge_id)\n  VALUES \n    (\n      uuid_generate_v4(), \n      NOW(), \n      '{{ $('Parse JSON 2').item.json.results[0].q }}', \n      '{{ $('Parse JSON 2').item.json.results[0].a }}', \n      '{{ $('Parse JSON 2').item.json.results[0].t }}', \n      '{{ $('Parse JSON 2').item.json.results[0].sq.join(',') }}', \n      {{ $('Vector Trigger').item.json.body.knowledge_trigger_id }}\n    )\n  RETURNING id AS vector_id\n),\nnew_dimension AS (\n  INSERT INTO dimensions (values, date_created, vector_id)\n  SELECT '{{ $('Embeddings').item.json.data[0].embedding.join(',') }}', NOW(), vector_id\n  FROM new_vector\n  RETURNING vector_id\n)\nINSERT INTO vectors_status (vector_id, value)\nSELECT vector_id, '#2ECDA7'\nFROM new_vector\nRETURNING vector_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        220,
+        1860
+      ],
+      "id": "4bbeb6e1-2bb9-455f-9383-4852ee74b9f9",
+      "name": "Add Vectors",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 660,
+        "width": 1860,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1420,
+        1740
+      ],
+      "typeVersion": 1,
+      "id": "8cca0dfb-74e9-479b-85a4-daeb7626a164",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 1060,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        2080
+      ],
+      "id": "be558bf9-3986-490d-97da-afe857ba3cd7",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 700,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        1760
+      ],
+      "id": "b1c86e44-32d6-4db3-aea5-094e05d0e47f",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 1100,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        1760
+      ],
+      "id": "1bfd9788-7df8-4dcb-aa39-e3d9e3c3bc3b",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"chatwoot\": {\n    \"account_id\": {{ $('Consumer').first().json.body.account.id }},\n    \"contact_id\": {{ $('Consumer').first().json.body.conversation.contact_inbox.contact_id }},\n\n    \"conversation_id\": {{ $('Consumer').first().json.body.conversation.messages[0].conversation_id }},\n    \"sender_type\": {{ JSON.stringify($('Consumer').first().json.body.conversation.messages[0].sender_type) }},\n    \"bot_token\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.bot_token) }},\n    \"conversation_status\": {{ JSON.stringify($json.current_status) }},\n    \"assignee\": {{ JSON.stringify($('Consumer').first().json.body.conversation?.meta?.assignee?.name || null ) }},\n    \n    \"content\": {{ JSON.stringify(\n      ($('Consumer').first().json.body?.content || '')\n        .replace(\n          /^\\*\\*(.*?)\\*\\*\\n\\n/,\n          $('Consumer').first().json.body.sender.identifier?.match(/@g\\.us$/) ? '' : '$&'\n        )\n        .replace(\n          new RegExp('@' + ($('Get Vars').first().json.ai_agents.phone_number || '').replace(/\\D/g, ''), 'g'),\n          '@YOU'\n        )\n        .trim()\n    ) }},\n    \n    \"data_url\": {{ JSON.stringify(\n        $('Consumer').first().json.body.conversation.messages?.[0]?.attachments?.[0]?.data_url || null\n      )\n    }},\n    \n    \"message_id\": {{ $('Consumer').first().json.body.id }},\n    \n    \"channel\": {{\n      JSON.stringify(\n        $('Consumer').first().json.body.conversation.channel === 'Channel::Api' \n        ? (\n            /@s\\.whatsapp\\.net$/.test($('Consumer').first().json.body.sender.identifier) \n            ? 'WhatsApp Web' \n            : /@g\\.us$/.test($('Consumer').first().json.body.sender.identifier) \n            ? 'WhatsApp Web Group' \n            : $('Consumer').first().json.body.conversation.channel.replace('Channel::', '')\n          ) \n        : $('Consumer').first().json.body.conversation.channel.replace('Channel::', '')\n      )\n    }},\n    \n    \"user_name\": {{ JSON.stringify(\n      $('Consumer').first().json.body.sender.identifier?.match(/@g\\.us$/)\n        ? (\n            $('Consumer').first().json.body?.content?.match(/^\\*\\*(.*?)\\*\\*/)?.[1] || ''\n          )\n        : $('Consumer').first().json.body.sender?.name || ''\n    ) }},\n\n    \"phone_number\": {{ JSON.stringify($('Consumer').first().json.body.sender.phone_number) || null }}\n  },\n  \n  \"system\": {\n    \"cooldown\": {{ $('Get Vars').first().json.ai_agents.cooldown }},\n    \"workflow_path\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.workflow_path) }},\n    \"model\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.model) }},\n    \"openai_key\": {{ JSON.stringify($('Get Vars').first().json.global_vars.openai_key) }},\n    \"directus_token\": {{ JSON.stringify($('Get Vars').first().json.global_vars.directus_token) }},\n    \"stirling_pdf_key\": {{ JSON.stringify($('Get Vars').first().json.global_vars.stirling_pdf_key) }},\n    \"elevenlabs_key\": \"{{ $('Get Vars').first().json.global_vars.elevenlabs_key }}\",\n    \"conversations_id\": {{ JSON.stringify($('Get Vars').first().json.conversations.id) }},\n    \"context_window\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.context_window) }},\n    \"enabled_condition\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.enabled_condition) }},\n    \"allow_whatsapp_groups\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.allow_whatsapp_groups) }},\n    \"allow_human_interruption\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.allow_human_interruption) }},\n    \"agent_phone_number\": {{ JSON.stringify(($('Get Vars').first().json.ai_agents.phone_number || '').replace(/\\D/g, '')) }},\n    \"agent_mentioned\": {{ JSON.stringify(($('Consumer').first().json.body?.content || '' ).includes('@' + ($('Get Vars').first().json.ai_agents.phone_number || '').replace(/\\D/g, ''))) }},\n    \"agent_name\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.name) }},\n    \"user_type\": {{ JSON.stringify($('Get Vars').first().json.users.type) }},\n    \"output_format\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.output_format) }},\n    \"elevenlabs_model\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.elevenlabs_model) }},\n    \"elevenlabs_voice\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.elevenlabs_voice) }},\n    \"chatwoot_service\": {{ JSON.stringify($('Get Vars').first().json.global_vars.chatwoot_service) }},\n    \"n8n_webhook_service\": {{ JSON.stringify($('Get Vars').first().json.global_vars.n8n_webhook_service) }},\n    \"stirling_pdf_service\": {{ JSON.stringify($('Get Vars').first().json.global_vars.stirling_pdf_service) }},\n    \"directus_service\": {{ JSON.stringify($('Get Vars').first().json.global_vars.directus_service) }},\n    \"enabled_rag\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.enabled_rag) }},\n    \"ai_agent_id\": {{ JSON.stringify($('Get Vars').first().json.ai_agents.id) }},\n    \"pinecone_key\": {{ JSON.stringify($('Get Vars').first().json.global_vars.pinecone_key) }},\n    \"downtime\": {{ new Date(\"1970-01-01T\" + $('Get Vars').first().json.ai_agents.downtime + \"Z\").getTime() / 1000 }}\n  }\n}\n\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -700,
+        580
+      ],
+      "id": "cc1cc3ea-47e2-439b-9960-b775136dd90b",
+      "name": "Mapping"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        300,
+        1100
+      ],
+      "id": "1391b948-718b-45b7-a5aa-29bc0d8c009f",
+      "name": "No Operation "
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\nasync function runTool() {\n  const logArray = [];\n  let currentStatus = \"\";\n  \n  try {\n    console.log(\"Obtendo data de última interação e downtime...\");\n    logArray.push(\"Obtendo data de última interação e downtime...\");\n    \n    const dateUpdatedStr = $('Get Vars').first().json.users.date_updated;\n    const downtimeStr = $('Get Vars').first().json.ai_agents.downtime;\n    console.log(`date_updated: ${dateUpdatedStr}`);\n    console.log(`downtime: ${downtimeStr}`);\n    logArray.push(`date_updated: ${dateUpdatedStr}`);\n    logArray.push(`downtime: ${downtimeStr}`);\n    \n    // Se downtime for \"00:00:00\", considere desativado e não realizar a requisição.\n    if (downtimeStr === \"00:00:00\") {\n      console.log(\"Downtime é 00:00:00. Nenhuma ação será realizada.\");\n      logArray.push(\"Downtime é 00:00:00. Nenhuma ação será realizada.\");\n      currentStatus = $('Consumer').first().json.body.conversation.status;\n      return [{ json: { current_status: currentStatus, logs: logArray } }];\n    }\n    \n    const lastUpdated = new Date(dateUpdatedStr);\n    const now = new Date();\n    const diffMs = now - lastUpdated;\n    const diffMinutes = (diffMs / 60000).toFixed(2);\n    \n    // Converter downtime (HH:MM:SS) para milissegundos e para minutos\n    const [hours, minutes, seconds] = downtimeStr.split(':').map(Number);\n    const downtimeMs = ((hours * 3600) + (minutes * 60) + seconds) * 1000;\n    const downtimeMinutes = (downtimeMs / 60000).toFixed(2);\n    \n    console.log(`diff: ${diffMinutes} minutes, downtime: ${downtimeMinutes} minutes`);\n    logArray.push(`diff: ${diffMinutes} minutes, downtime: ${downtimeMinutes} minutes`);\n    \n    // Obter conversation status e conversation_id do nó Consumer\n    const conversationStatus = $('Consumer').first().json.body.conversation.status;\n    const convId = $('Consumer').first().json.body.conversation.messages[0].conversation_id;\n    console.log(`conversation status: ${conversationStatus}`);\n    console.log(`conversation_id: ${convId}`);\n    logArray.push(`conversation status: ${conversationStatus}`);\n    logArray.push(`conversation_id: ${convId}`);\n    \n    // Inicialmente, currentStatus recebe o status atual\n    currentStatus = conversationStatus;\n    \n    // Verifica se o tempo de inatividade foi excedido e se conversation.status é diferente de \"pending\"\n    if (diffMs >= downtimeMs && conversationStatus !== \"pending\") {\n      console.log(\"Condições atendidas: tempo de inatividade excedido e conversation.status não é 'pending'.\");\n      logArray.push(\"Condições atendidas: tempo de inatividade excedido e conversation.status não é 'pending'. Tentando abrir conversa no Chatwoot...\");\n      \n      const chatwootService = $('Get Vars').first().json.global_vars.chatwoot_service;\n      const accountId = $('Consumer').first().json.body.account.id;\n      const conversationId = convId;\n      const botToken = $('Get Vars').first().json.ai_agents.bot_token;\n      \n      const toggleUrl = `http://${chatwootService}:3000/api/v1/accounts/${encodeURIComponent(accountId)}/conversations/${encodeURIComponent(conversationId)}/toggle_status`;\n      console.log(`Toggle URL: ${toggleUrl}`);\n      logArray.push(`Toggle URL: ${toggleUrl}`);\n      \n      try {\n        const response = await axios.post(\n          toggleUrl,\n          { status: \"pending\" },\n          { headers: { api_access_token: botToken } }\n        );\n        console.log(\"Conversa aberta com sucesso no Chatwoot.\");\n        logArray.push(\"Conversa aberta com sucesso no Chatwoot.\");\n        currentStatus = \"pending\";\n      } catch (err) {\n        console.error(\"Erro ao abrir conversa:\", err.message);\n        logArray.push(`Erro ao abrir conversa: ${err.message}`);\n      }\n    } else {\n      console.log(\"Condições não atendidas: tempo de inatividade não excedido ou conversation.status é 'pending'. Nenhuma ação realizada.\");\n      logArray.push(\"Condições não atendidas: tempo de inatividade não excedido ou conversation.status é 'pending'. Nenhuma ação realizada.\");\n    }\n    \n    return [{ json: { current_status: currentStatus, logs: logArray } }];\n  } catch (error) {\n    console.error(\"Erro geral:\", error.message);\n    logArray.push(`Erro geral: ${error.message}`);\n    return [{ json: { error: error.message, current_status: currentStatus, logs: logArray } }];\n  }\n}\n\nreturn runTool();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        580
+      ],
+      "id": "9990a106-8f3e-402f-8a23-6af38a90cf44",
+      "name": "Downtime",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        1300
+      ],
+      "id": "8508753a-1eb9-4d07-9fc3-a171ba5a866f",
+      "name": "No Operation 0"
+    },
+    {
+      "parameters": {
+        "triggerMode": "listenTrigger",
+        "channelName": "specific_channel",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        2180
+      ],
+      "id": "14a66f3e-937f-4bfc-9c10-4772492baffb",
+      "name": "Postgres Trigger",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "async function main() {\n  // Função auxiliar para limitar o tamanho dos logs\n  const trimLog = (msg, limit = 100) =>\n    (typeof msg === 'string' && msg.length > limit ? msg.substring(0, limit) + '...' : msg);\n\n  // Array para armazenar os logs de debug\n  let logs = [];\n\n  try {\n    // Obtém o payload do nó \"Postgres Trigger\"\n    const payload = $('Postgres Trigger').first().json.payload;\n    logs.push(\"Payload carregado.\");\n    console.log(\"Payload:\", trimLog(JSON.stringify(payload)));\n\n    // Determina a operação\n    const op = payload.operation;\n    logs.push(\"Operação: \" + op);\n    console.log(\"Operação:\", op);\n\n    // Garante que pinecone_host comece com \"https://\"\n    let pineconeHost = payload.data.pinecone_host;\n    if (!pineconeHost.startsWith(\"https://\")) {\n      pineconeHost = \"https://\" + pineconeHost;\n      logs.push(\"Prefixo 'https://' adicionado.\");\n      console.log(\"pinecone_host modificado:\", pineconeHost);\n    }\n\n    // Configura os headers para o Pinecone\n    const pineconeHeaders = {\n      \"Api-Key\": payload.global_vars.pinecone_key,\n      \"X-Pinecone-API-Version\": \"2024-10\",\n      \"Content-Type\": \"application/json\"\n    };\n    logs.push(\"Headers Pinecone configurados.\");\n    console.log(\"Headers Pinecone:\", pineconeHeaders);\n\n    let endpoint, options, response, mainResponse;\n\n    // Branch para deleção: DISABLED ou DELETE\n    if (op === \"DISABLED\" || op === \"DELETE\") {\n      endpoint = pineconeHost + \"/vectors/delete\";\n      logs.push(\"Endpoint para deleção: \" + endpoint);\n      console.log(\"Endpoint de deleção:\", endpoint);\n\n      const deleteBody = {\n        ids: [payload.data.id],\n        namespace: payload.data.namespace\n      };\n      logs.push(\"Body para deleção: \" + trimLog(JSON.stringify(deleteBody)));\n      console.log(\"Body de deleção:\", deleteBody);\n\n      options = {\n        method: \"POST\",\n        uri: endpoint,\n        headers: pineconeHeaders,\n        body: deleteBody,\n        json: true\n      };\n\n      response = await this.helpers.request(options);\n      logs.push(\"Resposta da deleção recebida.\");\n      console.log(\"Resposta da deleção:\", trimLog(JSON.stringify(response)));\n\n      mainResponse = response;\n\n    // Branch para upsert via OpenAI (para UPDATE ou INSERT com enabled true)\n    } else if ((op === \"UPDATE\" || op === \"INSERT\") && payload.data.enabled === true) {\n      let embedding; // Para o upsert no Pinecone\n\n      // Se for INSERT, verifica se já existe embedding em Directus (tabela dimensions)\n      if (op === \"INSERT\") {\n        const directusHost = \"http://\" + payload.global_vars.directus_service + \":8055\";\n        const directusEndpoint = directusHost + \"/items/dimensions\";\n        const directusHeaders = {\n          \"Authorization\": \"Bearer \" + payload.global_vars.directus_token,\n          \"Content-Type\": \"application/json\"\n        };\n        logs.push(\"Consultando Directus (dimensions) para vector_id: \" + payload.data.id);\n        console.log(\"Directus endpoint (dimensions):\", directusEndpoint);\n\n        const directusQueryOptions = {\n          method: \"GET\",\n          uri: directusEndpoint,\n          qs: { \"filter[vector_id][_eq]\": payload.data.id },\n          headers: directusHeaders,\n          json: true\n        };\n\n        let directusRecord = await this.helpers.request(directusQueryOptions);\n        logs.push(\"Resposta Directus (dimensions): \" + trimLog(JSON.stringify(directusRecord)));\n        console.log(\"Directus GET response (dimensions):\", trimLog(JSON.stringify(directusRecord)));\n\n        if (\n          directusRecord &&\n          directusRecord.data &&\n          directusRecord.data.length > 0 &&\n          directusRecord.data[0].values\n        ) {\n          let directusValues = directusRecord.data[0].values;\n          // Se for string, converte para array de floats; se já for array, utiliza diretamente.\n          if (typeof directusValues === \"string\") {\n            embedding = directusValues.split(\",\").map(item => parseFloat(item.trim()));\n          } else if (Array.isArray(directusValues)) {\n            embedding = directusValues;\n          }\n          logs.push(\"Embedding reutilizado do Directus (dimensions).\");\n          console.log(\"Embedding reutilizado:\", trimLog(JSON.stringify(embedding)));\n        }\n      }\n\n      // Se embedding não foi obtido (ou para UPDATE), gere via OpenAI\n      if (!embedding) {\n        const openAIEndpoint = \"https://api.openai.com/v1/embeddings\";\n        const openAIHeaders = {\n          \"Authorization\": \"Bearer \" + payload.global_vars.openai_key,\n          \"Content-Type\": \"application/json\"\n        };\n        logs.push(\"Endpoint OpenAI: \" + openAIEndpoint);\n        console.log(\"Endpoint OpenAI:\", openAIEndpoint);\n        logs.push(\"Headers OpenAI configurados.\");\n        console.log(\"Headers OpenAI:\", openAIHeaders);\n\n        // Constrói o input para OpenAI (adiciona espaço após cada vírgula em similar_questions)\n        const similarQuestionsInput = payload.data.similar_questions\n          ? payload.data.similar_questions.replace(/,/g, ', ')\n          : \"\";\n        const openAIInput = `Context: ${payload.data.context} Question: ${payload.data.question} Answer: ${payload.data.answer} Similar Questions: ${similarQuestionsInput}`;\n        logs.push(\"Input para OpenAI: \" + trimLog(openAIInput));\n        console.log(\"Input OpenAI:\", openAIInput);\n\n        const openAIBody = {\n          input: openAIInput,\n          model: \"text-embedding-3-small\",\n          dimensions: 1536\n        };\n        logs.push(\"Body para OpenAI: \" + trimLog(JSON.stringify(openAIBody)));\n        console.log(\"Body OpenAI:\", openAIBody);\n\n        options = {\n          method: \"POST\",\n          uri: openAIEndpoint,\n          headers: openAIHeaders,\n          body: openAIBody,\n          json: true\n        };\n\n        let openAIResponse = await this.helpers.request(options);\n        logs.push(\"Resposta do OpenAI recebida.\");\n        console.log(\"Resposta OpenAI:\", trimLog(JSON.stringify(openAIResponse)));\n\n        if (openAIResponse && openAIResponse.data && openAIResponse.data.length > 0) {\n          embedding = openAIResponse.data[0].embedding;\n          logs.push(\"Embedding extraído do OpenAI.\");\n          console.log(\"Embedding:\", trimLog(JSON.stringify(embedding)));\n        } else {\n          throw new Error(\"Embedding não retornado pelo OpenAI.\");\n        }\n      }\n\n      // Converte similar_questions CSV para array\n      let similarQuestionsArray = [];\n      if (payload.data.similar_questions) {\n        similarQuestionsArray = payload.data.similar_questions.split(\",\").map(s => s.trim());\n      }\n      logs.push(\"similar_questions convertido para array: \" + trimLog(JSON.stringify(similarQuestionsArray)));\n      console.log(\"similar_questions array:\", similarQuestionsArray);\n\n      // Upsert no Pinecone usando o embedding obtido\n      endpoint = pineconeHost + \"/vectors/upsert\";\n      logs.push(\"Endpoint para upsert (Pinecone): \" + endpoint);\n      console.log(\"Endpoint de upsert:\", endpoint);\n\n      const upsertBody = {\n        vectors: [\n          {\n            id: payload.data.id,\n            values: embedding, // embedding é um array de floats\n            metadata: {\n              a: payload.data.answer,\n              t: payload.data.context,\n              q: payload.data.question,\n              sq: similarQuestionsArray\n            }\n          }\n        ],\n        namespace: payload.data.namespace\n      };\n      logs.push(\"Body para upsert (Pinecone): \" + trimLog(JSON.stringify(upsertBody)));\n      console.log(\"Body de upsert:\", upsertBody);\n\n      options = {\n        method: \"POST\",\n        uri: endpoint,\n        headers: pineconeHeaders,\n        body: upsertBody,\n        json: true\n      };\n\n      response = await this.helpers.request(options);\n      logs.push(\"Resposta do upsert Pinecone recebida.\");\n      console.log(\"Resposta do upsert:\", trimLog(JSON.stringify(response)));\n\n      mainResponse = response;\n\n      // Atualiza ou cria o registro na tabela dimensions do Directus (como já estava implementado)\n      const directusHost = \"http://\" + payload.global_vars.directus_service + \":8055\";\n      const directusDimensionsEndpoint = directusHost + \"/items/dimensions\";\n      const directusHeaders = {\n        \"Authorization\": \"Bearer \" + payload.global_vars.directus_token,\n        \"Content-Type\": \"application/json\"\n      };\n      logs.push(\"Directus dimensions endpoint: \" + directusDimensionsEndpoint);\n      console.log(\"Directus dimensions endpoint:\", directusDimensionsEndpoint);\n\n      const directusQueryOptions = {\n        method: \"GET\",\n        uri: directusDimensionsEndpoint,\n        qs: { \"filter[vector_id][_eq]\": payload.data.id },\n        headers: directusHeaders,\n        json: true\n      };\n\n      let directusRecord = await this.helpers.request(directusQueryOptions);\n      logs.push(\"Resposta Directus (dimensions): \" + trimLog(JSON.stringify(directusRecord)));\n      console.log(\"Directus GET response (dimensions):\", trimLog(JSON.stringify(directusRecord)));\n\n      const currentTimestamp = new Date().toISOString();\n      // Converte o embedding para string sem colchetes\n      const directusValues = Array.isArray(embedding) ? embedding.join(\",\") : embedding;\n      const dimensionsBody = {\n        values: directusValues,\n        vector_id: payload.data.id,\n        date_created: currentTimestamp,\n        date_updated: currentTimestamp\n      };\n\n      if (directusRecord && directusRecord.data && directusRecord.data.length > 0) {\n        const recordId = directusRecord.data[0].id;\n        const directusUpdateEndpoint = directusDimensionsEndpoint + \"/\" + recordId;\n        logs.push(\"Atualizando registro dimensions Directus com id: \" + recordId);\n        console.log(\"Atualizando Directus dimensions em:\", directusUpdateEndpoint);\n\n        const directusUpdateOptions = {\n          method: \"PATCH\",\n          uri: directusUpdateEndpoint,\n          headers: directusHeaders,\n          body: dimensionsBody,\n          json: true\n        };\n\n        const directusUpdateResponse = await this.helpers.request(directusUpdateOptions);\n        logs.push(\"Resposta atualização Directus dimensions: \" + trimLog(JSON.stringify(directusUpdateResponse)));\n        console.log(\"Directus dimensions update response:\", trimLog(JSON.stringify(directusUpdateResponse)));\n      } else {\n        logs.push(\"Nenhum registro Dimensions Directus encontrado, criando novo.\");\n        console.log(\"Criando novo registro Dimensions Directus.\");\n\n        const directusCreateOptions = {\n          method: \"POST\",\n          uri: directusDimensionsEndpoint,\n          headers: directusHeaders,\n          body: dimensionsBody,\n          json: true\n        };\n\n        const directusCreateResponse = await this.helpers.request(directusCreateOptions);\n        logs.push(\"Resposta criação Directus dimensions: \" + trimLog(JSON.stringify(directusCreateResponse)));\n        console.log(\"Directus dimensions create response:\", trimLog(JSON.stringify(directusCreateResponse)));\n      }\n\n    // Branch para upsert usando valores do \"Get Dimensions\" (caso op seja ENABLED)\n    } else if (op === \"ENABLED\") {\n      endpoint = pineconeHost + \"/vectors/upsert\";\n      logs.push(\"Endpoint para upsert (Get Dimensions): \" + endpoint);\n      console.log(\"Endpoint de upsert:\", endpoint);\n\n      let similarQuestionsArray = [];\n      if (payload.data.similar_questions) {\n        similarQuestionsArray = payload.data.similar_questions.split(\",\").map(s => s.trim());\n      }\n      logs.push(\"similar_questions convertido para array: \" + trimLog(JSON.stringify(similarQuestionsArray)));\n      console.log(\"similar_questions array:\", similarQuestionsArray);\n\n      let values = $('Get Dimensions').first().json.values;\n      if (typeof values === \"string\") {\n        values = values.split(\",\").map(item => parseFloat(item.trim()));\n        logs.push(\"Valores convertidos de string para array: \" + trimLog(JSON.stringify(values)));\n        console.log(\"Valores convertidos:\", values);\n      } else if (Array.isArray(values)) {\n        if (values.length > 0 && typeof values[0] === \"string\") {\n          values = values.map(item => parseFloat(item.trim()));\n          logs.push(\"Valores convertidos de array de strings para floats: \" + trimLog(JSON.stringify(values)));\n          console.log(\"Valores convertidos:\", values);\n        }\n      } else {\n        values = [values];\n        logs.push(\"Valores encapsulados em array: \" + trimLog(JSON.stringify(values)));\n        console.log(\"Valores encapsulados:\", values);\n      }\n\n      const upsertBody = {\n        vectors: [\n          {\n            id: payload.data.id,\n            values: values,\n            metadata: {\n              a: payload.data.answer,\n              t: payload.data.context,\n              q: payload.data.question,\n              sq: similarQuestionsArray\n            }\n          }\n        ],\n        namespace: payload.data.namespace\n      };\n      logs.push(\"Body para upsert (Get Dimensions): \" + trimLog(JSON.stringify(upsertBody)));\n      console.log(\"Body de upsert:\", upsertBody);\n\n      options = {\n        method: \"POST\",\n        uri: endpoint,\n        headers: pineconeHeaders,\n        body: upsertBody,\n        json: true\n      };\n\n      response = await this.helpers.request(options);\n      logs.push(\"Resposta do upsert recebida.\");\n      console.log(\"Resposta do upsert:\", trimLog(JSON.stringify(response)));\n\n      mainResponse = response;\n    } else {\n      logs.push(\"Operação não compatível. Nenhuma requisição enviada.\");\n      console.log(\"Operação não compatível.\");\n      mainResponse = { message: \"Operação não compatível.\" };\n    }\n\n    // Atualiza a tabela vectors_status para os casos ENABLED, DISABLED, INSERT ou UPDATE (ou DELETE)\n    if ([\"ENABLED\", \"DISABLED\", \"INSERT\", \"UPDATE\", \"DELETE\"].includes(op)) {\n      const statusValue = payload.data.enabled === true ? \"#2ECDA7\" : \"#E35169\";\n      const directusStatusHost = \"http://\" + payload.global_vars.directus_service + \":8055\";\n      const directusStatusEndpoint = directusStatusHost + \"/items/vectors_status\";\n      const directusHeaders = {\n        \"Authorization\": \"Bearer \" + payload.global_vars.directus_token,\n        \"Content-Type\": \"application/json\"\n      };\n      logs.push(\"Atualizando tabela vectors_status em: \" + directusStatusEndpoint);\n      console.log(\"Directus vectors_status endpoint:\", directusStatusEndpoint);\n\n      const statusQueryOptions = {\n        method: \"GET\",\n        uri: directusStatusEndpoint,\n        qs: { \"filter[vector_id][_eq]\": payload.data.id },\n        headers: directusHeaders,\n        json: true\n      };\n\n      let statusRecord = await this.helpers.request(statusQueryOptions);\n      logs.push(\"Resposta da consulta vectors_status: \" + trimLog(JSON.stringify(statusRecord)));\n      console.log(\"Directus vectors_status GET response:\", trimLog(JSON.stringify(statusRecord)));\n\n      const currentTimestamp = new Date().toISOString();\n      const statusBody = {\n        value: statusValue,\n        vector_id: payload.data.id,\n        date_created: currentTimestamp,\n        date_updated: currentTimestamp\n      };\n\n      if (statusRecord && statusRecord.data && statusRecord.data.length > 0) {\n        const recordId = statusRecord.data[0].id;\n        const statusUpdateEndpoint = directusStatusEndpoint + \"/\" + recordId;\n        logs.push(\"Atualizando registro vectors_status com id: \" + recordId);\n        console.log(\"Atualizando vectors_status em:\", statusUpdateEndpoint);\n\n        const statusUpdateOptions = {\n          method: \"PATCH\",\n          uri: statusUpdateEndpoint,\n          headers: directusHeaders,\n          body: statusBody,\n          json: true\n        };\n\n        var statusResponse = await this.helpers.request(statusUpdateOptions);\n        logs.push(\"Resposta atualização vectors_status: \" + trimLog(JSON.stringify(statusResponse)));\n        console.log(\"Directus vectors_status update response:\", trimLog(JSON.stringify(statusResponse)));\n      } else {\n        logs.push(\"Nenhum registro vectors_status encontrado, criando novo.\");\n        console.log(\"Criando novo registro vectors_status.\");\n\n        const statusCreateOptions = {\n          method: \"POST\",\n          uri: directusStatusEndpoint,\n          headers: directusHeaders,\n          body: statusBody,\n          json: true\n        };\n\n        var statusResponse = await this.helpers.request(statusCreateOptions);\n        logs.push(\"Resposta criação vectors_status: \" + trimLog(JSON.stringify(statusResponse)));\n        console.log(\"Directus vectors_status create response:\", trimLog(JSON.stringify(statusResponse)));\n      }\n    }\n\n    return [{\n      json: {\n        mainResponse,\n        logs\n      }\n    }];\n  } catch (error) {\n    console.error(\"Erro:\", error);\n    logs.push(\"Erro: \" + error.message);\n    return [{\n      json: {\n        error: error.message,\n        logs\n      }\n    }];\n  }\n}\n\nreturn main();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        2180
+      ],
+      "id": "d31c7c9a-a837-4f69-b5c7-9fa5e5a792d1",
+      "name": "Update Vectors"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "dimensions",
+          "mode": "list",
+          "cachedResultName": "dimensions"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "vector_id",
+              "value": "={{ $json.payload.data.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -20,
+        2180
+      ],
+      "id": "f62eaf07-9275-4845-bbf7-3a49cf42160c",
+      "name": "Get Dimensions",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 740,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        2080
+      ],
+      "id": "4a2caf6e-ee2d-4767-9774-092cd7bff5cb",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rag",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1320,
+        2140
+      ],
+      "id": "5410f8f4-603a-4f9d-8453-772c377c600e",
+      "name": "RAG Input",
+      "webhookId": "d503e6f9-0989-42d5-a598-e268b20c3182"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Por favor, analise a entrada do usuário e o histórico recente. \n\nEntrada do usuário: \n<user_input>{{ $('RAG Input').first().json.body.content }}</user_input>\n\nHistórico das últimas 10 mensagens: \n<conversation_history>{{ $('Get History').first().json.chat_histories.map(item => item.message).slice(-10).toJsonString() }}</conversation_history>",
+        "options": {
+          "systemMessage": "=Você é um agente especializado em realizar buscas no banco vetorial para fornecer contexto adicional à inteligência artificial principal.\n\nObjetivo:\nAnalisar a entrada do usuário e o histórico recente de mensagens para decidir se deve invocar a tool 'retriever' e, caso necessário, realizar buscas eficientes.\n\nDiretrizes:\nBusca desnecessária: Se a entrada do usuário não contiver perguntas relevantes ou específicas (ex.: saudações, mensagens genéricas ou irrelevantes), retorne: \"Busca desnecessária.\"\nNenhuma informação encontrada: Se, ao usar a tool 'retriever', nenhuma informação relevante for encontrada, retorne: \"Nenhuma informação relevante encontrada.\"\nForneça respostas precisas: Se encontrar informações no banco vetorial, forneça apenas o conteúdo necessário para responder à solicitação do usuário, de forma objetiva e sem interpretações adicionais.\nRegras para invocar a tool 'retriever':\nAnalise cuidadosamente a entrada do usuário e as descrições dos conhecimentos disponíveis para identificar qualquer possibilidade de relação com os temas abordados nos conhecimentos.\nConsidere como relevante qualquer pergunta do usuário que possa estar relacionada aos documentos descritos nos conhecimentos disponíveis. Se houver uma chance de associação, a busca deve ser realizada.\nUse as descrições dos conhecimentos disponíveis para identificar o knowledge_id mais adequado:\n\n<knowledge_metadata>{{ $('Get History').first().json.knowledge.map(item => ({ knowledge_id: item.id, description: item.description })).toJsonString() }}</knowledge_metadata>\n\nUse múltiplas queries, se necessário: Se a solicitação do usuário for ampla ou ambígua, faça buscas utilizando palavras-chave diferentes para cobrir todas as possibilidades.\nCombine os resultados de forma precisa e concisa, retornando apenas o contexto essencial à AI principal.\nInstruções adicionais:\nSe houver qualquer relação potencial entre a solicitação do usuário e os conhecimentos disponíveis, realize a busca imediatamente.\nAo invocar a tool 'retriever', faça perguntas claras e precisas, alinhadas ao contexto da entrada do usuário e aos temas descritos nos conhecimentos disponíveis.\nO foco é fornecer contexto relevante e direto para a AI principal.",
+          "passthroughBinaryImages": true
+        }
+      },
+      "id": "4cf5ae19-b3b8-4ae7-83bf-5579ef02cb51",
+      "name": "RAG Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -920,
+        2140
+      ],
+      "retryOnFail": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "name": "retriever",
+        "description": "=Invoque essa tool para buscar informações no banco vetorial e fornecer respostas relevantes com base nos conhecimentos disponíveis. Use-a somente quando necessário para complementar o contexto.",
+        "jsCode": "const axios = require('axios');\n\nasync function runTool() {\n  let logs = \"\";\n  \n  try {\n    // Obter parâmetros de entrada\n    logs += \"Obtendo parâmetros de entrada...\\n\";\n    const searchQuery = query.query;\n    const knowledgeId = query.knowledge_id;\n    logs += `searchQuery: ${searchQuery}\\nknowledgeId: ${knowledgeId}\\n`;\n    \n    // Obter mapping a partir do nó \"RAG Input\"\n    let mappingInput = $('RAG Input').first().json.body.mapping;\n    if (typeof mappingInput === 'string') {\n      try {\n        mappingInput = JSON.parse(mappingInput);\n        logs += \"Mapping Input convertido de string para objeto.\\n\";\n      } catch (e) {\n        throw new Error(\"Falha ao converter mapping para objeto.\");\n      }\n    }\n    logs += \"Mapping Input obtido.\\n\";\n    \n    if (!mappingInput.system) {\n      throw new Error(\"mappingInput.system está indefinido.\");\n    }\n    \n    // Gerar embeddings usando a API do OpenAI\n    logs += \"Chamando endpoint de embeddings da OpenAI...\\n\";\n    const openaiKey = mappingInput.system.openai_key;\n    const embeddingResponse = await axios.post(\n      'https://api.openai.com/v1/embeddings',\n      {\n        input: searchQuery,\n        model: \"text-embedding-3-small\"\n      },\n      {\n        headers: {\n          \"Authorization\": `Bearer ${openaiKey}`,\n          \"Content-Type\": \"application/json\"\n        }\n      }\n    );\n    logs += \"Embeddings obtidos com sucesso.\\n\";\n    const embedding = embeddingResponse.data.data[0].embedding;\n    logs += `Embedding (primeiros 5 valores): ${embedding.slice(0,5).join(\", \")}...\\n`;\n    \n    // Obter pinecone_host e namespace do histórico\n    logs += \"Obtendo pinecone_host e namespace a partir do histórico...\\n\";\n    const historyKnowledge = $('Get History').first().json.knowledge;\n    const knowledgeItem = historyKnowledge.find(item => item.id === knowledgeId);\n    if (!knowledgeItem) {\n      throw new Error(`Conhecimento com id ${knowledgeId} não encontrado.`);\n    }\n    const pineconeHostRaw = knowledgeItem.pinecone_host;\n    const namespace = knowledgeItem.namespace;\n    logs += `pineconeHostRaw: ${pineconeHostRaw}, namespace: ${namespace}\\n`;\n    \n    // Garantir que pinecone_host comece com \"https://\"\n    let pineconeHost = pineconeHostRaw;\n    if (!pineconeHost.startsWith(\"https://\")) {\n      pineconeHost = \"https://\" + pineconeHost;\n    }\n    logs += `pineconeHost final: ${pineconeHost}\\n`;\n    \n    // Requisição para a API do Pinecone\n    logs += \"Chamando API do Pinecone...\\n\";\n    const pineconeKey = mappingInput.system.pinecone_key;\n    const pineconeQueryUrl = `${pineconeHost}/query`;\n    const pineconeResponse = await axios.post(\n      pineconeQueryUrl,\n      {\n        namespace: namespace,\n        vector: embedding,\n        topK: 3,\n        includeValues: false,\n        includeMetadata: true\n      },\n      {\n        headers: {\n          \"Api-Key\": pineconeKey,\n          \"X-Pinecone-API-Version\": \"2024-10\",\n          \"Content-Type\": \"application/json\"\n        }\n      }\n    );\n    logs += \"Resposta do Pinecone obtida com sucesso.\\n\";\n    logs += `Pinecone response data: ${JSON.stringify(pineconeResponse.data)}\\n`;\n    \n    // Processar os resultados do Pinecone usando as chaves corretas dos metadados (\"a\", \"q\" e \"t\")\n    const matches = pineconeResponse.data.matches;\n    matches.forEach((m, idx) => {\n      logs += `Match ${idx + 1}: id=${m.id}, score=${m.score}, metadata=${JSON.stringify(m.metadata)}\\n`;\n    });\n    \n    const filteredMatches = matches.filter(item => item.score >= 0.0)\n      .map(item => ({\n        vector: item.id,\n        score: item.score,\n        answer: item.metadata ? item.metadata.a : null,\n        question: item.metadata ? item.metadata.q : null,\n        context: item.metadata ? item.metadata.t : null\n      }));\n    logs += `Matches filtrados: ${JSON.stringify(filteredMatches)}\\n`;\n    \n    const resultString = `Os vetores retornados foram: ${JSON.stringify(filteredMatches)}`;\n    logs += \"Processamento final concluído.\\n\";\n    \n    console.log(\"Logs:\", logs);\n    // Retorna apenas o resultado final (string) sem os logs.\n    return resultString;\n  } catch (error) {\n    logs += `Erro: ${error.message}\\n`;\n    console.error(\"Erro:\", error.message, \"Logs:\", logs);\n    return `Erro: ${error.message}`;\n  }\n}\n\nreturn runTool();\n",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"knowledge_id\": {\n      \"type\": \"integer\",\n      \"description\": \"O ID do conhecimento específico no qual a busca será realizada.\"\n    },\n    \"query\": {\n      \"type\": \"string\",\n      \"description\": \"A pergunta ou consulta que será usada para realizar a busca no banco vetorial.\"\n    }\n  }\n}"
+      },
+      "id": "080976f7-e2d8-4d07-8f3b-66e364a113f6",
+      "name": "Retriever",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        -680,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH knowledge_descriptions AS (\n  SELECT json_agg(\n    json_build_object(\n      'id', k.id,\n      'description', k.description,\n      'pinecone_host', ph.value,\n      'namespace', ns.value\n    )\n  ) AS knowledge_data\n  FROM knowledge_ai_agents kaa\n  JOIN knowledge k ON k.id = kaa.knowledge_id\n  LEFT JOIN pinecone_host ph ON ph.id = k.pinecone_host_id\n  LEFT JOIN namespace ns ON ns.id = k.name_id\n  WHERE kaa.ai_agents_id = {{ $('RAG Input').item.json.body.mapping.parseJson().system.ai_agent_id }}\n),\nchat_histories AS (\n  SELECT json_agg(ch.*) AS chat_items\n  FROM core_chat_histories ch\n  WHERE ch.session_id = '{{ $('RAG Input').item.json.body.mapping.parseJson().system.conversations_id }}'\n)\nSELECT\n  (SELECT knowledge_data FROM knowledge_descriptions) AS knowledge,\n  (SELECT chat_items FROM chat_histories) AS chat_histories;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1120,
+        2140
+      ],
+      "id": "681d52d6-63a3-4036-923b-b287721e286f",
+      "name": "Get History",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 300,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -860,
+        2380
+      ],
+      "typeVersion": 1,
+      "id": "d8af0ef8-5a09-4541-81bf-2a4949c3d285",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash-preview",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        2420
+      ],
+      "id": "5f9e5c1c-30c6-4bc6-9baf-cb9fbb925cae",
+      "name": "OpenRouter ",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        2140
+      ],
+      "id": "b4064aba-4f31-4685-a89b-e79fbb5e1087",
+      "name": "No Operation 3"
+    }
+  ],
+  "connections": {
+    "Add to List": {
+      "main": [
+        [
+          {
+            "node": "Get List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get List": {
+      "main": [
+        [
+          {
+            "node": "Switch 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse JSON": {
+      "main": [
+        [
+          {
+            "node": "Split Itens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [
+          {
+            "node": "Execute Core",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Itens": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Media": {
+      "main": [
+        [
+          {
+            "node": "Switch 02",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch 02": {
+      "main": [
+        [
+          {
+            "node": "Transcription",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation 0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Convert PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset List": {
+      "main": [
+        [
+          {
+            "node": "Chatwoot Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Final List 2": {
+      "main": [
+        [
+          {
+            "node": "Switch 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Final List 1": {
+      "main": [
+        [
+          {
+            "node": "Parse JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cooldown": {
+      "main": [
+        [
+          {
+            "node": "Get List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consumer": {
+      "main": [
+        [
+          {
+            "node": "Get Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch 3": {
+      "main": [
+        [
+          {
+            "node": "No Operation ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reset List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Vars": {
+      "main": [
+        [
+          {
+            "node": "Downtime",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert PDF": {
+      "main": [
+        [
+          {
+            "node": "No Operation 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcription": {
+      "main": [
+        [
+          {
+            "node": "No Operation 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Core": {
+      "main": [
+        [
+          {
+            "node": "Get Final List 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear History": {
+      "main": [
+        [
+          {
+            "node": "Parse JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch 2": {
+      "main": [
+        [
+          {
+            "node": "Download Media",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Keep Loop",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Switch 1": {
+      "main": [
+        [
+          {
+            "node": "No Operation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Final List 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cooldown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch 0": {
+      "main": [
+        [
+          {
+            "node": "Update History",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add to List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep Loop": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update History": {
+      "main": [
+        [
+          {
+            "node": "Open Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chatwoot Output": {
+      "main": [
+        [
+          {
+            "node": "Add Register",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Register": {
+      "main": [
+        []
+      ]
+    },
+    "Knowledge Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Global Vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Global Vars": {
+      "main": [
+        [
+          {
+            "node": "Process Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Docs": {
+      "main": [
+        []
+      ]
+    },
+    "Vector Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse JSON 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse JSON 2": {
+      "main": [
+        [
+          {
+            "node": "Split Vectors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Vectors": {
+      "main": [
+        [
+          {
+            "node": "Embeddings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings": {
+      "main": [
+        [
+          {
+            "node": "Add Vectors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Vectors": {
+      "main": [
+        []
+      ]
+    },
+    "Mapping": {
+      "main": [
+        [
+          {
+            "node": "Switch 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation ": {
+      "main": [
+        [
+          {
+            "node": "Clear History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Downtime": {
+      "main": [
+        [
+          {
+            "node": "Mapping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation 0": {
+      "main": [
+        [
+          {
+            "node": "Keep Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Dimensions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Dimensions": {
+      "main": [
+        [
+          {
+            "node": "Update Vectors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Input": {
+      "main": [
+        [
+          {
+            "node": "Get History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Agent": {
+      "main": [
+        [
+          {
+            "node": "No Operation 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retriever": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get History": {
+      "main": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter ": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "61d9f979-233f-4cef-b1da-da63214b123a",
+  "triggerCount": 5,
+  "tags": []
+}
