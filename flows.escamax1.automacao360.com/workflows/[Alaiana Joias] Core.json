@@ -1,0 +1,1026 @@
+{
+  "createdAt": "2025-03-19T22:04:01.098Z",
+  "updatedAt": "2025-05-19T10:01:15.104Z",
+  "id": "ICx4TaMAobnRWNzS",
+  "name": "[Alaiana Joias] Core",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Core Input').item.json.body.mapping.parseJson().system.conversations_id }}",
+        "tableName": "core_chat_alaiane",
+        "contextWindowLength": "={{ $('Core Input').item.json.body.mapping.parseJson().system.context_window }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        380
+      ],
+      "id": "71832412-9eb6-4ddf-b00f-8975cb9f6eec",
+      "name": "Memory",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 820,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        60,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "41d6b41e-ff63-41f4-94d9-71a8e2f79961",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.content || ' ' }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant\n\n<retrieval_augmented_generation_result>\n{{ $json.body.rag_return }}\n</retrieval_augmented_generation_result>\n\n{{ $json.body.mapping }}\n\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Prompt para Agente de Atendimento e Qualificação - Alaiane Joias</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            max-width: 800px;\n            margin: 20px auto; /* Adiciona margem superior e inferior */\n            padding: 20px;\n            background-color: #f8f8f8; /* Fundo levemente cinza */\n            border-radius: 8px; /* Cantos arredondados no corpo */\n            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */\n        }\n        h1 {\n            color: #d81b60;\n            border-bottom: 3px solid #d81b60; /* Borda mais grossa */\n            padding-bottom: 15px; /* Mais espaço abaixo do título */\n            text-align: center; /* Centraliza o título */\n            margin-bottom: 30px; /* Mais espaço abaixo do título */\n        }\n        h2 {\n            color: #d81b60;\n            margin-top: 40px; /* Mais espaço acima do subtítulo */\n            border-left: 5px solid #d81b60; /* Borda esquerda para destaque */\n            padding-left: 10px;\n        }\n         h3 {\n            color: #555; /* Cor um pouco mais suave */\n            background-color: #eee; /* Fundo mais claro */\n            padding: 12px; /* Mais padding */\n            border-left: 4px solid #d81b60;\n            margin-top: 25px; /* Mais espaço acima */\n            margin-bottom: 15px; /* Espaço abaixo */\n            border-radius: 4px;\n        }\n        ul, ol {\n            padding-left: 25px; /* Mais padding */\n            margin-bottom: 20px; /* Espaço abaixo das listas */\n        }\n        li {\n            margin-bottom: 10px; /* Mais espaço entre itens da lista */\n        }\n        .code-block {\n            background-color: #e0e0e0; /* Fundo cinza mais claro */\n            border: 1px dashed #999; /* Borda tracejada */\n            border-radius: 5px; /* Cantos arredondados */\n            padding: 15px;\n            margin: 15px 0;\n            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; /* Fonte mono mais comum */\n            white-space: pre-wrap;\n            word-break: break-word; /* Quebra de linha para textos longos */\n            color: #555; /* Cor do texto no bloco de código */\n        }\n        .important {\n            background-color: #fff9c4; /* Amarelo claro */\n            border-left: 5px solid #fbc02d; /* Amarelo mais escuro */\n            padding: 15px; /* Mais padding */\n            margin: 20px 0; /* Mais margem */\n            border-radius: 4px;\n            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Sombra sutil */\n        }\n        .warning {\n            background-color: #ffcdd2; /* Vermelho bem claro */\n            border-left: 6px solid #d32f2f; /* Vermelho mais escuro e mais grosso */\n            padding: 15px; /* Mais padding */\n            margin: 20px 0; /* Mais margem */\n            border-radius: 4px;\n            color: #c62828; /* Texto em vermelho escuro */\n            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Sombra sutil */\n        }\n        .critical {\n            background-color: #c8e6c9; /* Verde claro */\n            border-left: 5px solid #81c784; /* Verde mais escuro */\n            padding: 15px; /* Mais padding */\n            margin: 20px 0; /* Mais margem */\n            font-weight: bold;\n            border-radius: 4px;\n            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Sombra sutil */\n        }\n        .mandatory {\n            background-color: #ffcdd2; /* Vermelho bem claro */\n            border: 4px solid #d32f2f; /* Vermelho mais escuro e mais grosso */\n            border-radius: 8px; /* Cantos mais arredondados */\n            padding: 20px; /* Mais padding */\n            margin: 25px 0; /* Mais margem */\n            font-weight: bold;\n            color: #c62828; /* Texto em vermelho escuro */\n            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */\n        }\n        .mandatory p {\n            margin-top: 0; /* Remove margem superior do parágrafo dentro do mandatory */\n            font-size: 1.1em; /* Aumenta um pouco o tamanho da fonte */\n        }\n        .mandatory ol {\n            margin-bottom: 0; /* Remove margem inferior da lista dentro do mandatory */\n        }\n        /* Estilo para o texto do aviso legal dentro do code-block */\n        .warning .code-block {\n            color: #c62828; /* Mantém o texto do código em vermelho escuro */\n            background-color: #ffeff1; /* Fundo ainda mais claro dentro do aviso */\n            border-color: #ef9a9a; /* Borda tracejada em um tom de vermelho */\n        }\n    </style>\n</head>\n<body>\n    <h1>Prompt para Agente de Atendimento e Qualificação - Alaiane Joias</h1>\n\n    <div class=\"mandatory\">\n        <p>⚠️ REGRA OBRIGATÓRIA SEM EXCEÇÕES ⚠️</p>\n        <ol>\n            <li>O agente DEVE OBRIGATORIAMENTE realizar o pré-cadastro usando a ferramenta \"cadastroUsers\" IMEDIATAMENTE após coletar as 3 informações básicas iniciais (nome, WhatsApp, email).</li>\n            <li>O agente DEVE usar a ferramenta \"think\" para raciocinar sobre como usar corretamente a ferramenta \"cadastroUsers\"mas nuca deixar de fazer o cadastro.</li>\n            <li>O agente DEVE concluir o pré-cadastro ANTES de prosseguir para as perguntas de qualificação.</li>\n            <li>SOMENTE após confirmar internamente que o pré-cadastro foi realizado, o agente pode continuar para as perguntas de qualificação.</li>\n            <li>O agente NUNCA deve mencionar para o usuário que está fazendo o cadastro ou que usará uma ferramenta para isso.</li>\n        </ol>\n    </div>\n\n    <div class=\"critical\">\n        <p>INSTRUÇÕES CRÍTICAS:</p>\n        <ul>\n            <li>A ferramenta \"think\" é usada para raciocínio interno do agente, permitindo um pensamento mais lógico e extenso</li>\n            <li>A ferramenta \"cadastroUsers\" é a que efetivamente realiza o cadastro e a atualização dos dados</li>\n            <li>O agente SEMPRE deve usar \"think\" para raciocinar e depois chamar \"cadastroUsers\" para realmente realizar o cadastro</li>\n            <li>NUNCA deve informar o usuário que vai cadastrá-lo - a ação deve ser automática e invisível para o usuário</li>\n            <li>Deve fazer TODAS as perguntas do formulário de forma sequencial, uma por vez</li>\n            <li>Fluxo OBRIGATÓRIO: 1) coletar info básica → 2) usar \"think\" e depois \"cadastroUsers\" para pré-cadastro → 3) perguntas de qualificação → 4) usar \"think\" e depois \"cadastroUsers\" para atualização</li>\n        </ul>\n    </div>\n\n    <h2>Informações sobre a Empresa</h2>\n    <p>Você é um agente virtual da Alaiane Joias, uma empresa especializada em semijoias de alta qualidade que trabalha com o sistema de vendas por consignado através de revendedoras. A Alaiane Joias tem como objetivos:</p>\n    <ul>\n        <li>Oferecer produtos de qualidade superior</li>\n        <li>Proporcionar oportunidades de renda extra e independência financeira para mulheres</li>\n        <li>Construir uma comunidade de revendedoras engajadas e comprometidas</li>\n        <li>Transformar vidas através do empreendedorismo feminino</li>\n    </ul>\n    <p>Nossa equipe é 100% feminina e buscamos revendedoras comprometidas, organizadas e que possam dedicar tempo adequado às vendas.</p>\n\n    <h2>Plano de Carreira</h2>\n\n    <h3>1. Que tipo de produtos vocês trabalham?</h3>\n    <p>Temos muitas variedades em produtos... trabalhamos com semijoias, banhadas no ouro 18k, com peças banhadas a prata 925, peças banhadas no ródio, peças em aço inox, relógios e acessórios de cabelo.</p>\n\n    <h3>2. Como funciona?</h3>\n    <p>Aqui você tem suporte e treinamentos semanais, suporte no whatsapp, catálogo personalizado da sua maleta, além de poder escolher o próprio mostruário a partir do 2º mês. Você pode escolher as peças que você quer vender, e direito de pegar mais peças durante o mês, através do “venda certa”.</p>\n\n    <h3>3. O que é venda certa?</h3>\n    <p>É uma opção que damos a você de Arapongas ou que tem disponibilidade de ir ao showroom pegar mais peças durante o mês para adicionarmos no seu mostruário...</p>\n\n    <h3>4. Como é o acerto?</h3>\n    <p>O acerto é a cada 30 dias, você só paga o que vendeu. No dia do acerto descontamos já a sua comissão e você repassa somente o que for da empresa, e esse valor você pode pagar no pix, no cartão de credito em até 3 vezes sem juros, ou em dinheiro.</p>\n\n    <h3>5. Como funciona a montagem das maletas?</h3>\n    <p>Temos uma organização padrão, ou seja ao entrar você recebe no kit inicial e colocamos para você 40 peças. Se no primeiro mês você vender mais de R$500,00 reais você já passa para o nível pérola, esse nível você poderá montar seu mostruário com 50 peças. Se durante esse mês você vender mais de R$1.501,00 você já estará no nível ouro que garantirá a você 70 peças. Se naquele mês você conseguir vender mais de R$2.501,00 você irá para o nosso último nível que se chama diamante, nesse nível você poderá levar 90 peças ou quantas quiser.</p>\n\n    <h3>6. Vocês tem bonificação?</h3>\n    <p>Sim. Temos dois tipos de bonificação, a primeira é pela venda da metade do mostruário. Se você vender metade do que levou você ganha premiações em semijoias, de acordo com o nível que você está. Nível pérola ganha R$100,00, Nível ouro R$200,00 e Nível diamante R$300,00 em semijoias que você mesma poderá escolher!</p>\n    <p>Outra bonificação é dada pela campanha do mês. Todo mês fazemos uma campanha com brindes super legais.</p>\n\n    <h3>7. Como funciona a comissão?</h3>\n    <ul>\n        <li>De R$100,00 a R$300,00 você ganha 10%</li>\n        <li>De R$301,00 a R$500,00 você ganha 20%</li>\n        <li>De R$501,00 a R$1.500,00 você ganha 30%</li>\n        <li>De R$1501,00 a R$2.500,00 você ganha 35%</li>\n        <li>De R$2501,00 a R$5.000,00 você ganha 40%</li>\n        <li>De R$5.000,00 a R$10.000,00 você ganha 45%</li>\n        <li>Acima de R$10.000,00 você ganha 50%</li>\n    </ul>\n\n    <h3>8. Tem plano de carreira?</h3>\n    <p>Aqui na nossa empresa você pode aumentar seus ganhos...</p>\n    <p>Você pode ter até duas comissões, isso é possível com o nosso plano de carreira de liderança.</p>\n\n    <h3>9. Vocês tem mínimo de venda?</h3>\n    <p>Temos um acompanhamento de 3 meses, se em 3 meses você não conseguir vender o mínimo de 500,00 reais o contrato é finalizado.</p>\n\n    <h3>10. Eu tenho restrição, tem problema?</h3>\n    <p>Não tem. Nossa empresa aceita pessoas com restrição, porém é feita a consulta e analise.</p>\n    <p>O nosso modelo de consignado oferta a você treinamentos de alta performance.</p>\n\n\n    <h2>Seu Papel como Agente</h2>\n    <p>Seu papel é atender e qualificar potenciais revendedoras, seguindo estas diretrizes:</p>\n    <ol>\n        <li>Seja sempre cordial, profissional e empático</li>\n        <li>Colete informações de forma estruturada, seguindo o fluxo de perguntas</li>\n        <li>Faça uma pergunta por vez e aguarde a resposta</li>\n        <li>Mantenha o foco no processo de cadastro e qualificação</li>\n        <li>Use linguagem clara e acessível</li>\n        <li>Demonstre entusiasmo sobre a oportunidade de revenda</li>\n    </ol>\n\n    <h2>Processo de Atendimento (DUAS ETAPAS)</h2>\n\n    <div class=\"critical\">\n        <p>INSTRUÇÃO IMPORTANTE SOBRE A ORIGEM DO CONTATO:</p>\n        <ul>\n            <li>Este canal recebe contatos (mensagens, vídeos, etc.) diretamente de campanhas da Meta (Facebook/Instagram).</li>\n            <li>Qualquer pessoa que chegar até você por este canal JÁ DEMONSTROU INTERESSE em se tornar uma revendedora.</li>\n            <li>Você DEVE iniciar o processo de atendimento e qualificação IMEDIATAMENTE, assumindo que a pessoa está interessada.</li>\n            <li>NUNCA mencione para o usuário que o contato veio de uma campanha ou que você recebeu um vídeo dele. Simplesmente comece o atendimento padrão.</li>\n        </ul>\n    </div>\n\n    <h3>ETAPA 1: Coleta de Informações Básicas e Pré-cadastro</h3>\n    <p>Inicie a conversa com uma saudação calorosa e explique brevemente o processo:</p>\n    <div class=\"code-block\">Olá! Que ótimo ter você por aqui! 👋\n\nMeu nome é [SEU NOME COMO AGENTE] e serei sua guia neste primeiro contato com a Alaiane Joias.\n\nEstamos muito felizes com seu interesse em se tornar uma revendedora! Trabalhamos com o modelo Consignado, onde você tem a oportunidade de ter uma renda extra e transformar sua vida através do empreendedorismo feminino.\n\nNossas revendedoras contam com:\n💎 Comissão diferenciada nas vendas\n💎 Capacitação e treinamentos constantes\n💎 Suporte personalizado\n💎 Flexibilidade de horário\n💎 Produtos de alta qualidade com 1 ano de garantia no banho\n💎 Prazo de acerto de 30 dias\n\nPara darmos o primeiro passo e entendermos melhor seu perfil, preciso coletar algumas informações básicas para iniciar seu cadastro. Podemos começar?</div>\n\n    <p>Em seguida, colete as seguintes informações básicas (UMA PERGUNTA POR VEZ):</p>\n    <ol>\n        <li>Qual seu nome completo?</li>\n        <li>Qual o seu melhor número de WhatsApp para contato (com DDD)?</li>\n        <li>E qual o seu email?</li>\n    </ol>\n\n    <div class=\"mandatory\">\n        <p>⚠️ CADASTRO OBRIGATÓRIO ⚠️</p>\n        <p>Após coletar as três informações acima, OBRIGATORIAMENTE siga estas etapas:</p>\n        <ol>\n            <li>Primeiro, use a ferramenta \"think\" para raciocinar sobre o cadastro:</li>\n        </ol>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO\n// Use a ferramenta \"think\" para raciocínio interno\nthink(\"Coletei as informações básicas iniciais do usuário (nome, whatsapp, email) provenientes de uma campanha da Meta. Conforme as instruções, devo assumir que o usuário está interessado e realizar o pré-cadastro imediatamente usando a ferramenta cadastroUsers antes de prosseguir com as perguntas de qualificação. Vou chamar a ferramenta com os dados que coletei:\")</div>\n\n    <div class=\"mandatory\">\n        <p>Em seguida, IMEDIATAMENTE use a ferramenta \"cadastroUsers\" para efetivamente realizar o pré-cadastro:</p>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO\n// Use a ferramenta \"cadastroUsers\" para realmente criar o cadastro\ncadastroUsers({\n    operação: \"criar\",\n    nome: \"[NOME DA PESSOA]\",\n    whatsapp: \"[NÚMERO COM DDD]\",\n    email: \"[EMAIL DA PESSOA]\"\n})</div>\n\n    <p class=\"important\">ATENÇÃO: Você DEVE executar ambos os códigos acima (primeiro \"think\" e depois \"cadastroUsers\") ANTES de prosseguir para a próxima etapa. É MANDATÓRIO realizar o pré-cadastro neste momento.</p>\n\n    <h3>ETAPA 2: Perguntas de Qualificação</h3>\n    <p>SOMENTE após realizar o pré-cadastro usando as ferramentas \"think\" e \"cadastroUsers\", continue com as perguntas completas do formulário. Faça AS PERGUNTAS ABAIXO UMA POR VEZ, aguardando a resposta para cada uma antes de prosseguir:</p>\n\n    <ol>\n        <li>Qual sua data de nascimento?</li>\n        <li>Qual sua cidade?</li>\n        <li>Qual estado onde mora?</li>\n        <li>Qual o endereço completo? (Nome da rua, número da casa, bairro e CEP)</li>\n        <li>Qual seu CPF?</li>\n        <li>Qual seu RG?</li>\n        <li>Qual seu estado civil?</li>\n        <li>Você tem filhos? Quantos?</li>\n        <li>Informe o nome e telefone de três referências próximas (pai, mãe, irmãos, etc).\n            <ul>\n                <li>Exemplo: Maria, mãe – (43) 99958-4100 (obrigatório o nome, grau de parentesco e número de telefone)</li>\n                <li>Contato 1:</li>\n                <li>Contato 2:</li>\n                <li>Contato 3:</li>\n            </ul>\n        </li>\n        <li>Qual rede social você mais usa?</li>\n        <li>Qual seu nome ou @ (pessoal e profissional) da rede social mais usada?</li>\n        <li>Você utiliza as redes sociais para:\n            <ul>\n                <li> - Uso pessoal</li>\n                <li> - Trabalho/negócios</li>\n                <li> - Ambos</li>\n                <li> - Outro: (resposta livre)</li>\n            </ul>\n        </li>\n        <li>Você utilizaria as redes sociais para vender semijoias?\n            <ul>\n                <li> - Sim, com certeza</li>\n                <li> - Talvez, preciso aprender mais</li>\n                <li> - Não, prefiro outros métodos de venda</li>\n                <li> - Outro: (resposta livre)</li>\n            </ul>\n        </li>\n        <li>Você tem casa própria?\n            <ul>\n                <li> - Sim, em meu nome</li>\n                <li> - Sim, em nome de outra pessoa da família</li>\n                <li> - Não, moro de aluguel</li>\n                <li> - Não, moro com familiares</li>\n            </ul>\n        </li>\n        <li>Você possui algum veículo?\n            <ul>\n                <li> - Sim, carro</li>\n                <li> - Sim, moto</li>\n                <li> - Sim, outro veículo</li>\n                <li> - Não possuo veículo</li>\n            </ul>\n        </li>\n        <li>Você possui algum emprego atualmente?\n            <ul>\n                <li> - Sim, de carteira assinada</li>\n                <li> - Sim, sou autônoma</li>\n                <li> - Sim, tenho meu próprio negócio</li>\n                <li> - Não, estou sem trabalho</li>\n                <li> - Outro: (resposta livre)</li>\n            </ul>\n        </li>\n        <li>Se respondeu \"Sim\" acima, o que você faz atualmente?</li>\n        <li>Você tem cartão de crédito?\n            <ul>\n                <li>Sim</li>\n                <li>Não</li>\n            </ul>\n        </li>\n        <li>Caso não possua cartão, por qual motivo? (Se sim, deixe um ponto.)</li>\n        <li>Você possui alguma restrição, protestos ou pendências financeiras no CPF?\n            <ul>\n                <li>Sim</li>\n                <li>Não</li>\n            </ul>\n        </li>\n        <li>Qual motivo de ter restrição financeira?</li>\n        <li>A nossa empresa aceita pessoas com restrição, desde que sejam honestas nas respostas. Então conte-nos: por qual motivo o seu nome está com restrição? (caso não tenha, deixe apenas um ponto)</li>\n        <li>Já trabalhou com vendas antes?\n            <ul>\n                <li> - Sim, já trabalhei vendendo semijoias</li>\n                <li> - Sim, já trabalhei vendendo outros produtos</li>\n                <li> - Não, nunca trabalhei com vendas</li>\n            </ul>\n        </li>\n        <li>O que mais te atrai na oportunidade de revender semijoias no consignado?\n            <ul>\n                <li> - Fazer uma renda extra</li>\n                <li> - Trabalhar com um produto que eu gosto</li>\n                <li> - Ter flexibilidade de horário</li>\n                <li> - Independência financeira</li>\n                <li> - Outro: (resposta livre)</li>\n            </ul>\n        </li>\n        <li>Como você lida com compromissos financeiros e prazos de pagamento?\n            <ul>\n                <li> - Sou muito organizada e sempre cumpro os prazos</li>\n                <li> - Tento cumprir, mas às vezes me desorganizo</li>\n                <li> - Tenho dificuldade em lidar com prazos</li>\n            </ul>\n        </li>\n        <li>Caso uma cliente compre e não pague, de onde você pretende tirar os recursos para cobrir essa dívida?\n            <ul>\n                <li> - Tenho reserva financeira</li>\n                <li> - Com lucro de outras vendas</li>\n                <li> - Cartão de crédito</li>\n                <li> - Ajuda de familiar/amigo</li>\n                <li> - Não sei</li>\n                <li> - Outro: (resposta livre)</li>\n            </ul>\n        </li>\n        <li>Como você pretende divulgar e vender as semijoias?\n            <ul>\n                <li> - Para amigas conhecidas</li>\n                <li> - Pelo WhatsApp</li>\n                <li> - Pelo Instagram e redes sociais</li>\n                <li> - Presencialmente, levando até as clientes</li>\n                <li> - Outro: (resposta livre)</li>\n            </ul>\n        </li>\n        <li>Caso você seja aprovada, Como você montaria seu mostruário?\n            <ul>\n                <li> - Presencialmente, prefiro escolher as peças.</li>\n                <li> - Catálogo, prefiro escolher por cátalogo.</li>\n                <li> - Prefiro que vocês montem para mim.</li>\n            </ul>\n        </li>\n        <li>Você está disposta a participar de treinamentos para aprender mais sobre vendas e produtos?\n            <ul>\n                <li>Sim, quero aprender e me desenvolver</li>\n                <li>Sim, mas prefiro treinamentos rápidos</li>\n                <li>Não vejo necessidade</li>\n            </ul>\n        </li>\n        <li>Para finalizar, leia os termos abaixo:\n            \"Ao aceitar estes termos, você confirma estar ciente das responsabilidades de revendedora da Alaiane Joias, incluindo os prazos de pagamento de 30 dias, o compromisso com a qualidade do atendimento, e a responsabilidade pela integridade das peças sob consignação. Compromete-se também a participar dos treinamentos oferecidos e seguir as diretrizes da empresa.\"\n            Você aceita estes termos?\n            <ul>\n                <li>Sim, aceito</li>\n                <li>Não aceito</li>\n            </ul>\n        </li>\n    </ol>\n\n    <div class=\"mandatory\">\n        <p>⚠️ ATUALIZAÇÃO OBRIGATÓRIA ⚠️</p>\n        <p>Após coletar TODAS as respostas acima, OBRIGATORIAMENTE siga estas etapas:</p>\n        <ol>\n            <li>Primeiro, use a ferramenta \"think\" para raciocinar sobre a atualização do cadastro:</li>\n        </ol>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO\n// Use a ferramenta \"cadastroUsers\" para realmente atualizar o cadastro\nthink(\"Coletei todas as informações detalhadas do usuário. Agora preciso atualizar o cadastro existente usando a ferramenta cadastroUsers para registrar todas as informações de qualificação. Vou chamar a ferramenta com os dados completos que coletei:\")</div>\n\n    <div class=\"mandatory\">\n        <p>Em seguida, IMEDIATAMENTE use a ferramenta \"cadastroUsers\" para efetivamente realizar a atualização:</p>\n    </div>\n\n    <div class=\"code-block\">// NUNCA MOSTRE ISSO AO USUÁRIO\n// Use a ferramenta \"cadastroUsers\" para realmente atualizar o cadastro\ncadastroUsers({\n    operação: \"atualizar\",\n    nome: \"[NOME DA PESSOA]\",\n    whatsapp: \"[NÚMERO COM DDD]\",\n    email: \"[EMAIL DA PESSOA]\",\n    data_nascimento: \"[DATA DE NASCIMENTO]\",\n    cidade_moradia: \"[CIDADE]\",\n    estado_moradia: \"[ESTADO]\",\n    endereco_completo: \"[ENDEREÇO COMPLETO]\",\n    cpf: \"[CPF]\",\n    rg: \"[RG]\",\n    estado_civil: \"[ESTADO CIVIL]\",\n    tem_filhos: \"[TEM FILHOS]\",\n    referencias: \"[REFERÊNCIAS INFORMADAS]\",\n    rede_social_mais_usada: \"[REDE SOCIAL MAIS USADA]\",\n    nome_rede_social: \"[NOME OU @ NA REDE SOCIAL]\",\n    uso_redes_sociais: \"[USO DAS REDES SOCIAIS]\",\n    usaria_redes_para_vender: \"[USARIA REDES PARA VENDER]\",\n    tem_casa_propria: \"[TEM CASA PRÓPRIA]\",\n    possui_veiculo: \"[POSSUI VEÍCULO]\",\n    ocupacao_atual: \"[OCUPAÇÃO ATUAL]\",\n    funcao_atual_detalhes: \"[DETALHES FUNÇÃO ATUAL]\",\n    tem_cartao_credito: \"[TEM CARTÃO DE CRÉDITO]\",\n    motivo_sem_cartao: \"[MOTIVO SEM CARTÃO]\",\n    restricao_financeira: \"[POSSUI RESTRIÇÃO FINANCEIRA]\",\n    motivo_restricao: \"[MOTIVO RESTRIÇÃO FINANCEIRA]\",\n    motivo_restricao_detalhes: \"[DETALHES MOTIVO RESTRIÇÃO]\",\n    experiencia_vendas: \"[EXPERIÊNCIA EM VENDAS]\",\n    motivacao_revenda: \"[MOTIVAÇÃO PARA REVENDA]\",\n    organizacao_financeira: \"[ORGANIZAÇÃO FINANCEIRA]\",\n    cobertura_divida: \"[COBERTURA DE DÍVIDA]\",\n    estrategia_divulgacao: \"[ESTRATÉGIA DE DIVULGAÇÃO]\",\n    como_montaria_mostruario: \"[COMO MONTARIA MOSTRUÁRIO]\",\n    interesse_treinamento: \"[INTERESSE EM TREINAMENTO]\",\n    aceitou_termos_finais: \"[ACEITAÇÃO DOS TERMOS FINAIS]\"\n})</div>\n\n    <h2>Informações Importantes para Compartilhar</h2>\n    <p>Durante a conversa, você pode compartilhar estas informações quando relevante:</p>\n    <ul>\n        <li>As semijoias da Alaiane Joias são de alta qualidade, com garantia de 1 ano para a cor do banho</li>\n        <li>Oferecemos suporte completo às revendedoras através de treinamentos e materiais de marketing</li>\n        <li>O sistema de consignado permite iniciar sem investimento inicial</li>\n        <li>Temos uma comunidade ativa de revendedoras que se apoiam mutuamente</li>\n        <li>O prazo médio para análise de cadastro é de até 7 dias úteis</li>\n        <li>Caso aprovada, a revendedora receberá um contato via WhatsApp</li>\n        <li>Nossa equipe é 100% feminina</li>\n    </ul>\n\n    <h2>Encerramento da Conversa</h2>\n    <p>Após completar todo o processo, agradeça a pessoa e explique os próximos passos:</p>\n\n    <div class=\"code-block\">Muito obrigado por completar o cadastro! Todas as suas informações foram registradas com sucesso. Nossa equipe irá analisar seu perfil em até 7 dias úteis. Caso seu cadastro seja aprovado, entraremos em contato via WhatsApp para dar continuidade ao processo. Vale ressaltar que apenas os cadastros aprovados recebem contato. Desejamos muito sucesso e esperamos tê-la em breve como parte da família Alaiane Joias!</div>\n\n    <h2>Restrições e Limitações</h2>\n    <div class=\"important\">\n        <p>Como agente, você NÃO está autorizado a:</p>\n        <ol>\n            <li>Oferecer descontos ou condições especiais</li>\n            <li>Realizar vendas diretas de produtos</li>\n            <li>Fornecer informações sobre mostruários ou produtos específicos antes da aprovação do cadastro</li>\n            <li>Garantir aprovação do cadastro</li>\n            <li>Discutir temas não relacionados ao processo de cadastro e qualificação</li>\n            <li>Informar ao usuário sobre o processo de cadastro interno (uso das ferramentas \"think\" e \"cadastroUsers\")</li>\n            <li>Prosseguir para as perguntas de qualificação sem antes ter realizado o pré-cadastro</li>\n        </ol>\n    </div>\n\n    <p>Se a pessoa desviar do assunto, educadamente traga a conversa de volta ao tema de cadastro:</p>\n\n    <div class=\"code-block\">Entendo seu interesse em [tema mencionado pela pessoa], mas para podermos finalizar seu cadastro como potencial revendedora, precisamos focar nas informações necessárias para a análise do seu perfil. Podemos continuar com as perguntas?</div>\n\n    <h2>Avisos Legais Importantes</h2>\n    <div class=\"warning\">\n        <p>Ao final do processo, antes do encerramento, compartilhe esta informação importante:</p>\n        <div class=\"code-block\">É importante destacar que, caso aprovada, a revendedora ficará responsável pelos produtos recebidos em consignado. Conforme o Art. 168 do Código Penal, a não devolução do mostruário ou a falta de pagamento dos produtos vendidos pode caracterizar apropriação indébita, sujeita às penalidades legais cabíveis.</div>\n    </div>\n</body>\n</html>\n",
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        300,
+        100
+      ],
+      "id": "5d600e41-69ec-4dfe-979e-985d4a5001c4",
+      "name": "Main Agent"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        660,
+        100
+      ],
+      "id": "cd46258a-b51c-45dd-9393-9cb79e26cfba",
+      "name": "No Operation 2"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4.1-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        100,
+        380
+      ],
+      "id": "d60614fc-b311-4311-b56c-bbc07c3d4c7d",
+      "name": "OpenRouter",
+      "credentials": {
+        "openRouterApi": {
+          "id": "o4vqek3Gav5DvYCv",
+          "name": "Alaiane_joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 1080,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        0
+      ],
+      "id": "0c610730-910b-40d9-9228-0159290121c8",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Fluxo Core, responsável pelo processamento da AI",
+        "height": 80,
+        "width": 260,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fff8c147-4c2b-4e3c-9164-14cfbb52b3ef",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "name": "restart_history",
+        "description": "=Invoque essa tool para iniciar uma nova conversa para o user, assim ignorando o histórico passado. Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\n\n// Converte o mapeamento recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin; caso contrário, retorna erro\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n/**\n * Função que espera pelo tempo especificado.\n * @param {number} ms - Milissegundos a aguardar.\n * @returns {Promise<void>}\n */\nconst delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\n/**\n * Função para enviar a requisição para criar uma conversa no Directus.\n * Tenta até 3 vezes em caso de falha, com delay de 1 segundo entre as tentativas.\n * @returns {Promise<object>} - Objeto com sucesso ou erro.\n */\nasync function sendRequest() {\n  const url = `http://${mapping.system.directus_service}:8055/items/conversations`;\n  const data = {\n    user_id: mapping.chatwoot.contact_id,\n    date_created: new Date().toISOString()\n  };\n  const headers = {\n    Authorization: `Bearer ${mapping.system.directus_token}`,\n    'Content-Type': 'application/json'\n  };\n\n  let attempt = 0;\n  let lastError = null;\n\n  while (attempt < 3) {\n    try {\n      const response = await axios.post(url, data, { headers });\n      console.log(`Requisição realizada com sucesso na tentativa ${attempt + 1}.`);\n      return { success: true, data: response.data };\n    } catch (error) {\n      attempt++;\n      lastError = error;\n      console.error(`Tentativa ${attempt} falhou:`, error.response ? error.response.data : error.message);\n      if (attempt < 3) {\n        console.log(\"Aguardando 1 segundo antes da nova tentativa...\");\n        await delay(1000);\n      }\n    }\n  }\n  \n  return { success: false, error: lastError.response ? lastError.response.data : lastError.message };\n}\n\nreturn sendRequest().then(result => JSON.stringify(result));"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        380,
+        380
+      ],
+      "id": "acbc1bf6-1264-4b80-be20-8bf644567351",
+      "name": "Restart History"
+    },
+    {
+      "parameters": {
+        "name": "set_timer",
+        "description": "Invoque essa tool para configurar um timer que iniciará uma ação após o tempo especificado. Apenas usuários admin podem usar essa tool. O tempo deve ser informado com valor e unidade (s, m, h). Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\nconst dayjs = require('dayjs');\nconst duration = require('dayjs/plugin/duration');\ndayjs.extend(duration);\n\n/**\n * Esta tool configura um timer via webhook.\n * Ela envia, para o endpoint, todo o objeto mapping (obtido em Core Input)\n * e o tempo em segundos calculado a partir dos parâmetros \"timer_value\" e \"timer_unit\".\n * Apenas usuários admin podem utilizar esta tool.\n */\n\n// Converte o mapping recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n// Obtém os parâmetros do timer a partir do input (query)\nconst timerValue = query.timer_value;  // Número (ex: 30)\nconst timerUnit = query.timer_unit;      // \"s\", \"m\" ou \"h\"\n\n// Calcula o tempo em segundos usando dayjs.duration\nconst timerSeconds = dayjs.duration(timerValue, timerUnit).asSeconds();\n\n// Prepara o payload para o webhook\nconst payload = {\n  mapping: mapping,\n  timer_seconds: timerSeconds\n};\n\n// URL do webhook substituindo 'n8n_webhook' pelo valor da variável no mapping\nconst url = `http://${mapping.system.n8n_webhook_service}:5678/webhook/timer`;\n\n/**\n * Função para enviar a requisição ao webhook.\n * Tenta enviar uma única vez e retorna o resultado.\n */\nasync function sendTimerRequest() {\n  try {\n    console.log(`Enviando requisição para configurar o timer para ${timerSeconds} segundos...`);\n    const response = await axios.post(url, payload, {\n      headers: { 'Content-Type': 'application/json' }\n    });\n    console.log(\"Timer configurado com sucesso.\");\n    return { success: true, message: `Timer configurado com sucesso. Ele será acionado em ${timerSeconds} segundos.` };\n  } catch (error) {\n    console.error(\"Erro ao configurar o timer:\", error.response ? error.response.data : error.message);\n    return { success: false, error: error.response ? error.response.data : error.message };\n  }\n}\n\nreturn sendTimerRequest().then(result => JSON.stringify(result));",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"timer_value\": {\n      \"type\": \"number\",\n      \"description\": \"Valor do timer. Exemplo: 30\"\n    },\n    \"timer_unit\": {\n      \"type\": \"string\",\n      \"description\": \"Unidade de tempo para o timer: 's' para segundos, 'm' para minutos, 'h' para horas.\",\n      \"enum\": [\"s\", \"m\", \"h\"]\n    }\n  },\n  \"required\": [\"timer_value\", \"timer_unit\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        380
+      ],
+      "id": "32108e50-c275-443c-aa2c-199953332bda",
+      "name": "Set Timer"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        780,
+        380
+      ],
+      "id": "9ceddce1-dcee-494a-b9c6-0b7772abc625",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "WdDXZS46qi8VKBEj",
+          "mode": "list",
+          "cachedResultName": "[Alaiane]  contatos Bobgrow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', ``, 'string') }}",
+            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', ``, 'string') }}",
+            "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', ``, 'string') }}",
+            "dateOfBirth": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('dateOfBirth', ``, 'string') }}",
+            "address1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('address1', ``, 'string') }}",
+            "neighborhood": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('neighborhood', ``, 'string') }}",
+            "city": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('city', ``, 'string') }}",
+            "state": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('state', ``, 'string') }}",
+            "country": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('country', ``, 'string') }}",
+            "postalCode": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('postalCode', ``, 'string') }}",
+            "source": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('source', ``, 'string') }}",
+            "contact.cpf": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_cpf', ``, 'string') }}",
+            "contact.rg": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_rg', ``, 'string') }}",
+            "contact.estado_civil": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_estado_civil', ``, 'string') }}",
+            "contact.filhos": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_filhos', ``, 'string') }}",
+            "contact.referencias_pessoais1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencias_pessoais1', ``, 'string') }}",
+            "contact.referencias_pessoais2": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencias_pessoais2', ``, 'string') }}",
+            "contact.referencias_pessoais3": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencias_pessoais3', ``, 'string') }}",
+            "contact.rede_social_mais_usa": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_rede_social_mais_usa', ``, 'string') }}",
+            "contact.nome_ou_arroba_rede_social": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_nome_ou_arroba_rede_social', ``, 'string') }}",
+            "contact.finalidade_uso_redes_sociais": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_finalidade_uso_redes_sociais', ``, 'string') }}",
+            "contact.usaria_redes_sociais_para_vender": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_usaria_redes_sociais_para_vender', ``, 'string') }}",
+            "contact.casa_propria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_casa_propria', ``, 'string') }}",
+            "contact.possui_veiculo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_possui_veiculo', ``, 'string') }}",
+            "contact.tem_emprego": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_tem_emprego', ``, 'string') }}",
+            "contact.descreva_emprego_atual": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_descreva_emprego_atual', ``, 'string') }}",
+            "contact.tem_cartao_credito": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_tem_cartao_credito', ``, 'string') }}",
+            "contact.motivo_sem_cartao": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_motivo_sem_cartao', ``, 'string') }}",
+            "contact.restricao_cpf": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_restricao_cpf', ``, 'string') }}",
+            "contact.tem_restricao_motivo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_tem_restricao_motivo', ``, 'string') }}",
+            "contact.detalhes_restricao": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_detalhes_restricao', ``, 'string') }}",
+            "contact.ja_trabalhou_com_vendas": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_ja_trabalhou_com_vendas', ``, 'string') }}",
+            "contact.o_que_atrai_na_revenda": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_o_que_atrai_na_revenda', ``, 'string') }}",
+            "contact.compromissos_financeiros": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_compromissos_financeiros', ``, 'string') }}",
+            "contact.recursos_caso_cliente_nao_pague": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_recursos_caso_cliente_nao_pague', ``, 'string') }}",
+            "contact.forma_divulgacao_venda": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_forma_divulgacao_venda', ``, 'string') }}",
+            "contact.como_montaria_mostruario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_como_montaria_mostruario', ``, 'string') }}",
+            "contact.participaria_treinamentos": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_participaria_treinamentos', ``, 'string') }}",
+            "Qual rede social mais usa?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Qual_rede_social_mais_usa_', ``, 'string') }}",
+            "Motivo de não ter Cartão de Crédito": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Motivo_de_n_o_ter_Cart_o_de_Cr_dito', ``, 'string') }}",
+            "Qual motivo de ter restrição financeira?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Qual_motivo_de_ter_restri__o_financeira_', ``, 'string') }}",
+            "contact.aceita_termos_revenda": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_aceita_termos_revenda', ``, 'string') }}",
+            "conversationHistory": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conversationHistory', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "firstName",
+              "displayName": "firstName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "lastName",
+              "displayName": "lastName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "address1",
+              "displayName": "address1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "neighborhood",
+              "displayName": "neighborhood",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "postalCode",
+              "displayName": "postalCode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.cpf",
+              "displayName": "contact.cpf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.rg",
+              "displayName": "contact.rg",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.estado_civil",
+              "displayName": "contact.estado_civil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.filhos",
+              "displayName": "contact.filhos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencias_pessoais1",
+              "displayName": "contact.referencias_pessoais1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencias_pessoais2",
+              "displayName": "contact.referencias_pessoais2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencias_pessoais3",
+              "displayName": "contact.referencias_pessoais3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.rede_social_mais_usa",
+              "displayName": "contact.rede_social_mais_usa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.nome_ou_arroba_rede_social",
+              "displayName": "contact.nome_ou_arroba_rede_social",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.finalidade_uso_redes_sociais",
+              "displayName": "contact.finalidade_uso_redes_sociais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.usaria_redes_sociais_para_vender",
+              "displayName": "contact.usaria_redes_sociais_para_vender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.casa_propria",
+              "displayName": "contact.casa_propria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.possui_veiculo",
+              "displayName": "contact.possui_veiculo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.tem_emprego",
+              "displayName": "contact.tem_emprego",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.descreva_emprego_atual",
+              "displayName": "contact.descreva_emprego_atual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.tem_cartao_credito",
+              "displayName": "contact.tem_cartao_credito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.motivo_sem_cartao",
+              "displayName": "contact.motivo_sem_cartao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.restricao_cpf",
+              "displayName": "contact.restricao_cpf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.tem_restricao_motivo",
+              "displayName": "contact.tem_restricao_motivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.detalhes_restricao",
+              "displayName": "contact.detalhes_restricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.ja_trabalhou_com_vendas",
+              "displayName": "contact.ja_trabalhou_com_vendas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.o_que_atrai_na_revenda",
+              "displayName": "contact.o_que_atrai_na_revenda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.compromissos_financeiros",
+              "displayName": "contact.compromissos_financeiros",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.recursos_caso_cliente_nao_pague",
+              "displayName": "contact.recursos_caso_cliente_nao_pague",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.forma_divulgacao_venda",
+              "displayName": "contact.forma_divulgacao_venda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.como_montaria_mostruario",
+              "displayName": "contact.como_montaria_mostruario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.participaria_treinamentos",
+              "displayName": "contact.participaria_treinamentos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Qual rede social mais usa?",
+              "displayName": "Qual rede social mais usa?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Motivo de não ter Cartão de Crédito",
+              "displayName": "Motivo de não ter Cartão de Crédito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Qual motivo de ter restrição financeira?",
+              "displayName": "Qual motivo de ter restrição financeira?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.aceita_termos_revenda",
+              "displayName": "contact.aceita_termos_revenda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "conversationHistory",
+              "displayName": "conversationHistory",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        380
+      ],
+      "id": "5c26d047-4546-4fa1-9560-9dffde9510d5",
+      "name": "cadastroUsers"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        740
+      ],
+      "id": "f022c8ec-7a98-4f39-971a-23751287b393",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        360,
+        740
+      ],
+      "id": "9b837b48-8375-4845-85f6-a5c5e96e3894",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        620,
+        940
+      ],
+      "id": "dd98e697-406c-40f5-9c7c-0c1159e84ca7",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        1200
+      ],
+      "id": "7359d5df-52c5-4dba-a3ba-0dc764464da8",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        740
+      ],
+      "id": "9843fdbe-66f4-4583-8ed6-9d928e0fa4b8",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields4').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields4').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ $('Edit Fields4').item.json.execution.url }}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        720,
+        740
+      ],
+      "id": "f0010f8d-2e2a-4194-8fc3-ad8d8c9bf77d",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        380,
+        920
+      ],
+      "id": "9350f67c-4873-4310-baa7-924bc3f143b0",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "o4vqek3Gav5DvYCv",
+          "name": "Alaiane_joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "main2",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        100
+      ],
+      "id": "4f1a013d-a31a-4e88-8847-21b2a5fcc9eb",
+      "name": "Core Input",
+      "webhookId": "d503e6f9-0989-42d5-a598-e268b20c3182"
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "whatsapp",
+              "value": "={{ JSON.parse($item(\"0\").$node[\"Core Input\"].json[\"body\"][\"mapping\"]).chatwoot.phone_number.replace(\"+\", \"\") }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        120,
+        100
+      ],
+      "id": "38f71b7f-5014-4232-87d0-262da52d323f",
+      "name": "Execution Data",
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Agent": {
+      "main": [
+        [
+          {
+            "node": "No Operation 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart History": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Timer": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cadastroUsers": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Core Input": {
+      "main": [
+        [
+          {
+            "node": "Execution Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execution Data": {
+      "main": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "ICx4TaMAobnRWNzS"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "27de406e-670f-4a4a-922d-8fffddcc2e89",
+  "triggerCount": 1,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T22:11:03.387Z",
+      "updatedAt": "2025-03-19T22:11:03.387Z",
+      "id": "doE4oLKcB5rljyTF",
+      "name": "Alaiana Joias"
+    }
+  ]
+}
