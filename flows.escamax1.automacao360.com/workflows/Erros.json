@@ -1,0 +1,107 @@
+{
+  "createdAt": "2025-05-04T09:30:42.910Z",
+  "updatedAt": "2025-05-04T09:44:56.975Z",
+  "id": "ZsOqH0LwFFSPx9Ic",
+  "name": "Erros",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -40
+      ],
+      "id": "69ec8cfe-2185-4483-a12e-6052ac959642",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -40
+      ],
+      "id": "26c4e496-9557-4643-982b-589bba596f0b",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -500,
+        140
+      ],
+      "id": "34cae27a-2c75-4043-97c2-86f9b22bc21a",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "d31iwhZTQrzGd3pU"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "ed87a815-4805-48cc-a227-41dabca7a94d",
+  "triggerCount": 1,
+  "tags": []
+}
