@@ -1,0 +1,391 @@
+{
+  "createdAt": "2025-03-30T14:30:14.319Z",
+  "updatedAt": "2025-04-06T19:37:12.594Z",
+  "id": "ASujFcLetDMsVgEM",
+  "name": "EPR Maryjhon",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        200
+      ],
+      "id": "aee18067-6911-41da-8175-040029e2fa83",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://maryjhon.srv729651.hstgr.cloud/api/user/auth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "login",
+              "value": "admin"
+            },
+            {
+              "name": "password",
+              "value": "admin123"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        200
+      ],
+      "id": "d94dfce2-aec5-47ad-b707-3a2ecfdc5e56",
+      "name": "Gera Token de Acesso"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://maryjhon.srv729651.hstgr.cloud/api/customers/register",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Auth-Token",
+              "value": "D87B6xlTYfuoTpj84a2cOyr1FsBGWsDXVJV8rdoT2ajADrBQsi7FhxMl7B7ueFZINcqhufPqzDQO4YNl"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cpf",
+              "value": "12345678901"
+            },
+            {
+              "name": "razao_social",
+              "value": "João Silva Ltda"
+            },
+            {
+              "name": "nome_fantasia",
+              "value": "João Bijus"
+            },
+            {
+              "name": "cidade_id",
+              "value": "1"
+            },
+            {
+              "name": "celular",
+              "value": "55999999999"
+            },
+            {
+              "name": "rua",
+              "value": "Rua das Flores"
+            },
+            {
+              "name": "bairro",
+              "value": "Centro"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        -120
+      ],
+      "id": "b6fcd395-6649-4f52-832b-50a6f927dfc8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://maryjhon.srv729651.hstgr.cloud/api/customers/register",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Token",
+              "value": "={{ $json.token }}"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cpf",
+              "value": "12345678901"
+            },
+            {
+              "name": "razao_social",
+              "value": "João Silva Ltda"
+            },
+            {
+              "name": "nome_fantasia",
+              "value": "João Bijus"
+            },
+            {
+              "name": "cidade_id",
+              "value": "1"
+            },
+            {
+              "name": "celular",
+              "value": "55999999999"
+            },
+            {
+              "name": "rua",
+              "value": "Rua das Flores"
+            },
+            {
+              "name": "bairro",
+              "value": "Centro"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        -240
+      ],
+      "id": "ad3054fd-2515-459c-95c9-ef074c4cf220",
+      "name": "CriarCadastroUser"
+    },
+    {
+      "parameters": {
+        "url": "=https://maryjhon.srv729651.hstgr.cloud/api/customers?keyword=Silva&per_page=10",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Token",
+              "value": "={{ $('Gera Token de Acesso').item.json.token }}"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        20,
+        -240
+      ],
+      "id": "c377aa5e-e923-4f99-9e78-8e0b8f29892f",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "url": "https://maryjhon.srv729651.hstgr.cloud/api/sales/getAll",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "insomnia/11.0.0"
+            },
+            {
+              "name": "token",
+              "value": "={{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        200
+      ],
+      "id": "bba360d6-b9cb-47de-8885-fca870269aa8",
+      "name": "getAll"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8000/api/customers/register",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "insomnia/11.0.0"
+            },
+            {
+              "name": "token",
+              "value": "xxEyx7KDL6NDSCWUVlDG76r74VdVzFvnngbtvm7tRjKaqhBCXcBuVJWPtR70qyzK6UeDiHrhPhKrTMRF"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "razao_social",
+              "value": "teste"
+            },
+            {
+              "name": "nome_fantasia",
+              "value": "teste"
+            },
+            {
+              "name": "cpf",
+              "value": "teste"
+            },
+            {
+              "name": "cidade_id",
+              "value": "1"
+            },
+            {
+              "name": "celular",
+              "value": "teste"
+            },
+            {
+              "name": "rua",
+              "value": "teste"
+            },
+            {
+              "name": "bairro",
+              "value": ".."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -200,
+        -40
+      ],
+      "id": "06b48c63-f530-4723-a868-44bebf441112",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/customers/getAll",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "insomnia/11.0.0"
+            },
+            {
+              "name": "token",
+              "value": "xxEyx7KDL6NDSCWUVlDG76r74VdVzFvnngbtvm7tRjKaqhBCXcBuVJWPtR70qyzK6UeDiHrhPhKrTMRF"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "per_page",
+              "value": "4"
+            },
+            {
+              "name": "page",
+              "value": "2"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        20,
+        -40
+      ],
+      "id": "d4fe947e-54a2-494e-a13e-36136daa17ab",
+      "name": "HTTP Request3"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Gera Token de Acesso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gera Token de Acesso": {
+      "main": [
+        [
+          {
+            "node": "getAll",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "CriarCadastroUser": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getAll": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "834711dc-069f-442f-a439-2f5c4c26790e",
+  "triggerCount": 0,
+  "tags": []
+}
