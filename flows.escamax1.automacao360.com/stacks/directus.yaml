@@ -1,0 +1,77 @@
+services:
+  directus:
+    image: directus/directus:latest
+    environment:
+      ## Secret Keys & Env
+      - KEY=     # https://acte.ltd/utils/randomkeygen
+      - SECRET=  # https://acte.ltd/utils/randomkeygen
+      - APP_ENV=production
+      - ADMIN_EMAIL=suporte@agenciaondaia.com 
+      - ADMIN_PASSWORD=E6A5184651D5DFFE333438D651686
+      - PUBLIC_URL=https://directus.escamax1.automacao360.com
+
+      ## Dados SMTP
+      # - EMAIL_SMTP_USER=suporte@agenciaondaia.com
+      # - EMAIL_SMTP_PASSWORD=PNvCVunb:0
+      # - EMAIL_SMTP_HOST=smtp.hostinger.com
+      # - EMAIL_SMTP_PORT=587
+      # - EMAIL_SMTP_IGNORE_TLS=true
+      # - EMAIL_FROM=suporte@agenciaondaia.com
+      # - EMAIL_TEMPLATES_PATH=/directus/templates
+
+      ## Dados MinIO
+      - STORAGE_LOCATIONS=s3
+      - STORAGE_S3_DRIVER=s3 
+      - STORAGE_S3_KEY=JqxM3sHawzhMVrshQvwt
+      - STORAGE_S3_SECRET=Fltz7dOvUBZLpXfG0D7oUDR5vLJlAenKM1p0zpaP
+      - STORAGE_S3_BUCKET=directus
+      - STORAGE_S3_REGION=us-east-1
+      - STORAGE_S3_ENDPOINT=s3.escamax1.automacao360.com
+      - STORAGE_S3_FORCE_PATH_STYLE=true
+
+      ## Redis
+      - CACHE_ENABLED=true
+      - CACHE_STORE=redis
+      - CACHE_AUTO_PURGE=true
+      - REDIS=redis://redis:6379/8
+
+      ## Dados Postgres
+      - DB_CLIENT=pg
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=directus
+      - DB_USER=postgres
+      - DB_PASSWORD=F5B96136BEDA62ED8DE37D2C5F628
+      ## Cors
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=true
+      - CORS_METHODS=GET,POST,PATCH,DELETE
+    volumes:
+      - extensions:/directus/extensions
+      - templates:/directus/templates
+ 
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.directus.service: "directus"
+        traefik.http.routers.directus.rule: "Host(`directus.escamax1.automacao360.com`)"
+        traefik.http.services.directus.loadbalancer.server.port: "8055"
+        traefik.http.routers.directus.entrypoints: "websecure"
+        traefik.http.routers.directus.tls.certresolver: "le"
+    networks:
+      - externa
+      - interna
+volumes:
+  extensions:
+  templates:
+  
+networks:
+  interna:
+    external: true
+  externa:
+    external: true
