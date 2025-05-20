@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T22:04:01.098Z",
-  "updatedAt": "2025-05-19T10:01:15.104Z",
+  "updatedAt": "2025-05-20T20:36:06.179Z",
   "id": "ICx4TaMAobnRWNzS",
   "name": "[Alaiana Joias] Core",
   "active": true,
@@ -87,8 +87,8 @@
       "name": "OpenRouter",
       "credentials": {
         "openRouterApi": {
-          "id": "o4vqek3Gav5DvYCv",
-          "name": "Alaiane_joias"
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax"
         }
       }
     },
@@ -1013,7 +1013,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "27de406e-670f-4a4a-922d-8fffddcc2e89",
+  "versionId": "fd5a03e0-e7c3-492f-b673-e549e59045ef",
   "triggerCount": 1,
   "tags": [
     {
