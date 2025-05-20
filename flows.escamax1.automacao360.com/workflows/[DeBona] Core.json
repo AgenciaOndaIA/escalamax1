@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-20T21:04:11.625Z",
+  "updatedAt": "2025-05-20T21:25:03.340Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -992,30 +992,8 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "pinData": {
-    "Error Trigger": [
-      {
-        "json": {
-          "execution": {
-            "id": 231,
-            "url": "https://webhook.escamax1.automacao360.com/execution/workflow/1/231",
-            "retryOf": "34",
-            "error": {
-              "message": "Example Error Message",
-              "stack": "Stacktrace"
-            },
-            "lastNodeExecuted": "Node With Error",
-            "mode": "manual"
-          },
-          "workflow": {
-            "id": "1",
-            "name": "Example Workflow"
-          }
-        }
-      }
-    ]
-  },
-  "versionId": "3c045fab-9c8d-4b97-8f61-25456d3fb296",
+  "pinData": {},
+  "versionId": "0a6d451b-2fd4-4a54-b686-47cd06f10533",
   "triggerCount": 1,
   "tags": [
     {
