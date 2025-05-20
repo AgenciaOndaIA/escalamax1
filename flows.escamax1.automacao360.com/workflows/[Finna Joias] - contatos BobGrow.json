@@ -1,0 +1,810 @@
+{
+  "createdAt": "2025-04-06T20:51:51.130Z",
+  "updatedAt": "2025-05-14T21:25:45.399Z",
+  "id": "oGXKMTsg9Gf02Zqi",
+  "name": "[Finna Joias] - contatos BobGrow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
+              "name": "response",
+              "value": "={{ $item(\"0\").$node[\"Merge\"].json }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "41d7f5af-9d52-4482-8456-496bff73d077",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5204bb98-c216-43c7-b7d6-c43d8ec122f0",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1080,
+        1180
+      ],
+      "id": "939c6461-94b6-4943-9349-520321302286",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        300,
+        1120
+      ],
+      "id": "c5f42748-d402-488d-990d-ce4348d9cc0a",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "phone": "={{ $json.number }}",
+        "additionalFields": {
+          "city": "={{ $('Execute Workflow Trigger').item.json.city }}",
+          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstName }}",
+          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastName }}",
+          "tags": "atendida pela ia"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        20,
+        1040
+      ],
+      "id": "d6b83f33-8b0b-45cc-a8ad-c73ffc868c5d",
+      "name": "CreateContact",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "Swe5RBkOCb6Qy2KT",
+          "name": "Adriano-joias"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "phone": "={{ $('Execute Workflow Trigger').item.json.phone }}",
+        "additionalFields": {
+          "address1": "={{ $('Execute Workflow Trigger').item.json.address1 }}",
+          "city": "={{ $('Execute Workflow Trigger').item.json.city }}",
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "V3fmV2CtJwJLhZvlXe9B",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Tem filhos? Se sim, quantos?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "U3GehIlRm64jmz3BcUmr",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Nos mande o link do seu instagram'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "6UkVQHhLyVCMCmgZ7OBP",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Como conhecer a Finna?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "gOhriWBONBaIQqQxfOrT",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Qual é a sua profissão?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "sqVtTLnNScKdq87tTZTy",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Já Revendeu Semijoias antes?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "0rCL0iLAuWf1KFi3iKaf",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Tem disponibilidade de horários? Quais períodos?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "1cUfkj9mL2OW2eW23Io5",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Renda Extra ou Renda Principal?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "dvHeiXWhzy2X19yKYLFl",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Tem Residência própria?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "min5IUQ2llV9WKYg97E4",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Tem restrição em seu nome?'] }}"
+              }
+            ]
+          },
+          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstName }}",
+          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastName }}",
+          "source": "Entrevista com o IA",
+          "tags": "registro finalizado"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        20,
+        1200
+      ],
+      "id": "f81c7767-7611-4a6e-abd6-6abee7c92bef",
+      "name": "UpdateContacts",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "Swe5RBkOCb6Qy2KT",
+          "name": "Adriano-joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "query": "={{ $json.firstName }} {{ $json.lastName }}"
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        1180
+      ],
+      "id": "e21feaa6-3cba-41b1-b522-24bd55c03089",
+      "name": "Busca",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "Swe5RBkOCb6Qy2KT",
+          "name": "Adriano-joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "operação"
+            },
+            {
+              "name": "firstName"
+            },
+            {
+              "name": "lastName"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "phone"
+            },
+            {
+              "name": "city"
+            },
+            {
+              "name": "address1"
+            },
+            {
+              "name": "source"
+            },
+            {
+              "name": "Tem filhos? Se sim, quantos?"
+            },
+            {
+              "name": "Nos mande o link do seu instagram"
+            },
+            {
+              "name": "Como conhecer a Finna?"
+            },
+            {
+              "name": "Qual é a sua profissão?"
+            },
+            {
+              "name": "Já Revendeu Semijoias antes?"
+            },
+            {
+              "name": "Tem disponibilidade de horários? Quais períodos?"
+            },
+            {
+              "name": "Renda Extra ou Renda Principal?"
+            },
+            {
+              "name": "Tem Residência própria?"
+            },
+            {
+              "name": "Tem restrição em seu nome?"
+            },
+            {
+              "name": "cpf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1480,
+        1180
+      ],
+      "id": "7636553f-09df-4636-b64c-e50e81b2a1e5",
+      "name": "Execute Workflow Trigger"
+    },
+    {
+      "parameters": {
+        "content": "# Verifica whatsapp",
+        "height": 280,
+        "width": 540,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -740,
+        840
+      ],
+      "typeVersion": 1,
+      "id": "87ebd4a7-b64f-44d9-9b76-f583f87d9a91",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evolution.escamax1.automacao360.com/chat/whatsappNumbers/maryjhon",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=239A1C16855D73C57525DD951AC3C"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"numbers\": [\n    \"{{ $json.phone }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "1d825706-5507-4bb5-9dbe-9de78673246c",
+      "name": "Whatsapp válido?",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -520,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json[\"exists\"] }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "e4ef8875-7a88-4557-9fa1-d2adb2f432b0",
+      "name": "É válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41f4cd6a-1fb4-454f-af12-46a506dadb48",
+              "name": "response",
+              "value": "={{ \"número de whatsapp é inválido = \" + $json.number }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        20,
+        800
+      ],
+      "id": "a22e7807-49ed-4d8a-9f71-542c66b980fa",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10772c94-caa3-4d05-b687-10bf15a12e69",
+              "name": "phone",
+              "value": "={{ \n  $node[\"Execute Workflow Trigger\"].json.phone.startsWith('55') \n    ? $node[\"Execute Workflow Trigger\"].json.phone \n    : '55' + $node[\"Execute Workflow Trigger\"].json.phone.replace(/^0+/, '') \n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        940
+      ],
+      "id": "c233caf7-cb68-4915-ae91-ea69e26b14cc",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -900,
+        1480
+      ],
+      "id": "2d18272b-cf84-49ac-9cc5-90a3b0de6c36",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -520,
+        1480
+      ],
+      "id": "7ff64ab8-0983-41be-9c46-093bfb1caf00",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        -260,
+        1680
+      ],
+      "id": "7ad3a76d-cbc6-4d1d-b2e3-2267c28438ad",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        1860
+      ],
+      "id": "74a6a3d7-f305-4e18-812b-ac67aff01567",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        1480
+      ],
+      "id": "8c1a7cbd-b655-4028-8e26-2d86b997b084",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields4').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields4').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ $('Edit Fields4').item.json.execution.url }}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        1480
+      ],
+      "id": "b590f578-4be3-45e0-96fa-fce9533f0ef3",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        1660
+      ],
+      "id": "da56170c-93a9-4727-be91-e21738df580d",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://rest.gohighlevel.com/v1/custom-fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6ImtoSlNReXZoZFNQbGdYNnVhUnQyIiwidmVyc2lvbiI6MSwiaWF0IjoxNzQzOTcyNzQ2MzQ2LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.uHw6FfDRRjYEpsT8kaVSaPxX1MX5GlgOp81ZxRbXXec"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1240,
+        1480
+      ],
+      "id": "c3ddf24d-3c52-4266-8aed-9746e3d84194",
+      "name": "HTTP Request",
+      "credentials": {
+        "highLevelApi": {
+          "id": "OHqPoHWLnZKYBbbN",
+          "name": "Finna Joias"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UpdateContacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateContact": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContacts": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Busca": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whatsapp válido?": {
+      "main": [
+        [
+          {
+            "node": "É válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É válido?": {
+      "main": [
+        [
+          {
+            "node": "CreateContact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Whatsapp válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "oGXKMTsg9Gf02Zqi"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "09793ad8-0bb5-4053-82f7-28d0c608b345",
+  "triggerCount": 0,
+  "tags": []
+}
