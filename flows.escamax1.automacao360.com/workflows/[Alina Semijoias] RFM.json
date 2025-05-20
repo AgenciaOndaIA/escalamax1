@@ -1,0 +1,4051 @@
+{
+  "createdAt": "2025-03-20T12:52:51.413Z",
+  "updatedAt": "2025-03-26T22:13:23.847Z",
+  "id": "4ahJY3g9fURJZm3F",
+  "name": "[Alina Semijoias] RFM",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        5260,
+        3380
+      ],
+      "id": "0431d1cb-bad1-44ee-add5-d067dc370e9f",
+      "name": "10",
+      "webhookId": "d11cb8a2-becb-458b-8f8f-4b1c437991c7",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://api.bling.com.br/Api/v3/pedidos/vendas",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "pagina",
+              "value": "1"
+            },
+            {
+              "name": "limite",
+              "value": "100"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Obtem token').item.json.token_atual }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4280,
+        2200
+      ],
+      "id": "75b59d11-ae3b-4290-84d3-e56793549770",
+      "name": "Vendas por vendedor",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4280,
+        2440
+      ],
+      "id": "2c0b51d4-85ce-4d9b-96cd-54be480e78b3",
+      "name": "HTTP Request",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "=https://api.bling.com.br/Api/v3/pedidos/vendas/{{ $json.id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Obtem token').item.json.token_atual }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3500,
+        1620
+      ],
+      "id": "2c556b39-e906-4aa9-ad2f-87d7a4f49d61",
+      "name": "Venda detalhada",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3140,
+        1580
+      ],
+      "id": "4d8ee8ec-7b5d-459f-bdae-2b1b939dce08",
+      "name": "Wait",
+      "webhookId": "be8f2b07-3655-4eb8-a0e7-d56c6c339347",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "=https://api.bling.com.br/Api/v3/vendedores/{{ $json.data.vendedor.id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Obtem token').item.json.token_atual }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3720,
+        1620
+      ],
+      "id": "f6cfa405-0fe3-4c8f-8c42-1bc34c6ebd61",
+      "name": "busca por vendedor",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "RFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "valorMédio",
+              "fieldValue": "={{ $json.valorMedio }}"
+            },
+            {
+              "fieldId": "ttVendaPeriodo",
+              "fieldValue": "={{ $json.ttVendaPeriodo }}"
+            },
+            {
+              "fieldId": "valorUltimaVenda",
+              "fieldValue": "={{ $json.valorUltimaVenda }}"
+            },
+            {
+              "fieldId": "dataUltimaVenda",
+              "fieldValue": "={{ $json.dataUltimaVenda }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4000,
+        1640
+      ],
+      "id": "bf166af5-c176-4bdf-bea4-df82e66dfad0",
+      "name": "Supabase3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "use a tool banco de dados para buscar infomacoes sobre vendas vendedores, valores e datas\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        5560,
+        1840
+      ],
+      "id": "4300375e-3f7c-4b55-b235-81717b9f632c",
+      "name": "AI Agent",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        5420,
+        2080
+      ],
+      "id": "fe7c960b-5d6a-4a45-b6a4-e2d91b81d4f0",
+      "name": "OpenAI Chat Model",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "bling",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        5600,
+        2060
+      ],
+      "id": "e258e6cc-c143-4682-af11-711fddb1c9bb",
+      "name": "Postgres Chat Memory",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "RFM",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        5760,
+        2060
+      ],
+      "id": "3414aca9-5037-4c59-9257-93d77d7bcc22",
+      "name": "banco de dados",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        5900,
+        2060
+      ],
+      "id": "c3971877-d338-4dd1-898c-bb0427e5cd23",
+      "name": "Calculator",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $now }}",
+        "timeUnit": "hours",
+        "duration": 6,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        3760,
+        2060
+      ],
+      "id": "c9a5f89f-3426-4a80-a258-e6b6b014c8a4",
+      "name": "Date & Time",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://services.leadconnectorhq.com/contacts/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "locationId",
+              "value": "BB9ayQ7IuMJGhCns85TR"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IkJCOWF5UTdJdU1KR2hDbnM4NVRSIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM3MzIyODM5MTcwLCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.H2Bn_7Kd-j3hVPB8qzZQWsnYPs1PhmynSYoOxYTJqt8"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4280,
+        1980
+      ],
+      "id": "7a90cc7a-7b45-4ce8-b81f-758973ba4717",
+      "name": "contatoBobGrow",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dc86f52b-d749-4400-ba01-62cb45c8f9ee",
+              "leftValue": "={{ $('ContatoBobgrow').item.json.body.customData.nome }}",
+              "rightValue": "={{ $json.data[0].nome }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "1ba98f60-9e51-46e1-91a7-5d6ae7b467dd",
+              "leftValue": "={{ $('ContatoBobgrow').item.json.body.customData.telefone }}",
+              "rightValue": "={{ $json.data[0].celular }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        700,
+        2240
+      ],
+      "id": "aa733c22-cff1-480a-b30d-000d3ca7016c",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "atualizacao_bling",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        180,
+        2240
+      ],
+      "id": "17d62eae-690e-49de-8da6-b0a5f30ca37d",
+      "name": "ContatoBobgrow",
+      "webhookId": "0b9c9d17-3694-4249-b2be-26a0ddfa896a",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1300,
+        2240
+      ],
+      "id": "d78fad27-f80a-468f-b342-37d9d9b41f5e",
+      "name": "Merge"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        2240
+      ],
+      "id": "775e03e3-6df5-4fb6-a2f0-8064bb86233f",
+      "name": "No Operation, do nothing2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/opportunities",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer 123"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"pipelineId\": \"VDm7RPYC2GLUvdpKmBfC\",\n  \"locationId\": \"ve9EPM428h8vShlRW1KT\",\n  \"name\": \"First Opps\",\n  \"pipelineStageId\": \"7915dedc-8f18-44d5-8bc3-77c04e994a10\",\n  \"status\": \"open\",\n  \"contactId\": \"mTkSCb1UBjb5tk4OvB69\",\n  \"monetaryValue\": 220,\n  \"assignedTo\": \"082goXVW3lIExEQPOnd3\",\n  \"customFields\": [\n    {\n      \"id\": \"6dvNaf7VhkQ9snc5vnjJ\",\n      \"key\": \"my_custom_field\",\n      \"field_value\": \"9039160788\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4280,
+        1740
+      ],
+      "id": "c14c33c5-6380-4823-ae9d-b492774b572e",
+      "name": "criaOportunidadeBobGrow",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer 123"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "Rosan Deo"
+            },
+            {
+              "name": "email",
+              "value": "rosan@deos.com"
+            },
+            {
+              "name": "phone",
+              "value": "+1 888-888-8888"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4280,
+        1520
+      ],
+      "id": "7b916431-da37-440f-8977-da5f4d5a1b04",
+      "name": "criarContatoBobGrow",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Atualiza o cadastro de clientes, entre BobGrow e Jueri",
+        "height": 480,
+        "width": 1760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        20,
+        2100
+      ],
+      "typeVersion": 1,
+      "id": "01000bf4-042f-4ca4-b2af-70c88af0b0fe",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        3640,
+        1400
+      ],
+      "id": "4888997e-713d-4ec2-aeea-c873797a54bf",
+      "name": "Loop Over Items3",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        920
+      ],
+      "id": "bfd96e2a-aabe-4788-85cc-24888f60ac70",
+      "name": "No Operation, do nothing3"
+    },
+    {
+      "parameters": {
+        "content": "## Atualiza vendas do Jueri com BD",
+        "height": 560,
+        "width": 2280
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1440
+      ],
+      "typeVersion": 1,
+      "id": "9025fa65-2f6a-47ac-b2be-47d6bd14d8bd",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Atualiza RFM\n",
+        "height": 520,
+        "width": 1660
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3820,
+        3120
+      ],
+      "typeVersion": 1,
+      "id": "7cd19d17-bb06-4e0b-b3a0-3ee6889c8f81",
+      "name": "Sticky Note2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "tableId": "RFM",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json['id vendedor'] }}"
+            },
+            {
+              "fieldId": "vendedor",
+              "fieldValue": "={{ $json.vendedor }}"
+            },
+            {
+              "fieldId": "dataUltimaVenda",
+              "fieldValue": "={{ $json.created_at }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3480,
+        2140
+      ],
+      "id": "5aeca745-5cfd-4226-922d-ea4d8e3d8a64",
+      "name": "Supabase5",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "/// Obtém todos os dados do nó anterior\nconst inputData = $input.all();\n\n// Usa um Map para garantir que nomes e IDs sejam únicos\nconst uniqueData = new Map();\n\n// Processa cada item do inputData\ninputData.forEach(item => {\n  const nome = item.json.nome; // Campo do nome (ajuste conforme o campo real no seu input)\n  const id = item.json.id;     // Campo do ID (ajuste conforme o campo real no seu input)\n\n  // Adiciona ao Map, garantindo que o ID seja único\n  if (!uniqueData.has(id)) {\n    uniqueData.set(id, nome);\n  }\n});\n\n// Converte os dados do Map para o formato de saída do n8n\nconst output = Array.from(uniqueData, ([id, nome]) => ({\n  json: { id, nome }\n}));\n\n// Retorna os dados processados\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4040,
+        1440
+      ],
+      "id": "d86ba327-0031-4fe9-9614-2b4d196e52b5",
+      "name": "Code1",
+      "alwaysOutputData": false,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Cadastro de Revendedor Jueri/BD",
+        "height": 520,
+        "width": 1780,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        900
+      ],
+      "typeVersion": 1,
+      "id": "7ac7416a-b9f1-4df7-8c7e-0af472746750",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# Utilizar no Onbording do cliente",
+        "height": 120,
+        "width": 640,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        860,
+        400
+      ],
+      "typeVersion": 1,
+      "id": "e22428a0-ef9d-407f-81ad-1b1008440915",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from datetime import datetime\n\n# Obter os dados enviados pelo n8n (items contém os inputs)\nvendas = items  # 'items' contém os dados enviados pelo n8n\n\n# Dicionário para consolidar os dados por vendedor\nresultado_por_vendedor = {}\n\n# Processar cada venda\nfor venda in vendas:\n    venda_json = venda.get(\"json\", {})\n    vendedor = venda_json.get(\"vendedor\", \"\").strip()\n    data_venda_str = venda_json.get(\"DataVendas\", \"\")\n    valor_venda_raw = venda_json.get(\"vendas\", \"0\")\n    \n    # Se o valor usar vírgula como separador decimal, substitui por ponto\n    if isinstance(valor_venda_raw, str):\n        valor_venda_raw = valor_venda_raw.replace(',', '.')\n    \n    # Verifica se o vendedor existe\n    if not vendedor:\n        continue\n\n    # Converter o valor para float\n    try:\n        valor_venda = float(valor_venda_raw)\n    except ValueError:\n        continue\n\n    # Converter a data para um objeto datetime\n    try:\n        data_venda = datetime.fromisoformat(data_venda_str.replace(\"Z\", \"\").replace(\"+00:00\", \"\"))\n    except ValueError:\n        continue\n\n    # Inicializa os dados do vendedor, se necessário\n    if vendedor not in resultado_por_vendedor:\n        resultado_por_vendedor[vendedor] = {\n            \"totalVendas\": 0,         # Soma de todos os valores das vendas\n            \"quantidadeVendas\": 0,    # Número total de vendas\n            \"ultimaVenda\": None,      # Data da venda mais recente\n            \"valorUltimaVenda\": 0     # Valor da venda mais recente\n        }\n\n    dados = resultado_por_vendedor[vendedor]\n    dados[\"totalVendas\"] += valor_venda\n    dados[\"quantidadeVendas\"] += 1\n\n    # Se essa venda for a mais recente, atualiza a data e o valor da última venda\n    if not dados[\"ultimaVenda\"] or data_venda > dados[\"ultimaVenda\"]:\n        dados[\"ultimaVenda\"] = data_venda\n        dados[\"valorUltimaVenda\"] = valor_venda\n\n# Construir a saída final no formato esperado pelo n8n (array de objetos com a propriedade \"json\")\nresultado_final = []\nfor vendedor, dados in resultado_por_vendedor.items():\n    valor_medio = dados[\"totalVendas\"] / dados[\"quantidadeVendas\"] if dados[\"quantidadeVendas\"] > 0 else 0\n    resultado_final.append({\n        \"json\": {\n            \"vendedor\": vendedor,\n            \"totalVendas\": round(dados[\"totalVendas\"], 2),\n            \"quantidadeVendas\": dados[\"quantidadeVendas\"],\n            \"valorMedio\": round(valor_medio, 2),\n            \"ultimaVenda\": dados[\"ultimaVenda\"].isoformat() if dados[\"ultimaVenda\"] else None,\n            \"valorUltimaVenda\": round(dados[\"valorUltimaVenda\"], 2)\n        }\n    })\n\n# Retorna os resultados para o n8n\nreturn resultado_final;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1660,
+        1540
+      ],
+      "id": "84345bc7-898c-4fb8-b0d7-b6e34508487b",
+      "name": "calculoRFM"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        60,
+        980
+      ],
+      "id": "c071c3a2-b18c-44e7-9453-e884585ef1b6",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "44f9ca71-0661-45f7-a4b3-4b150ab2c875",
+              "leftValue": "={{ $json.id ? $json.id.toString() : '' }}",
+              "rightValue": "={{ $('Loop Over Items4').item.json.contato.id }}",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4600,
+        2100
+      ],
+      "id": "1f963246-8944-44fd-bea5-897cb7c64d35",
+      "name": "If",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        3880,
+        3180
+      ],
+      "id": "24db86cb-b08d-4a3d-a519-e271bf84220c",
+      "name": "When chat message received",
+      "webhookId": "c85a5728-ace8-4fe5-abaa-2c4a2d34a4ca",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "Instruções para o Agente:\n\nUtilize a ferramenta Banco de Dados para extrair as informações dos vendedores e seus registros de vendas.\nUtilize a ferramenta Planilha para recuperar os parâmetros necessários para o cálculo da matriz.\nProcesso de Cálculo:\n\nObtenha os dados dos vendedores e suas vendas do banco de dados.\nExtraia os parâmetros de cálculo da planilha.\nAplique os parâmetros extraídos para construir a matriz e, com base nela, calcule o nível de cada vendedor.\nRetorne os resultados finais com o nível de cada vendedor, sem adicionar saudações, perguntas ou informações adicionais."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        4060,
+        3180
+      ],
+      "id": "4d14414b-cb7f-421e-b7ce-79713c08010a",
+      "name": "AI Agent1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        3880,
+        3440
+      ],
+      "id": "d7e4f298-ec58-4f45-99db-291e332d131b",
+      "name": "OpenAI Chat Model1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "bling",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        4020,
+        3440
+      ],
+      "id": "71700369-f9a6-4077-8f71-22755c50c84e",
+      "name": "Postgres Chat Memory1",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        4420,
+        3440
+      ],
+      "id": "52ff6a11-f72c-458c-852d-1c12c73bad59",
+      "name": "Calculator1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1lQF08l_Rbq7yoc9jrxjNChgM5fP3iZraPGr6NJD1kdU",
+          "mode": "list",
+          "cachedResultName": "Indicadores de RFM\t\t\t\t\t\t\t",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lQF08l_Rbq7yoc9jrxjNChgM5fP3iZraPGr6NJD1kdU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lQF08l_Rbq7yoc9jrxjNChgM5fP3iZraPGr6NJD1kdU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        4300,
+        3440
+      ],
+      "id": "0e47f9d2-61e2-4780-972d-f98dcf0cf569",
+      "name": "Google Sheets",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "DadosCalculosRFM"
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        4160,
+        3440
+      ],
+      "id": "90138d9c-ab4b-42f1-8c1d-33650bc72ab9",
+      "name": "Banco_de_dados",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://services.leadconnectorhq.com/contacts/JtuO9e11pAUWhrTin4d5",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im5rRVhOelhZT2x3OFdoOFJrVTlKIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4NzY1MDIyNDc3LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.9SDXh20Cs79v5lQCmLAPskIgEFmaVh8HP4yXzMmG1Uc"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"tags\": [\n    \"{{ $json.nivel }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4860,
+        3280
+      ],
+      "id": "2f343f18-918c-4fe6-b22a-bb212589d4fb",
+      "name": "HTTP Request1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputText = `Os níveis atuais dos vendedores são:\n\n- **Rodrigo Pascotte:**\n- Faturamento: Acima de R$ 2500/mês\n- Número de Vendas: 5 ou mais vendas/mês\n- Recência: Última venda nos últimos 7 dias\n- **Nível:** Campeãs\n\n- **Eduardo Dauzacker:**\n- Faturamento: Entre R$ 1501 e R$ 2500/mês\n- Número de Vendas: 3-4 vendas/mês\n- Recência: Última venda nos últimos 14 dias\n- **Nível:** Promissoras\n\n- **Robson Dauzacker:**\n- Faturamento: R$ 15.000 (avg.), abaixo de R$ 2500/mês\n- Número de Vendas: 1 venda/mês\n- Recência: Última venda nos últimos 60 dias\n- **Nível:** Hibernando`;\n\n// Divide o texto em linhas e filtra apenas aquelas que começam com \"-\"\nconst lines = inputText\n  .split(/\\r?\\n/)\n  .map(line => line.trim())\n  .filter(line => line.startsWith('-'));\n\n// Cada vendedor deve ter 5 linhas; vamos agrupá-las em blocos de 5 linhas.\nconst vendors = [];\nfor (let i = 0; i < lines.length; i += 5) {\n  // Se o bloco não tiver 5 linhas completas, ignore-o\n  if (i + 4 >= lines.length) {\n    continue;\n  }\n  \n  const line1 = lines[i];\n  const line2 = lines[i + 1];\n  const line3 = lines[i + 2];\n  const line4 = lines[i + 3];\n  const line5 = lines[i + 4];\n\n  // Remove os prefixos e sufixos para extrair os dados\n  const nome = line1.replace(/^- \\*\\*/, '').replace(/:\\*\\*$/, '').trim();\n  const faturamento = line2.replace(/^- Faturamento:\\s*/, '').trim();\n  const numeroVendas = line3.replace(/^- Número de Vendas:\\s*/, '').trim();\n  const recencia = line4.replace(/^- Recência:\\s*/, '').trim();\n  const nivel = line5.replace(/^- \\*\\*Nível:\\*\\*\\s*/, '').trim();\n\n  vendors.push({\n    nome,\n    faturamento,\n    numeroVendas,\n    recencia,\n    nivel\n  });\n}\n\n// O n8n espera um array de itens no formato { json: { ... } }\nreturn vendors.map(vendor => ({ json: vendor }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4400,
+        3180
+      ],
+      "id": "ead53f76-6b1b-4020-8237-b5dacb19f424",
+      "name": "Code",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        4640,
+        3180
+      ],
+      "id": "42bca42b-eef3-47ff-836e-0575b2ebd497",
+      "name": "Loop Over Items",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        5260,
+        3160
+      ],
+      "id": "b3002398-9884-4ba5-b0b4-7c8b30539965",
+      "name": "No Operation, do nothing",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "RFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Nivel",
+              "condition": "eq",
+              "keyValue": "={{ $json.contact.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Nivel",
+              "fieldValue": "={{ $json.contact.tags[0] }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        5060,
+        3340
+      ],
+      "id": "9f05ffa8-720f-46f6-8da0-77826a98eeb8",
+      "name": "Supabase6",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $now }}",
+        "timeUnit": "hours",
+        "duration": 6,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        5560,
+        2480
+      ],
+      "id": "d3abb8ac-edbc-4db7-bdfc-9381bc159489",
+      "name": "Date & Time1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Nivel \n",
+        "height": 620,
+        "width": 1660,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        60,
+        2660
+      ],
+      "typeVersion": 1,
+      "id": "285c42df-c032-4157-9b57-3007ca6936d8",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=id_vendeder_bobgrow: {{ $('Webhook').item.json.body.contact_id }}",
+        "options": {
+          "systemMessage": "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Instruções para o Agente - Cálculo de Nível</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      line-height: 1.6;\n      margin: 20px;\n      color: #333;\n    }\n    .container {\n      border: 1px solid #ccc;\n      padding: 20px;\n      border-radius: 4px;\n    }\n    h1, h2 {\n      color: #0056b3;\n    }\n    ul, ol {\n      margin-left: 20px;\n    }\n    pre {\n      background-color: #f4f4f4;\n      padding: 10px;\n      border-radius: 4px;\n    }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Instruções para o Agente</h1>\n    <p><strong>Receba apenas o ID do contato</strong> e, a partir dele, execute as etapas abaixo:</p>\n\n    <h2>1. Ferramentas a Utilizar</h2>\n    <ul>\n      <li><strong>Banco de Dados:</strong> Extraia as informações dos vendedores e seus registros de vendas.</li>\n      <li><strong>Planilha:</strong> Recupere os parâmetros necessários para o cálculo da matriz.</li>\n    </ul>\n\n    <h2>2. Processo de Cálculo</h2>\n    <ol>\n      <li>Obtenha os dados dos vendedores e suas vendas do banco de dados.</li>\n      <li>Extraia os parâmetros de cálculo da planilha.</li>\n      <li>Aplique os parâmetros extraídos para construir a matriz e, com base nela, calcule o nível do vendedor.</li>\n      <li>Retorne o resultado final <strong>sem</strong> saudações, perguntas ou informações adicionais.</li>\n    </ol>\n\n    <h2>3. Critérios de Níveis</h2>\n    <ul>\n      <li><strong>Início:</strong> Cada revendedor começa no nível <em>bronze</em> com meta de faturamento de R$1500 em 30 dias.</li>\n      <li>Se atingir ou ultrapassar R$1500 em 30 dias, sobe para o nível <em>prata</em>.</li>\n      <li>No nível <em>prata</em>, a meta é R$2500 em 30 dias para subir para o nível <em>ouro</em>.</li>\n      <li>O vendedor desce para <em>bronze</em> se, nos últimos 60 dias, não atingir R$2500, realizar menos de 2 vendas e a última venda ocorrer há mais de 60 dias.</li>\n      <li>No nível <em>ouro</em>, a meta é R$4000 em 30 dias para subir para o nível <em>diamante</em>.</li>\n      <li>O vendedor desce para <em>prata</em> se, nos últimos 60 dias, não atingir R$4000, realizar menos de 3 vendas e a última venda ocorrer há mais de 45 dias.</li>\n      <li>No nível <em>diamante</em>, para permanecer, o vendedor deve atingir R$6000 em 60 dias. Caso contrário, desce para <em>ouro</em> se, nos últimos 60 dias, não atingir R$6000, realizar menos de 5 vendas e a última venda ocorrer há mais de 30 dias.</li>\n    </ul>\n\n    <h2>4. Resultado Esperado</h2>\n    <p>Sua resposta deve ser <strong>uma única palavra</strong> que representa o nível atual do vendedor (<em>bronze</em>, <em>prata</em>, <em>ouro</em> ou <em>diamante</em>).</p>\n\n    <h2>Exemplo</h2>\n    <pre>{nivel do contato}</pre>\n  </div>\n</body>\n</html>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        4820,
+        2600
+      ],
+      "id": "24710940-927d-43fb-b5fa-41ba10ad2b5b",
+      "name": "AI Agent2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        4920,
+        2920
+      ],
+      "id": "a6f02935-0f94-4f80-90ef-b4e7ce4d3619",
+      "name": "OpenAI Chat Model2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "bling",
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        5060,
+        2920
+      ],
+      "id": "f203728e-bdcb-4d10-a0c2-2b8a450c88c3",
+      "name": "Postgres Chat Memory2",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        5460,
+        2920
+      ],
+      "id": "1211ac10-71e5-42ce-92a3-559822c69816",
+      "name": "Calculator2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1x1xnSpneWTy6bqGqsCO5PUHSHCTa5FLd5GQ9pbuB5nQ",
+          "mode": "list",
+          "cachedResultName": "Níveis das Revendedoras",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1x1xnSpneWTy6bqGqsCO5PUHSHCTa5FLd5GQ9pbuB5nQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1x1xnSpneWTy6bqGqsCO5PUHSHCTa5FLd5GQ9pbuB5nQ/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        5340,
+        2920
+      ],
+      "id": "9e3cb5c2-9512-4cb8-945e-dedfcc0c4f52",
+      "name": "Google Sheets1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "DadosCalculosRFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Id_vendedor _BobGrow",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.contact_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        5200,
+        2920
+      ],
+      "id": "c04f2cd6-3791-405d-88f6-0c629c43ae41",
+      "name": "Banco_de_dados1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputText = `Os níveis atuais dos vendedores são:\n\n- **Rodrigo Pascotte:**\n- Faturamento: Acima de R$ 2500/mês\n- Número de Vendas: 5 ou mais vendas/mês\n- Recência: Última venda nos últimos 7 dias\n- **Nível:** Campeãs\n\n- **Eduardo Dauzacker:**\n- Faturamento: Entre R$ 1501 e R$ 2500/mês\n- Número de Vendas: 3-4 vendas/mês\n- Recência: Última venda nos últimos 14 dias\n- **Nível:** Promissoras\n\n- **Robson Dauzacker:**\n- Faturamento: R$ 15.000 (avg.), abaixo de R$ 2500/mês\n- Número de Vendas: 1 venda/mês\n- Recência: Última venda nos últimos 60 dias\n- **Nível:** Hibernando`;\n\n// Divide o texto em linhas e filtra apenas aquelas que começam com \"-\"\nconst lines = inputText\n  .split(/\\r?\\n/)\n  .map(line => line.trim())\n  .filter(line => line.startsWith('-'));\n\n// Cada vendedor deve ter 5 linhas; vamos agrupá-las em blocos de 5 linhas.\nconst vendors = [];\nfor (let i = 0; i < lines.length; i += 5) {\n  // Se o bloco não tiver 5 linhas completas, ignore-o\n  if (i + 4 >= lines.length) {\n    continue;\n  }\n  \n  const line1 = lines[i];\n  const line2 = lines[i + 1];\n  const line3 = lines[i + 2];\n  const line4 = lines[i + 3];\n  const line5 = lines[i + 4];\n\n  // Remove os prefixos e sufixos para extrair os dados\n  const nome = line1.replace(/^- \\*\\*/, '').replace(/:\\*\\*$/, '').trim();\n  const faturamento = line2.replace(/^- Faturamento:\\s*/, '').trim();\n  const numeroVendas = line3.replace(/^- Número de Vendas:\\s*/, '').trim();\n  const recencia = line4.replace(/^- Recência:\\s*/, '').trim();\n  const nivel = line5.replace(/^- \\*\\*Nível:\\*\\*\\s*/, '').trim();\n\n  vendors.push({\n    nome,\n    faturamento,\n    numeroVendas,\n    recencia,\n    nivel\n  });\n}\n\n// O n8n espera um array de itens no formato { json: { ... } }\nreturn vendors.map(vendor => ({ json: vendor }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4680,
+        1400
+      ],
+      "id": "bad4424f-48e8-4a9d-9125-bf9974baad50",
+      "name": "Code2",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        5380,
+        1640
+      ],
+      "id": "e3bcf2b9-7410-4506-bf2e-484ffd2b1302",
+      "name": "10-1",
+      "webhookId": "d11cb8a2-becb-458b-8f8f-4b1c437991c7",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://services.leadconnectorhq.com/contacts/JtuO9e11pAUWhrTin4d5",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im5rRVhOelhZT2x3OFdoOFJrVTlKIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4NzY1MDIyNDc3LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.9SDXh20Cs79v5lQCmLAPskIgEFmaVh8HP4yXzMmG1Uc"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"tags\": [\n    \"{{ $json.nivel }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        5060,
+        1480
+      ],
+      "id": "2f99393e-60af-4d34-92d2-0b0eccc43b75",
+      "name": "HTTP Request2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        4880,
+        1400
+      ],
+      "id": "76575e2a-bed3-485c-af91-1048cf52cebf",
+      "name": "Loop Over Items2",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        5280,
+        1360
+      ],
+      "id": "d47fa107-f5b9-4134-bfd1-f504356f4c65",
+      "name": "No Operation, do nothing1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "RFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Nivel",
+              "condition": "eq",
+              "keyValue": "={{ $json.contact.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Nivel",
+              "fieldValue": "={{ $json.contact.tags[0] }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        5220,
+        1560
+      ],
+      "id": "9ed7e20d-8eb0-49fc-b085-8320cc947e17",
+      "name": "Supabase7",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        1560
+      ],
+      "id": "54ea29e8-5aec-4303-a455-2b2e221d0d09",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1ba98f60-9e51-46e1-91a7-5d6ae7b467dd",
+              "leftValue": "={{ $('Split Out').item.json.phone }}",
+              "rightValue": "={{ $json.data[0].celular }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "78ff5932-44d3-445f-a384-07dc145c3a3b",
+              "leftValue": "={{ $('Split Out').item.json.contactName }}",
+              "rightValue": "={{ $json.data[0].nome }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        5160,
+        2100
+      ],
+      "id": "6f3be398-8c69-4906-a0dd-66bd61e0cfd4",
+      "name": "If3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://api.bling.com.br/Api/v3/contatos",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "pagina",
+              "value": "1"
+            },
+            {
+              "name": "limite",
+              "value": "100"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Obtem token2').item.json.token_atual }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        5120,
+        1900
+      ],
+      "id": "0c89e4b8-a5d8-41a2-9b4d-57238bb57642",
+      "name": "buscaContatosBling1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Refresh Token Bling",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "1"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4940,
+        1900
+      ],
+      "id": "195345e8-8249-418f-bbd2-249b6d8cfd72",
+      "name": "Obtem token2",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        4940,
+        2100
+      ],
+      "id": "dfaadf81-abfd-4c80-8df0-11aafd1d2c5f",
+      "name": "Merge1",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1580,
+        480
+      ],
+      "id": "e78dde47-c196-42ae-ae9c-9d7e48aac7b0",
+      "name": "No Operation, do nothing7"
+    },
+    {
+      "parameters": {
+        "content": "## Cadastra revendedoras aprovadas do BobGrow no Jueri ",
+        "height": 460,
+        "width": 1780,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        400
+      ],
+      "typeVersion": 1,
+      "id": "f6d768a3-dc19-413b-b391-ec1724dd3292",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "### troque as credenciais BobGrow",
+        "height": 220,
+        "width": 220,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        340,
+        500
+      ],
+      "typeVersion": 1,
+      "id": "0467d184-aa72-4329-8d7d-e112eb6e98f0",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "contacts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        780,
+        560
+      ],
+      "id": "e0266e8f-f52f-4ed8-80b3-9dcdb3569028",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "url": "https://services.leadconnectorhq.com/contacts",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "locationId",
+              "value": "={{ $json.LocationId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "={{ $json.Token }}"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        560
+      ],
+      "id": "0ae1b1dd-005d-4c2f-81b2-b3d142244f72",
+      "name": "busca_contatos_bobgrow",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "DIE67zIMAh6q3flN",
+          "name": "Aline Concept"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "78ab9fa3-72d4-40c0-b88b-d56fbbb7df15",
+              "name": "LocationId",
+              "value": "nkEXNzXYOlw8Wh8RkU9J",
+              "type": "string"
+            },
+            {
+              "id": "5c942037-2333-4d67-ba39-d2dfbe088d85",
+              "name": "Token",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im5rRVhOelhZT2x3OFdoOFJrVTlKIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4NzY1MDIyNDc3LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.9SDXh20Cs79v5lQCmLAPskIgEFmaVh8HP4yXzMmG1Uc",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        560
+      ],
+      "id": "f5ead6b2-4da7-4fe4-9a98-ddbdf5302cb0",
+      "name": "Credenciais"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1020,
+        560
+      ],
+      "id": "74057927-157b-496b-9a89-1c5d6ab3c6e3",
+      "name": "Loop Over Items5"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1620,
+        680
+      ],
+      "id": "d83f0caa-bb6b-4fc7-bf3b-61d2cbb67199",
+      "name": "Wait4",
+      "webhookId": "62e79078-08ac-42c3-aa5c-259fb2f88102"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "recebe_valores",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3900,
+        2420
+      ],
+      "id": "f8368d1c-d7e2-4d67-9a7a-47f7a25bb6a6",
+      "name": "Webhook",
+      "webhookId": "e0b00c01-06b8-4da9-876d-8eb802a1735f",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "003a3899-873b-4861-be32-ef9ba80ba403",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5180,
+        2600
+      ],
+      "id": "6ff554c9-4e10-4915-8c5c-56ea487781ce",
+      "name": "Edit Fields",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parâmetros fixos conforme as regras:\nconst META_BRONZE = 1500;\nconst META_PRATA  = 2500;\nconst META_OURO   = 4000;\nconst META_DIAMANTE = 6000;\n\n// Obter a data atual\nconst now = new Date();\n\n// Acessa os dados do vendedor a partir do input\n// Aqui, assume-se que cada item do array é uma venda\nconst sales = items.map(item => item.json);\n\n// Inicializa as variáveis de cálculo\nlet total30 = 0;  // Faturamento nos últimos 30 dias\nlet total60 = 0;  // Faturamento nos últimos 60 dias\nlet count60 = 0;  // Quantidade de vendas nos últimos 60 dias\nlet lastSaleDate = null;  // Data da última venda dentro dos últimos 60 dias\n\n// Itera sobre cada venda para somar os valores e contar as ocorrências\nsales.forEach(sale => {\n  // Usar o campo 'created_at' e converter 'valoresVendas' para número\n  const saleDate = new Date(sale.created_at);\n  const saleAmount = Number(sale.valoresVendas);\n  \n  const diffDays = (now - saleDate) / (1000 * 60 * 60 * 24);\n  \n  if (diffDays <= 30) {\n    total30 += saleAmount;\n  }\n  if (diffDays <= 60) {\n    total60 += saleAmount;\n    count60++;\n    // Atualiza a data da última venda se necessário\n    if (!lastSaleDate || saleDate > lastSaleDate) {\n      lastSaleDate = saleDate;\n    }\n  }\n});\n\n// Lógica de ascensão: começa sempre em bronze e sobe conforme faturamento nos últimos 30 dias\nlet level = 'bronze';\nif (total30 >= META_BRONZE) {\n  level = 'prata';\n}\nif (total30 >= META_PRATA) {\n  level = 'ouro';\n}\nif (total30 >= META_OURO) {\n  level = 'diamante';\n}\n\n// Se não houver vendas nos últimos 60 dias, força o nível para bronze\nif (!lastSaleDate) {\n  level = 'bronze';\n} else {\n  // Calcula a diferença em dias desde a última venda\n  const daysSinceLastSale = (now - lastSaleDate) / (1000 * 60 * 60 * 24);\n\n  // Lógica de regressão (descida de nível) usando dados dos últimos 60 dias e a data da última venda\n  if (level !== 'bronze' && total60 < META_PRATA && count60 < 2 && daysSinceLastSale > 60) {\n    level = 'bronze';\n  } else if ((level === 'ouro' || level === 'diamante') && total60 < META_OURO && count60 < 3 && daysSinceLastSale > 45) {\n    level = 'prata';\n  } else if (level === 'diamante' && total60 < META_DIAMANTE && count60 < 5 && daysSinceLastSale > 30) {\n    level = 'ouro';\n  }\n}\n\n// Retorna apenas uma única palavra com o nível calculado\nreturn [{ json: { level } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        2900
+      ],
+      "id": "29ec1899-e9fd-46b7-bc60-2b3da4c3ca7b",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "DadosCalculosRFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Id_vendedor _BobGrow",
+              "condition": "eq",
+              "keyValue": "={{ $json.Id_BobGrow }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        680,
+        2900
+      ],
+      "id": "9f70bfbd-9adc-4b65-86b6-7cc0ea6e7199",
+      "name": "Dados_Calculo_RFM",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from datetime import datetime\n\n# Obter os dados enviados pelo n8n\nvendas = items  # `items` contém os dados enviados pelo n8n.\n\n# Dicionário para consolidar dados por vendedor\nresultado_por_vendedor = {}\n\n# Processar as vendas\nfor venda in vendas:\n    venda_json = venda.get(\"json\", {})\n    vendedor = venda_json.get(\"vendedor\", \"\").strip()\n    data_venda_str = venda_json.get(\"created_at\", \"\")\n    valor_venda_raw = venda_json.get(\"valoresVendas\", \"0\")  # Campo atualizado aqui!\n    id_vendedor = venda_json.get(\"id vendedor\", \"\")  # Adicionar ID do vendedor\n\n    # Logs para depuração\n    print(f\"Processando venda: {venda_json}\")\n    print(f\"Vendedor: {vendedor}\")\n    print(f\"ID Vendedor: {id_vendedor}\")\n    print(f\"Data da Venda (raw): {data_venda_str}\")\n    print(f\"Valor da Venda (raw): {valor_venda_raw}\")\n\n    # Validar campos obrigatórios\n    if not vendedor or not id_vendedor:\n        print(f\"Venda ignorada: vendedor ou ID vendedor ausente ou inválido. Dados: {venda_json}\")\n        continue\n\n    # Garantir que o valor da venda seja um número\n    try:\n        valor_venda = float(valor_venda_raw)\n        print(f\"Valor da Venda (convertido): {valor_venda}\")\n    except ValueError:\n        print(f\"Venda ignorada: valor inválido. Dados: {venda_json}\")\n        continue\n\n    # Garantir que a data seja válida\n    try:\n        data_venda = datetime.fromisoformat(data_venda_str.replace(\"Z\", \"\"))\n        print(f\"Data da Venda (convertida): {data_venda}\")\n    except ValueError:\n        print(f\"Venda ignorada: data inválida. Dados: {venda_json}\")\n        continue\n\n    # Inicializar dados do vendedor, se necessário\n    if vendedor not in resultado_por_vendedor:\n        resultado_por_vendedor[vendedor] = {\n            \"idVendedor\": id_vendedor,  # Armazenar ID do vendedor\n            \"totalVendas\": 0,\n            \"quantidadeVendas\": 0,\n            \"ultimaVenda\": None,\n            \"valorUltimaVenda\": 0,\n        }\n\n    dados = resultado_por_vendedor[vendedor]\n    dados[\"totalVendas\"] += valor_venda\n    dados[\"quantidadeVendas\"] += 1\n\n    # Atualizar última venda e valor da última venda com base na data\n    if not dados[\"ultimaVenda\"] or data_venda > dados[\"ultimaVenda\"]:\n        dados[\"ultimaVenda\"] = data_venda\n        dados[\"valorUltimaVenda\"] = valor_venda\n\n    # Log dos dados acumulados\n    print(f\"Dados do vendedor {vendedor} após atualização: {dados}\")\n\n# Construir a saída final no formato esperado pelo n8n\nresultado_final = []\nfor vendedor, dados in resultado_por_vendedor.items():\n    valor_medio = dados[\"totalVendas\"] / dados[\"quantidadeVendas\"] if dados[\"quantidadeVendas\"] > 0 else 0\n    resultado_final.append({\n        \"json\": {\n            \"vendedor\": vendedor,\n            \"idVendedor\": dados[\"idVendedor\"],\n            \"totalVendas\": round(dados[\"totalVendas\"], 2),\n            \"valorMedio\": round(valor_medio, 2),\n            \"ultimaVenda\": dados[\"ultimaVenda\"].isoformat() if dados[\"ultimaVenda\"] else None,\n            \"valorUltimaVenda\": round(dados[\"valorUltimaVenda\"], 2),\n        }\n    })\n\n# Retornar os resultados para o n8n\nreturn resultado_final"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5080,
+        2360
+      ],
+      "id": "abf36853-8f31-4f0f-ae9d-51406fa327e2",
+      "name": "calculoRFM1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "RFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Id_BobGrow",
+              "condition": "eq",
+              "keyValue": "={{ $json.Id_BobGrow }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4860,
+        2360
+      ],
+      "id": "ecbc53ad-a4b2-4548-8308-a6a2d7df173a",
+      "name": "RFM",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "RFM",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4600,
+        2400
+      ],
+      "id": "506a7780-fab3-46a4-a319-09db55a8c140",
+      "name": "busca dados1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "recebe_valores",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        4620,
+        1820
+      ],
+      "id": "322a2789-a576-4535-b728-8a8493e55a47",
+      "name": "Webhook1",
+      "webhookId": "e0b00c01-06b8-4da9-876d-8eb802a1735f",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/hooks/nkEXNzXYOlw8Wh8RkU9J/webhook-trigger/1913c7bb-39c3-4e4e-a70d-01c9bfae0eac",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "nivel",
+              "value": "={{ $json.level }}"
+            },
+            {
+              "name": "ttVendaPeriodo",
+              "value": "={{ $json.ttVendaPeriodo }}"
+            },
+            {
+              "name": "dataUltimaVenda",
+              "value": "={{ $json.dataUltimaVenda }}"
+            },
+            {
+              "name": "vendaMedia",
+              "value": "={{ $json['valorMédio'] }}"
+            },
+            {
+              "name": "valorUltimaVenda",
+              "value": "={{ $json.valorUltimaVenda }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        2900
+      ],
+      "id": "ad15160d-3984-453c-8cf0-f6e1d6e4aaca",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b118d11-dd39-4bb4-abc2-a86e3e95bb5a",
+              "name": "level",
+              "value": "={{ $json.level }}",
+              "type": "string"
+            },
+            {
+              "id": "a6a3e2e9-42d6-4218-a4eb-5ab524969b2b",
+              "name": "ttVendaPeriodo",
+              "value": "={{ $('busca RFM').last().json.ttVendaPeriodo }}",
+              "type": "string"
+            },
+            {
+              "id": "e4d39719-256f-414b-8d77-f4e3ed6c51a1",
+              "name": "dataUltimaVenda",
+              "value": "={{ $('busca RFM').last().json.dataUltimaVenda }}",
+              "type": "string"
+            },
+            {
+              "id": "679ed1e9-1ff1-4368-961d-58c7f5000250",
+              "name": "valorMédio",
+              "value": "={{ $('busca RFM').last().json['valorMédio'] }}",
+              "type": "string"
+            },
+            {
+              "id": "dd5f5943-20e8-48ed-88e1-4b552026cb11",
+              "name": "valorUltimaVenda",
+              "value": "={{ $('busca RFM').last().json.valorUltimaVenda }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        2900
+      ],
+      "id": "2f105927-b7e0-4bd8-94d7-a1082810771a",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "RFM",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        480,
+        2900
+      ],
+      "id": "e74b9d55-5ccf-4a4a-9ad7-7caac33b3c5a",
+      "name": "busca RFM",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        2900
+      ],
+      "id": "2df78029-69ca-45be-a635-31158204b4f4",
+      "name": "Schedule Trigger1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3d48dcdd-f936-46ad-bfe7-a8ed74f114e1",
+              "leftValue": "={{ !!Object.keys($node[\"Supabase4\"].data).length > 0 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        820,
+        1120
+      ],
+      "id": "dbc412af-ff31-43f5-b829-22185add50e1",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "RFM",
+        "returnAll": true,
+        "filterType": "none"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        240,
+        980
+      ],
+      "id": "79e343e9-130c-4a79-baaa-8365e3c7a80b",
+      "name": "Supabase4",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3340,
+        1760
+      ],
+      "id": "d26e8595-6efb-492e-b3d1-4f1805963a1d",
+      "name": "Split Out1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1600,
+        1220
+      ],
+      "id": "6ec8bf40-8f52-4316-b6eb-f0fcdbd8896a",
+      "name": "Wait3",
+      "webhookId": "62e79078-08ac-42c3-aa5c-259fb2f88102"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        620,
+        980
+      ],
+      "id": "d55b2e7b-911d-4304-9ad4-057e8f65fa63",
+      "name": "Loop Over Items4"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        3520,
+        1800
+      ],
+      "id": "8785b0ac-a567-4579-a891-43a11abe641f",
+      "name": "Schedule Trigger2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.bling.com.br/Api/v3/oauth/token",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "1.0"
+            },
+            {
+              "name": "Authorization",
+              "value": "Basic N2FhMDE2YTcwNmY4OTA4NWU1YTg3YmFlZDRlZWVjMDRjNDM4MWJkMjo2NWE3ZDRhNTg3YzZhYWZjZGMxZTBlZDgyZTI4YWUwNzc5YTU1ZGFmNWM5Mzc5OTQ0NWE2NWE4NmU2YjQ="
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "grant_type",
+              "value": "refresh_token"
+            },
+            {
+              "name": "refresh_token",
+              "value": "={{ $json.refresh_token }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        140
+      ],
+      "id": "cc990927-d300-4aa4-b464-6bcd0037a1b6",
+      "name": "Refresh_Token",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 4
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        60,
+        140
+      ],
+      "id": "79925f3b-955b-4995-b629-48243473c980",
+      "name": "Schedule Trigger3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "Refresh Token Bling",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "=3"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "token_atual",
+              "fieldValue": "={{ $json.access_token }}"
+            },
+            {
+              "fieldId": "refresh_token",
+              "fieldValue": "={{ $json.refresh_token }}"
+            },
+            {
+              "fieldId": "created_at",
+              "fieldValue": "={{ $('Schedule Trigger3').item.json.timestamp }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        720,
+        140
+      ],
+      "id": "29ffc464-ad77-4789-9a4f-e13beee84595",
+      "name": "Supabase8",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Refresh Token Bling",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "3"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        280,
+        140
+      ],
+      "id": "a02d6b60-ff47-4827-bc6e-ad68990b35af",
+      "name": "Supabase9",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Token Bling",
+        "height": 360,
+        "width": 940
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "53f80b7e-13f3-4301-ba7e-c68f1c6ff2e4",
+      "name": "Sticky Note9",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Refresh Token Bling",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "3"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        220,
+        560
+      ],
+      "id": "bfa5f5fc-36cf-449e-9245-263b0cf89f8f",
+      "name": "Supabase10",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://jueri.com.br/sis/api/v1/9582/revendedor",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "nome",
+              "value": "={{ $json.contactName }}"
+            },
+            {
+              "name": "cpf",
+              "value": "={{ $json.cpf }}"
+            },
+            {
+              "name": "rg",
+              "value": "={{ $json.rg }}"
+            },
+            {
+              "name": "data_nascimento",
+              "value": "={{ $json.data_nascimento }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $json.email }}"
+            },
+            {
+              "name": "fk_estado_civil_id",
+              "value": "={{ $json.estado_civil }}"
+            },
+            {
+              "name": "logradouro",
+              "value": "={{ $json.rua }}"
+            },
+            {
+              "name": "numero",
+              "value": "={{ $json.numero }}"
+            },
+            {
+              "name": "complemento",
+              "value": "={{ $json.complemento }}"
+            },
+            {
+              "name": "bairro",
+              "value": "={{ $json.bairro }}"
+            },
+            {
+              "name": "cidade",
+              "value": "={{ $json.cidade }}"
+            },
+            {
+              "name": "uf",
+              "value": "={{ $json.estado }}"
+            },
+            {
+              "name": "telefone_1",
+              "value": "={{ $json.phone }}"
+            },
+            {
+              "name": "profissao",
+              "value": "={{ $json.negocio_proprio }}"
+            },
+            {
+              "name": "local",
+              "value": "={{ $json.negocio_proprio }}"
+            },
+            {
+              "name": "referencia_nome",
+              "value": "={{ $json.referencia1 }}"
+            },
+            {
+              "name": "referencia_telefone",
+              "value": "={{ $json.referencia_telefone }}"
+            },
+            {
+              "name": "fk_tipo_revendedor_id",
+              "value": "1"
+            },
+            {
+              "name": "fk_status_id",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1380,
+        680
+      ],
+      "id": "c67d3072-4e3a-4952-9889-b0ef88eb838c",
+      "name": "Criar_revendedora"
+    },
+    {
+      "parameters": {
+        "jsCode": "function formatPhone(input) {\n  // Remove todos os caracteres que não sejam dígitos\n  let digits = input.replace(/\\D/g, '');\n  \n  // Se o número começar com \"55\" (código do Brasil), remove-o\n  if (digits.startsWith('55')) {\n    digits = digits.substring(2);\n  }\n  \n  // Se o número tiver 11 dígitos, formata como (xx) xxxxx-xxxx\n  if (digits.length === 11) {\n    const area = digits.substring(0, 2);\n    const firstPart = digits.substring(2, 7);\n    const secondPart = digits.substring(7);\n    return `(${area}) ${firstPart}-${secondPart}`;\n  } else if (digits.length === 10) {\n    // Se tiver 10 dígitos, formata como (xx) xxxx-xxxx\n    const area = digits.substring(0, 2);\n    const firstPart = digits.substring(2, 6);\n    const secondPart = digits.substring(6);\n    return `(${area}) ${firstPart}-${secondPart}`;\n  } else {\n    // Se não tiver 10 ou 11 dígitos, retorna o input original\n    return input;\n  }\n}\n\n// Mapeia cada item recebido para atualizar o campo \"phone\"\nconst newItems = items.map(item => {\n  if (!item.json.phone) return item;\n  \n  // Formata o número de telefone e sobrescreve o campo \"phone\"\n  item.json.phone = formatPhone(item.json.phone);\n  \n  return item;\n});\n\nreturn newItems;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        680
+      ],
+      "id": "6cb93d37-5d59-4bfc-8d29-6930df4b5800",
+      "name": "Code4"
+    },
+    {
+      "parameters": {
+        "content": "### Utilizar quando for onboarding do cliente. Essa automação cadastrar todas as revendedoras que estão na BobGrow, dentro do Jueri e BD da Matriz RFM",
+        "height": 100,
+        "width": 500,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        760
+      ],
+      "typeVersion": 1,
+      "id": "d5726a06-ceab-4953-94bb-4bbc1450d83e",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://jueri.com.br/sis/api/v1/9582/revendedor",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "nome",
+              "value": "={{ $json.contactName }}"
+            },
+            {
+              "name": "cpf",
+              "value": "={{ $json.cpf }}"
+            },
+            {
+              "name": "rg",
+              "value": "={{ $json.rg }}"
+            },
+            {
+              "name": "data_nascimento",
+              "value": "={{ $json.data_nascimento }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $json.email }}"
+            },
+            {
+              "name": "fk_estado_civil_id",
+              "value": "={{ $json.estado_civil }}"
+            },
+            {
+              "name": "logradouro",
+              "value": "={{ $json.rua }}"
+            },
+            {
+              "name": "numero",
+              "value": "={{ $json.numero }}"
+            },
+            {
+              "name": "complemento",
+              "value": "={{ $json.complemento }}"
+            },
+            {
+              "name": "bairro",
+              "value": "={{ $json.bairro }}"
+            },
+            {
+              "name": "cidade",
+              "value": "={{ $json.cidade }}"
+            },
+            {
+              "name": "uf",
+              "value": "={{ $json.estado }}"
+            },
+            {
+              "name": "telefone_1",
+              "value": "={{ $json.phone }}"
+            },
+            {
+              "name": "profissao",
+              "value": "={{ $json.negocio_proprio }}"
+            },
+            {
+              "name": "local",
+              "value": "={{ $json.negocio_proprio }}"
+            },
+            {
+              "name": "referencia_nome",
+              "value": "={{ $json.referencia1 }}"
+            },
+            {
+              "name": "referencia_telefone",
+              "value": "={{ $json.referencia_telefone }}"
+            },
+            {
+              "name": "fk_tipo_revendedor_id",
+              "value": "1"
+            },
+            {
+              "name": "fk_status_id",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1020,
+        2360
+      ],
+      "id": "c79d0292-50b7-4b01-9a7c-4e14f76e90ec",
+      "name": "Criar_revendedora1"
+    },
+    {
+      "parameters": {
+        "url": "https://jueri.com.br/sis/api/v1/9582/revendedor",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        2240
+      ],
+      "id": "0c5186c5-d789-49e8-b12c-31cbcc807111",
+      "name": "busca_revendedores1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "RFM",
+        "limit": 500
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3300,
+        1960
+      ],
+      "id": "776c8335-97e4-49e9-9e80-50392fa45309",
+      "name": "Busca_BD",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\n// URL da API do Jueri para listagem de vendas\nconst url = 'https://jueri.com.br/sis/api/v1/9582/venda';\n\n// Token de autenticação (definido explicitamente)\nconst token = \"1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce\";\n\n// Obtém os dados do nó \"Busca_BD\"\nlet sellers = $node[\"Busca_BD\"].json;\n\n// Se os dados não estiverem em formato de array, encapsula em um array\nif (!Array.isArray(sellers)) {\n  sellers = [sellers];\n}\n\nif (sellers.length === 0) {\n  throw new Error(\"Nenhum vendedor foi retornado do nó 'Busca_BD'. Verifique o fluxo.\");\n}\n\n// Usa o primeiro vendedor do array\nconst vendor = sellers[0];\nconst vendorId = vendor.id;\nconst sellerName = vendor.vendedor; // Supondo que o campo com o nome do vendedor seja \"vendedor\"\n\nconsole.log(\"Usando o vendedor com ID:\", vendorId, \"e nome:\", sellerName);\n\nasync function fetchSales() {\n  try {\n    // Realiza a requisição GET para a API do Jueri filtrando pelo ID do vendedor\n    const response = await axios.get(url, {\n      headers: {\n        Authorization: `Bearer ${token}`,\n        Accept: 'application/json',\n        \"Content-Type\": \"application/json\"\n      },\n      params: {\n        search: 1,\n        page: 1,\n        per_page: 15,\n        revendedor_id: vendorId  // Filtra as vendas pelo vendedor\n      }\n    });\n\n    // Supondo que os dados das vendas estejam na propriedade \"data\" da resposta\n    const sales = response.data.data;\n    let output = [];\n\n    if (sales && Array.isArray(sales)) {\n      output = sales.map(sale => ({\n        json: {\n          id: sale.id,\n          codigo_venda: sale.codigo_venda,\n          vendedor: sale.vendedor,\n          data_criacao: sale.data_criacao,\n          valor_total: sale.valor_total,\n          quantidade: sale.quantidade,\n          data_cancelamento: sale.data_cancelamento,\n          comprador: sale.comprador\n        }\n      }));\n    }\n\n    return output; // Retorna sempre um array, mesmo que vazio\n  } catch (error) {\n    console.error(\"Erro ao buscar vendas:\", error.response ? error.response.data : error.message);\n    throw new Error('Erro ao buscar vendas. Verifique a URL, o token ou os parâmetros.');\n  }\n}\n\n// Executa a função e retorna os dados no formato esperado pelo n8n (array de objetos)\nreturn fetchSales();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3800,
+        1780
+      ],
+      "id": "67f45108-a7db-412e-ab9e-ba5ce40d06af",
+      "name": "busca_vendas_Jueri",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\n// URL da API do Jueri para listagem de vendas\nconst url = 'https://jueri.com.br/sis/api/v1/9582/venda';\n\n// Token de autenticação (definido explicitamente)\nconst token = \"1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce\";\n\n// Obtém os dados do nó \"Busca_BD\"\nlet sellers = $node[\"Busca_BD\"].json;\n\n// Se os dados não estiverem em formato de array, encapsula em um array\nif (!Array.isArray(sellers)) {\n  sellers = [sellers];\n}\n\nif (sellers.length === 0) {\n  throw new Error(\"Nenhum vendedor foi retornado do nó 'Busca_BD'. Verifique o fluxo.\");\n}\n\n// Usa o primeiro vendedor do array\nconst vendor = sellers[0];\nconst vendorId = vendor.id;\nconst sellerName = vendor.vendedor; // Supondo que o campo com o nome seja \"vendedor\"\n\nconsole.log(\"Usando o vendedor com ID:\", vendorId, \"e nome:\", sellerName);\n\n// Função para formatar datas no formato YYYY-MM-DD\nfunction formatDate(date) {\n  const yyyy = date.getFullYear();\n  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Mês (0-11) + 1\n  const dd = String(date.getDate()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd}`;\n}\n\nasync function fetchAllSales() {\n  try {\n    let allSales = [];\n    let page = 1;\n    const perPage = 100; // 100 registros por página\n\n    // Calcula as datas para o filtro:\n    // Data inicial: dia 01 do mês atual\n    const currentDate = new Date();\n    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);\n    const dataInicial = formatDate(startOfMonth);\n    const dataFinal = formatDate(currentDate);\n\n    console.log(\"Buscando vendas do período:\", dataInicial, \"até\", dataFinal);\n\n    while (true) {\n      const response = await axios.get(url, {\n        headers: {\n          Authorization: `Bearer ${token}`,\n          Accept: 'application/json',\n          \"Content-Type\": \"application/json\"\n        },\n        params: {\n          search: 1,\n          page: page,\n          per_page: perPage,\n          revendedor_id: vendorId,\n          data_criacao_inicial: dataInicial,\n          data_criacao_final: dataFinal\n        }\n      });\n\n      // Supondo que os dados das vendas estejam na propriedade \"data\" da resposta\n      const sales = response.data.data;\n      if (sales && Array.isArray(sales)) {\n        allSales = allSales.concat(sales);\n        // Se o número de registros retornados for menor que o per_page, acabou as páginas.\n        if (sales.length < perPage) {\n          break;\n        }\n      } else {\n        break;\n      }\n      page++;\n    }\n\n    // Mapeia os resultados para o formato esperado pelo n8n\n    const output = allSales.map(sale => ({\n      json: {\n        id: sale.id,\n        codigo_venda: sale.codigo_venda,\n        vendedor: sale.vendedor,\n        data_criacao: sale.data_criacao,\n        valor_total: sale.valor_total,\n        quantidade: sale.quantidade,\n        data_cancelamento: sale.data_cancelamento,\n        comprador: sale.comprador\n      }\n    }));\n\n    return output;\n  } catch (error) {\n    console.error(\"Erro ao buscar vendas:\", error.response ? error.response.data : error.message);\n    throw new Error('Erro ao buscar vendas. Verifique a URL, o token ou os parâmetros.');\n  }\n}\n\n// Executa a função e retorna os dados (array de objetos no formato { json: { ... } })\nreturn fetchAllSales();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3520,
+        1960
+      ],
+      "id": "9fa0b0f0-8a22-4213-9068-78fcc7d1ac95",
+      "name": "busca_vendas_Jueri1",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\nasync function fetchRevendedores() {\n    const baseUrl = \"https://jueri.com.br/sis/api/v1/9582/revendedor\";\n    const token = \"1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce\";\n    \n    let allRevendedores = [];\n    let page = 1;\n    let limit = 100;\n    let totalRegistros = 0;\n\n    while (true) {\n        try {\n            const response = await axios.get(`${baseUrl}?page=${page}&limit=${limit}`, {\n                headers: {\n                    \"Authorization\": `Bearer ${token}`,\n                    \"Accept\": \"application/json\"\n                }\n            });\n\n            if (response.data && response.data.data) {\n                const revendedores = response.data.data;\n\n                if (revendedores.length === 0) {\n                    break; // Para quando não houver mais revendedores\n                }\n\n                allRevendedores = allRevendedores.concat(revendedores);\n                totalRegistros += revendedores.length;\n\n                console.log(`Página ${page}: ${revendedores.length} revendedores carregados.`);\n            } else {\n                break; // Para se não houver dados válidos\n            }\n        } catch (error) {\n            console.error(`Erro na página ${page}:`, error.message);\n            break;\n        }\n\n        page++;\n\n        if (totalRegistros >= 500) { // Ajuste se precisar mais de 5 páginas\n            break;\n        }\n    }\n\n    console.log(`Total de revendedores obtidos: ${allRevendedores.length}`);\n    return allRevendedores;\n}\n\n// Executa a função e retorna os resultados\nreturn fetchRevendedores();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        980
+      ],
+      "id": "95ec7b19-1ca3-4769-8553-e11631bd3c42",
+      "name": "busca_revendedor"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1380,
+        1120
+      ],
+      "id": "b6353227-2f91-4a48-b0dd-5ee8af31b8a6",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "path": "jueri",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        4240,
+        1180
+      ],
+      "id": "bfdac336-d979-44aa-a98e-b694cae28476",
+      "name": "jueri",
+      "webhookId": "5029779d-84a6-4a35-bc23-1e9159783766",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "# Utilizar no Onbording do cliente",
+        "height": 120,
+        "width": 640,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1300
+      ],
+      "typeVersion": 1,
+      "id": "977e6ff3-3ab2-4098-a096-6f1822389953",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "url": "https://jueri.com.br/sis/api/v1/9582/venda/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendHeaders": true,
+        "specifyHeaders": "=keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3900,
+        820
+      ],
+      "id": "f20acbbe-484b-43b6-9ee6-51cd434a48ab",
+      "name": "HTTP Request4",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Supondo que o input seja um objeto com a seguinte estrutura:\nconst inputData = {\n  \"eu ia\": 1492135,\n  \"codigo_venda\": 1,\n  \"quantidade\": 1,\n  \"valor_total\": 249,\n  \"data_criacao\": \"2024-07-01T14:03:17.000000Z\",\n  \"data_cancelamento\": \"2024-07-12T19:36:54.000000Z\",\n  \"integração\": null,\n  \"observacao\": null,\n  \"fk_cliente_id\": 537681,\n  \"fk_revendedor_id\": null,\n  \"fk_representante_id\": null,\n  \"vendedor\": \"Bruno Fernandes\",\n  \"comprador\": {\n    \"eu ia\": 537681,\n    \"e-mail\": null,\n    \"nome\": \"CAIO TEODORO\",\n    \"documento\": \"092.304.746-81\"\n  }\n};\n\n// Extrai o nome e o CPF (documento) do comprador\nconst nomeComprador = inputData.comprador.nome;\nconst cpfComprador = inputData.comprador.documento;\n\n// Exibe no console (para depuração)\nconsole.log(\"Nome:\", nomeComprador);\nconsole.log(\"CPF:\", cpfComprador);\n\n// Retorna os dados no formato esperado pelo n8n (um array de objetos com a propriedade json)\nreturn [{ json: { nome: nomeComprador, cpf: cpfComprador } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3980,
+        1120
+      ],
+      "id": "aafb5127-6dfd-4af0-b4f8-5614b28dd200",
+      "name": "Code5",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "36104170-a482-4498-ac1e-6f12474205fb",
+              "name": "data[0].id",
+              "value": "={{ $json.data[0].id }}",
+              "type": "number"
+            },
+            {
+              "id": "cc06a27b-d519-4ccb-810f-c33b0d533d78",
+              "name": "data[0].data_criacao",
+              "value": "={{ $json.data[0].data_criacao }}",
+              "type": "string"
+            },
+            {
+              "id": "ece2a048-9b4e-4b4a-9117-0aa53e8af2c1",
+              "name": "data[0].comprador.nome",
+              "value": "={{ $json.data[0].comprador.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "4f7104de-cc31-4d27-8678-4d88c96ccdf7",
+              "name": "data[0].comprador.documento",
+              "value": "={{ $json.data[0].comprador.documento }}",
+              "type": "string"
+            },
+            {
+              "id": "46f9c6a0-cb2b-4c10-b664-f93ec0f19b7c",
+              "name": "data[0].valor_total",
+              "value": "={{ $json.data[0].valor_total }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4100,
+        760
+      ],
+      "id": "ce4c9745-d69a-46d5-a092-2bdab0cefb1d",
+      "name": "Edit Fields2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "tableId": "RFM",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "vendedor",
+              "fieldValue": "={{ $json.nome }}"
+            },
+            {
+              "fieldId": "dataUltimaVenda",
+              "fieldValue": "={{$now}}"
+            },
+            {
+              "fieldId": "CPF",
+              "fieldValue": "={{ $json.cpf }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        1220
+      ],
+      "id": "6ca56e46-4f3a-4106-af4c-47e6ead45ed4",
+      "name": "cria_RFM",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "DadosVendasBecker",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "vendedor",
+              "fieldValue": "={{ $json.vendedor }}"
+            },
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "CPF",
+              "fieldValue": "={{ $json.CPF }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        1220
+      ],
+      "id": "482e3349-f242-4571-b663-51755aedf731",
+      "name": "cria_DadosdeRFM",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://jueri.com.br/sis/api/v1/9582/venda",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "data_criacao_inicial",
+              "value": "2025-02-01"
+            },
+            {
+              "name": "data_criacao_final",
+              "value": "2025-02-28"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4320,
+        780
+      ],
+      "id": "8dd4eb85-8d7a-4aca-bfc0-9d8b5025067e",
+      "name": "Busca_vendas_Jueri 111",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const axios = require('axios');\n\n// URL da API do Jueri para listagem de vendas\nconst url = \"https://jueri.com.br/sis/api/v1/9582/venda\";\n\n// Token de autenticação (definido explicitamente)\nconst token = \"1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce\";\n\n// Função para formatar datas no formato YYYY-MM-DD\nfunction formatDate(date) {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, \"0\");\n  const day = String(date.getDate()).padStart(2, \"0\");\n  return `${year}-${month}-${day}`;\n}\n\n// Obtém a data atual e calcula o início do mês\nconst currentDate = new Date();\nconst startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);\nconst dataInicial = formatDate(startOfMonth);\nconst dataFinal = formatDate(currentDate);\n\nconsole.log(\"Buscando vendas do período:\", dataInicial, \"até\", dataFinal);\n\nasync function fetchSales() {\n  try {\n    const response = await axios.get(url, {\n      headers: {\n        \"Authorization\": `Bearer ${token}`,\n        \"Content-Type\": \"application/json\",\n        \"Accept\": \"application/json\"\n      },\n      params: {\n        search: 1,\n        data_criacao_inicial: dataInicial,\n        data_criacao_final: dataFinal\n      }\n    });\n\n    // Supondo que os dados estejam na propriedade \"data\" da resposta\n    const sales = response.data.data || [];\n    // Retorna um array de objetos com a propriedade \"json\" (formato n8n)\n    return sales.map(sale => ({\n      json: sale\n    }));\n  } catch (error) {\n    console.error(\"Erro ao buscar vendas:\", error.response ? error.response.data : error.message);\n    throw new Error(\"Erro ao buscar vendas. Verifique a URL, o token ou os parâmetros.\");\n  }\n}\n\nreturn fetchSales();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        1560
+      ],
+      "id": "85e67276-16e6-4e26-b5c6-c82234b71f68",
+      "name": "Busca_vendas_Jueri"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "DadosVendasBecker",
+        "limit": 500
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        1540
+      ],
+      "id": "1096c7c3-3196-4b88-a488-b988c7f76b11",
+      "name": "Buscacontatos",
+      "executeOnce": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "DadosVendasBecker",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "vendedor",
+              "condition": "eq",
+              "keyValue": "={{ $json.vendedor }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "vendas",
+              "fieldValue": "={{ $json.valor_total }}"
+            },
+            {
+              "fieldId": "DataVendas",
+              "fieldValue": "={{ $json.data_criacao }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        1660
+      ],
+      "id": "7fdc192a-ef4f-4857-8d34-7c58916ecd80",
+      "name": "atualizaDados",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3d48dcdd-f936-46ad-bfe7-a8ed74f114e1",
+              "leftValue": "={{ !!Object.keys($node[\"Buscacontatos1\"].data).length > 0 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        840,
+        1680
+      ],
+      "id": "81910915-c68b-4115-9ca3-b0e45e7b8ce1",
+      "name": "If6",
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "retryOnFail": false,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "tableId": "DadosVendasBecker",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "vendedor",
+              "fieldValue": "={{ $json.vendedor }}"
+            },
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "DataVendas",
+              "fieldValue": "={{ $json.data_criacao }}"
+            },
+            {
+              "fieldId": "vendas",
+              "fieldValue": "={{ $json.valor_total }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        1760
+      ],
+      "id": "ac0c6d97-36d0-4860-805d-41750f40f6f4",
+      "name": "cria_DadosdeRFM1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "RFM",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "vendedor",
+              "condition": "eq",
+              "keyValue": "={{ $json.vendedor }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "valorMédio",
+              "fieldValue": "={{ $json.valorMedio }}"
+            },
+            {
+              "fieldId": "valorUltimaVenda",
+              "fieldValue": "="
+            },
+            {
+              "fieldId": "dataUltimaVenda",
+              "fieldValue": "={{ $json.ultimaVenda }}"
+            },
+            {
+              "fieldId": "ttVendaPeriodo",
+              "fieldValue": "={{ $json.totalVendas }}"
+            },
+            {
+              "fieldId": "quantidade de vendas",
+              "fieldValue": "={{ $json.quantidadeVendas }}"
+            },
+            {
+              "fieldId": "valorMédio",
+              "fieldValue": "={{ $json.valorMedio }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        1540
+      ],
+      "id": "249b2f8f-8d65-4f99-aba1-23a333f021a1",
+      "name": "atualizaDados1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "DadosVendasBecker",
+        "limit": 500
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        260,
+        1560
+      ],
+      "id": "b38de54d-10f7-4ead-8a8b-69b96436cfcd",
+      "name": "Buscacontatos1",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "AFRRiT3R1uCYEul2",
+          "name": "escalamax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        640,
+        1560
+      ],
+      "id": "d3ab19a5-3144-49da-b93e-3d98d8514db6",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1480,
+        1760
+      ],
+      "id": "da3f9606-60cb-475a-a519-cfedd0e0a21b",
+      "name": "Wait1",
+      "webhookId": "821b10bf-0006-4ea4-b1fc-6a68387a2d33"
+    },
+    {
+      "parameters": {
+        "url": "https://jueri.com.br/sis/api/v1/9582/cliente",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "search",
+              "value": "aut"
+            },
+            {
+              "name": "type",
+              "value": "fisico"
+            },
+            {
+              "name": "page",
+              "value": "1"
+            },
+            {
+              "name": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 1133|2tltd0sBgMRRblqZ4iCYPBGMXwVKStE7cpFkh1qW1561a4ce"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4660,
+        1080
+      ],
+      "id": "63eecf1b-ee44-4262-a9e2-399210764467",
+      "name": "HTTP Request5"
+    }
+  ],
+  "connections": {
+    "10": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Venda detalhada": {
+      "main": [
+        [
+          {
+            "node": "busca por vendedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase3": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "banco de dados": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Criar_revendedora1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ContatoBobgrow": {
+      "main": [
+        [
+          {
+            "node": "busca_revendedores1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items3": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calculoRFM": {
+      "main": [
+        [
+          {
+            "node": "atualizaDados1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Banco_de_dados": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Supabase6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase6": {
+      "main": [
+        [
+          {
+            "node": "10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator2": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Banco_de_dados1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10-1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Supabase7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items2": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase7": {
+      "main": [
+        [
+          {
+            "node": "10-1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Buscacontatos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtem token2": {
+      "main": [
+        [
+          {
+            "node": "buscaContatosBling1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "busca_contatos_bobgrow": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credenciais": {
+      "main": [
+        [
+          {
+            "node": "busca_contatos_bobgrow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items5": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dados_Calculo_RFM": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RFM": {
+      "main": [
+        [
+          {
+            "node": "calculoRFM1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "busca dados1": {
+      "main": [
+        [
+          {
+            "node": "RFM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "busca RFM": {
+      "main": [
+        [
+          {
+            "node": "Dados_Calculo_RFM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "busca RFM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "cria_RFM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase4": {
+      "main": [
+        [
+          {
+            "node": "busca_revendedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items4": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refresh_Token": {
+      "main": [
+        [
+          {
+            "node": "Supabase8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger3": {
+      "main": [
+        [
+          {
+            "node": "Supabase9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase9": {
+      "main": [
+        [
+          {
+            "node": "Refresh_Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase10": {
+      "main": [
+        [
+          {
+            "node": "Credenciais",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar_revendedora": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "Criar_revendedora",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar_revendedora1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "busca_revendedores1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Busca_BD": {
+      "main": [
+        [
+          {
+            "node": "busca_vendas_Jueri1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "busca_revendedor": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cria_RFM": {
+      "main": [
+        [
+          {
+            "node": "cria_DadosdeRFM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cria_DadosdeRFM": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Busca_vendas_Jueri": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscacontatos": {
+      "main": [
+        [
+          {
+            "node": "calculoRFM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "atualizaDados": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "atualizaDados",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "cria_DadosdeRFM1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cria_DadosdeRFM1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscacontatos1": {
+      "main": [
+        [
+          {
+            "node": "Busca_vendas_Jueri",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Buscacontatos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request5": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "flows.skiilo.com.br",
+            "user-agent": "axios/0.18.1",
+            "content-length": "958",
+            "accept": "application/json, text/plain, */*",
+            "content-type": "application/json;charset=utf-8",
+            "x-forwarded-for": "34.71.90.88",
+            "x-forwarded-host": "flows.skiilo.com.br",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "ff3af8c57fcd",
+            "x-real-ip": "34.71.90.88",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "contact_id": "NPXUJOLrl7lBTn8iG6BV",
+            "first_name": "Rodrigo",
+            "last_name": "Pascotte",
+            "full_name": "Rodrigo Pascotte",
+            "email": "rodrigo@skiilo.com.br",
+            "phone": "+5519998329080",
+            "tags": "campeãs,aprovada executiva becker",
+            "country": "BR",
+            "date_created": "2025-02-09T14:32:13.708Z",
+            "date_of_birth": "1978-02-25T00:00:00.000Z",
+            "full_address": "",
+            "contact_type": "lead",
+            "opportunity_name": "Rodrigo Pascotte",
+            "status": "open",
+            "pipleline_stage": "Ganhou",
+            "pipeline_id": "RcJawsGMd9kd2QH0xtGM",
+            "id": "rihk98Dgb8MxCIDot96J",
+            "pipeline_name": "Prospecção com IA",
+            "location": {
+              "name": "Becker Semijoias",
+              "address": "Limeira",
+              "city": "Limeira",
+              "state": "São Paulo",
+              "country": "BR",
+              "postalCode": "7999999",
+              "fullAddress": "Limeira, Limeira São Paulo 7999999",
+              "id": "nkEXNzXYOlw8Wh8RkU9J"
+            },
+            "workflow": {
+              "id": "28d7b36e-8678-4641-9478-25041365c60e",
+              "name": "WF01 - Ativação dos Níveis"
+            },
+            "triggerData": {},
+            "customData": {
+              "nome": "Robson Dauzacker",
+              "phone": "(67) 99930-8787",
+              "email": "robson@skiilo.com"
+            }
+          },
+          "webhookUrl": "https://webhook.skiilo.com.br/webhook-test/recebe_valores",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "Webhook1": [
+      {
+        "json": {
+          "headers": {
+            "host": "flows.skiilo.com.br",
+            "user-agent": "axios/0.18.1",
+            "content-length": "958",
+            "accept": "application/json, text/plain, */*",
+            "content-type": "application/json;charset=utf-8",
+            "x-forwarded-for": "34.71.90.88",
+            "x-forwarded-host": "flows.skiilo.com.br",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "ff3af8c57fcd",
+            "x-real-ip": "34.71.90.88",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "contact_id": "NPXUJOLrl7lBTn8iG6BV",
+            "first_name": "Rodrigo",
+            "last_name": "Pascotte",
+            "full_name": "Rodrigo Pascotte",
+            "email": "rodrigo@skiilo.com.br",
+            "phone": "+5519998329080",
+            "tags": "campeãs,aprovada executiva becker",
+            "country": "BR",
+            "date_created": "2025-02-09T14:32:13.708Z",
+            "date_of_birth": "1978-02-25T00:00:00.000Z",
+            "full_address": "",
+            "contact_type": "lead",
+            "opportunity_name": "Rodrigo Pascotte",
+            "status": "open",
+            "pipleline_stage": "Ganhou",
+            "pipeline_id": "RcJawsGMd9kd2QH0xtGM",
+            "id": "rihk98Dgb8MxCIDot96J",
+            "pipeline_name": "Prospecção com IA",
+            "location": {
+              "name": "Becker Semijoias",
+              "address": "Limeira",
+              "city": "Limeira",
+              "state": "São Paulo",
+              "country": "BR",
+              "postalCode": "7999999",
+              "fullAddress": "Limeira, Limeira São Paulo 7999999",
+              "id": "nkEXNzXYOlw8Wh8RkU9J"
+            },
+            "workflow": {
+              "id": "28d7b36e-8678-4641-9478-25041365c60e",
+              "name": "WF01 - Ativação dos Níveis"
+            },
+            "triggerData": {},
+            "customData": {
+              "nome": "Robson Dauzacker",
+              "phone": "(67) 99930-8787",
+              "email": "robson@skiilo.com"
+            }
+          },
+          "webhookUrl": "https://webhook.skiilo.com.br/webhook-test/recebe_valores",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "versionId": "414b6785-5b23-4772-b242-fb927438addd",
+  "triggerCount": 0,
+  "tags": []
+}
