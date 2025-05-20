@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-04-06T20:51:34.112Z",
-  "updatedAt": "2025-05-20T21:01:02.909Z",
+  "updatedAt": "2025-05-20T21:03:30.204Z",
   "id": "Op1RR3U4qIupUBQz",
   "name": "[Finna Joias] Core",
   "active": true,
@@ -414,6 +414,31 @@
       ],
       "id": "6d9dc450-dd6b-40e9-a419-790b7e9ed6c3",
       "name": "cadastroUsers"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -340,
+        320
+      ],
+      "id": "bf535ff8-d340-4c92-b31b-875affcd2188",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
     }
   ],
   "connections": {
@@ -452,13 +477,7 @@
     },
     "OpenRouter": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Restart History": {
@@ -515,6 +534,17 @@
           }
         ]
       ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -525,7 +555,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "ae0260ba-1ea6-4039-aa4e-4cdde67f174d",
+  "versionId": "11b0d0df-6a15-4349-8932-e949131f46ba",
   "triggerCount": 1,
   "tags": []
 }
