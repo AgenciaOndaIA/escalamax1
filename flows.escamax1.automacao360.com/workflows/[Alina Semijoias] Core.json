@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:31:17.420Z",
-  "updatedAt": "2025-05-19T09:58:50.404Z",
+  "updatedAt": "2025-05-20T23:27:45.764Z",
   "id": "R9yHA9VSBTwcGQ0w",
   "name": "[Alina Semijoias] Core",
   "active": true,
@@ -97,7 +97,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -320,
+        -480,
         220
       ],
       "id": "419dbd20-af46-4d85-a080-3c0877942c56",
@@ -105,7 +105,7 @@
       "credentials": {
         "openRouterApi": {
           "id": "OJT1sLLEsazPFgVw",
-          "name": "OpenRouter escalamax1"
+          "name": "OpenRouter escalamax"
         }
       }
     },
@@ -763,7 +763,7 @@
       "credentials": {
         "openRouterApi": {
           "id": "OJT1sLLEsazPFgVw",
-          "name": "OpenRouter escalamax1"
+          "name": "OpenRouter escalamax"
         }
       }
     },
@@ -787,6 +787,31 @@
       "id": "3d7edff0-e4ba-47ee-9a5e-d6e06c493bf2",
       "name": "Execution Data1",
       "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        220
+      ],
+      "id": "f847065e-855d-4005-83d8-ca05e9ed6474",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
     }
   ],
   "connections": {
@@ -825,13 +850,7 @@
     },
     "OpenRouter": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Restart History": {
@@ -954,6 +973,17 @@
           }
         ]
       ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -962,9 +992,11 @@
     "errorWorkflow": "ICx4TaMAobnRWNzS"
   },
   "staticData": null,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "pinData": {},
-  "versionId": "608f91b6-0dde-41af-adb2-a72194d76459",
+  "versionId": "fbe71056-f02d-44c2-a7b9-613c85c2a462",
   "triggerCount": 1,
   "tags": [
     {
