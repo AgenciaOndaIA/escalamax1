@@ -1,0 +1,33 @@
+services: 
+  pgbouncer: 
+    # Imagem do Serviço
+    # https://hub.docker.com/r/edoburu/pgbouncer
+    image: edoburu/pgbouncer:v1.23.1-p0
+    networks: 
+      - interna
+    # Configura a porta do Serviço para acesso externo
+    #ports:
+    #  - 5432:5432
+    environment: 
+      - DB_USER=postgres
+      - DB_PASSWORD=F5B96136BEDA62ED8DE37D2C5F628
+      - DB_HOST=postgres
+      - POOL_MODE=session
+      - AUTH_TYPE=scram-sha-256
+      # Bancos de dados que deve atuar (vazio para todos)
+      #- DB_NAME=db1,db2
+    deploy: 
+      mode: replicated
+      replicas: 1
+      placement: 
+        constraints: 
+          - node.role == manager # Rodar serviço no Manager
+      resources: 
+        limits: 
+          cpus: "2"
+          memory: 1024M
+
+networks:
+  interna:
+    external: true
+
