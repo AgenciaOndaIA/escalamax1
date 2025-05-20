@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-05-20T12:43:24.553Z",
+  "updatedAt": "2025-05-20T20:35:47.482Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -106,8 +106,8 @@
       "name": "OpenRouter",
       "credentials": {
         "openRouterApi": {
-          "id": "OKBVbV3h0JCNgM8u",
-          "name": "MaryJhon"
+          "id": "OJT1sLLEsazPFgVw",
+          "name": "OpenRouter escalamax"
         }
       }
     },
@@ -459,7 +459,8 @@
         560
       ],
       "id": "250a8150-ec9a-4106-b1d8-ddd1d75f1adc",
-      "name": "Edit Fields"
+      "name": "Edit Fields",
+      "disabled": true
     },
     {
       "parameters": {},
@@ -470,7 +471,8 @@
         560
       ],
       "id": "889210ab-1d24-41c3-b9d4-9cc52e2d69b1",
-      "name": "Error Trigger"
+      "name": "Error Trigger",
+      "disabled": true
     },
     {
       "parameters": {
@@ -493,7 +495,8 @@
           "id": "KKh2QKWo3vqF000N",
           "name": "Agencia OndaIA"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -510,7 +513,8 @@
         560
       ],
       "id": "3a727f33-b520-4cab-9553-638ec587ecbf",
-      "name": "AI Agent"
+      "name": "AI Agent",
+      "disabled": true
     },
     {
       "parameters": {
@@ -540,7 +544,8 @@
           "id": "MmwWW5IYycE2AaDQ",
           "name": "Ag. OndaIA"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -562,7 +567,8 @@
           "id": "3KUgCv31pjbgxYGk",
           "name": "EscalaMax"
         }
-      }
+      },
+      "disabled": true
     }
   ],
   "connections": {
@@ -605,11 +611,6 @@
         [
           {
             "node": "Main Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          },
-          {
-            "node": "AI Agent",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -742,7 +743,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "5e6dd9f8-d884-48cf-ac2f-500440d51e56",
+  "versionId": "df6d3ee4-820e-4e3d-85aa-328deb3672d4",
   "triggerCount": 1,
   "tags": [
     {
