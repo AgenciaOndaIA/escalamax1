@@ -1,0 +1,755 @@
+{
+  "createdAt": "2025-03-30T11:01:46.238Z",
+  "updatedAt": "2025-05-20T12:43:24.553Z",
+  "id": "d31iwhZTQrzGd3pU",
+  "name": "[MaryJhon] Core",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Core Input').item.json.body.mapping.parseJson().system.conversations_id }}",
+        "tableName": "core_chat_maryjhon1",
+        "contextWindowLength": "={{ $('Core Input').item.json.body.mapping.parseJson().system.context_window }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        300,
+        360
+      ],
+      "id": "8f5a60a2-e61b-4421-b743-15c00404d6ad",
+      "name": "Memory",
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 180,
+        "width": 740,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        320
+      ],
+      "typeVersion": 1,
+      "id": "9edf9c3d-927e-418d-9545-9594ae3782de",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.content || ' ' }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant\n\n<retrieval_augmented_generation_result>\n{{ $json.body.rag_return }}\n</retrieval_augmented_generation_result>\n{{ $json.body.mapping }}\n\n<instructions>\nTu función principal es **calificar y captar revendedoras** para Mary Jhon Semijoias, asegurando que el proceso sea simple y eficiente.\n\n\n⚠️ REGRAS ESPECÍFICAS:\n\t•\tSempre que o usuário informar um endereço de e-mail, remova silenciosamente qualquer ocorrência da palavra “YOU” (em qualquer posição ou capitalização).\nExemplo:\nEntrada: contato@YOUgmail.com\nSaída: contato@gmail.com\n⚠️ Nunca comente, explique ou mencione essa correção ao usuário. Apenas continue o fluxo normalmente.\n\n\nSigue rigurosamente el **paso a paso a continuación**, haciendo **una pregunta a la vez** y esperando la respuesta antes de continuar.\n\n\n**Es obligatoria la presentación completa de la empresa, incluso el vídeo.**\n\n🎥 Mensaje de presentación con video\nhttps://storage.googleapis.com/msgsndr/09y5ydS0B55hZtzV0OFB/media/67e9401ae519ed93ec29ef0a.mp4\n\n🔹 **1️⃣ Presentación de la Empresa:**\nHola! 😊 Soy Mary e de la empresa Mary Jhon Semijoyas. \n\n“¿Podés informarme tu nombre completo y de qué ciudad sos para que pueda brindarte más información?”\n\n***** “Es obligatorio esperar la respuesta del cliente.” ******\n\n¿Te parece bien comenzarmos?\n\nEstos son los requisitos que solicitamos:  \n✅ Contar con cédula paraguaya \n✅ No estar en Informconf 📋 \n✅ Sin inversión inicial 💰🚫 \n✅ ¡Ganancias de hasta el 40%! 💵✨  \n\nSi cumplís con todo, decime “SÍ” y te cuento cómo empezar. \nEstoy aquí para ayudarte a crecer y aprovechar esta gran oportunidad. \n¡Vamos juntas por el éxito! 🚀💎💕, \n\n**(caso diga que não cumpre algum requisito pedir para explicar qual.)**\n** “No enviar ‘Pregunta 1’ al usuario.” ** \n\n🔹 **2️⃣ Pre-registro:**\nVoy a empezar con algunos datos básicos para tu pre-registro. Por favor, dime:\n- 📌 Nombre completo:\n- 📌 Correo electrónico:\n- 📌 Número de teléfono:\n\nDespués de recibir estos datos, utiliza la herramienta `cadastroUsers` para registrar el pre-registro.\n\n🔹 **3️⃣ Confirmación del Pre-registro:**\n✅ ¡Tu pre-registro ha sido realizado con éxito!\n\n🔹 **4️⃣ Preguntas de Calificación (una por una):**\nAhora necesito hacerte unas preguntas para conocerte mejor. Por favor responde con sinceridad:\n\n**Pregunta 1 :** ¿Cuál es tu número de documento o cédula de identidad, por favor?\n\n**Pregunta 2:** ¿Podés comentarme un poco sobre vos?\n    🔹 ¿A qué te dedicás actualmente? \n    🔹 ¿Cuántos años tenés? \n    🔹 ¿Ya contás con experiencia en ventas?\n    🔹 (en caso que ya vendió algo)\n\n**Pregunta 3:** Por lo que me comentaste, veo que ya contás con experiencia 😊.\n     ¿Podrías contarme: \n    🔹 Qué productos llegaste a vender o qué estás vendiendo actualmente? \n    🔹 Hace cuánto tiempo te dedicás a eso? \n    🔹 ¿Cuál es el valor mensual aproximado que solés alcanzar? 💬\n\n**Pregunta 4:** 👨‍👩‍👧‍👦 3 referencias familiares (familiares cercanos como padres, hnos o pareja)\n \n- 📌 Nombre completo y número de teléfono de la primera referencia personal.  \n- 📌 Nombre completo y número de teléfono de la segunda referencia personal.  \n- 📌 Nombre completo y número de teléfono de la tercera referencia personal.\n\n**Pregunta 5:** Referencia Comercial - Para poder finalizar tu registro, necesitamos que nos compartas 1 o 2 referencias comerciales.\n\nEstas pueden ser de comercios donde hayas comprado en cuotas, entidades comerciales o proveedores.\n\nEsta información nos ayuda a avanzar con tu proceso de forma más ágil.\n Si no tienes, puedes decir \"No tengo\".\n\n- 📌 Nombre completo y número de teléfono de la primera referencia comercial.  \n- 📌 Nombre completo y número de teléfono de la segunda referencia comercial.  \n- 📌 Nombre completo y número de teléfono de la tercera referencia comercial.\n\n\n👨‍👩‍👧‍👦 3 referencias familiares (familiares cercanos como padres, hnos o pareja)\n\n<obrigatorio>\n🔹 ** 6 Actualización del Registro en CRM:**\nDespués de responder a todas las preguntas, usa la herramienta `Call n8n Workflow Tool` para **actualizar el registro en BobGrow** usar oparacion **updtate** con toda la información de calificación.\n\n🔹 ** 7 Confirmación Final:**\n✅ ¡Gracias por completar el proceso! En breve entraremos en contacto contigo para continuar con el proceso de selección. ¡Estate atenta a tu WhatsApp!\n</obrigatorio>\n\n✅ Para ir finalizando, te cuento que la empresa brinda un excelente soporte para ayudarte a crecer:\n\n✨ Te asistimos con estrategias de marketing.\n📸 Te proporcionamos fotos profesionales listas para publicar.\n🎁 Incluimos cajitas de regalo súper lindas para que entregues tus productos con estilo.\n\n•⁠  ⁠Además, hay solo una condición sencilla: mantener una venta mínima mensual de Gs. 375.000, un monto muy accesible que podés alcanzar con solo 3 productos.\n\n•⁠  ⁠¿Estarías de acuerdo en comprometerte con esta meta mínima mensual?\n\n📦 El envío se realiza por transportadora y solo abonás entre Gs. 25.000 y 30.000 al recibir tu pedido.\n•⁠  ⁠Para activar tu registro como consultora, solicitamos un aporte único de Gs. 45.000, destinado a cubrir los gastos administrativos del ingreso (no es por productos)\n\nCon respecto a Mary Jhon Semijoyas y nuestras políticas comerciales, ¿le gustaría aclarar alguna duda?\n\n</instructions>\n\n<tools>\nSiempre que haya una solicitud relacionada con la gestión de revendedoras, llama a la herramienta `cadastroUsers`. Esto incluye:\n- Registro de nuevas revendedoras\n- Actualización de datos en CRM\n- Seguimiento del estado en el embudo de ventas\n</tools>\n\n<avoided_topics>\n- Información sobre política, salud, religión u otros temas no relacionados a ventas.\n- Comparación con marcas competidoras o críticas.\n</avoided_topics>\n\n<Información_de_la_Empresa>\nInformación_de_la_Empresa\n• Sobre la reventa: El primer mes te liberamos una maleta súper completa con mucha\nvariedad: aros, pulseras, cadenas y anillos. Incluye unas 30 piezas en consignación en un\nvalor aprox de 4.500.000gs.\n• La entrega se realiza a través de una transportadora 🚚🚚.\nEn Mary Jhon Semijoyas, el costo de envío funciona de la siguiente manera:\nCuando la revendedora nos envía la maleta, lo hace a cobrar y nosotros nos encargamos de\npagar ese envío. Y cuando nosotros enviamos la maleta a la revendedora, también lo hacemos\na cobrar, y en ese caso ella paga el envío. De esta forma, cada parte paga un envío: tú solo\npagas el envío cuando recibes la maleta, y nosotros pagamos cuando tú nos la\nenvías.Trabajamos con casi todas las transportadoras del Paraguay, como por ejemplo:\nMondau, TSI, Tiensa, TransRápido, S.I.R., y La San Pedrana. Dependiendo de la zona donde\nvivas, utilizamos la transportadora que mejor llegue a tu región. Pero si ya tienes una\ntransportadora de confianza, podemos trabajar con ella sin ningún problema.\nEl costo del envío varía según la zona, pero suele estar entre 25.000 Gs y 30.000 Gs.\n• Los precios pueden variar según el modelo, pero para que tengas una idea, te\ncomento algunos valores aproximados:\n✨ Aros desde Gs. 75.000 a Gs. 150.000\n✨ Cadenas con dije a partir de Gs. 190.000\n✨ Pulseras desde Gs. 140.000\n✨ Anillos a partir de Gs. 140.000\n¡Las joyas son tan lindas que se venden solas! Y ahora, cuanto más vendés, más descuento\ntenés, Igualmente, el valor final depende del diseño y del modelo específico 😊😊\n• No, no hay necesidad de invertir, ya que trabajamos constantemente de forma consignada\n💼💼✨. Tendras un aporte único de 45.000 que debe ser realizado en el momento en que seas\naprobada, antes de recibir tu maleta con los documentos. Este aporte es utilizado para cubrir\ngastos administrativos como la preparación del contrato, análisis de crédito, referencias, y el\nprimer envío de productos. Todo te será explicado detalladamente por una de nuestras\nasesoras antes de seguir con el proceso.\n• El valor mínimo de ventas exigido por maleta es de 500.000 guaraníes. Considerando el\nporcentaje de comisión, el monto mínimo a pagar a la empresa será de 375.000 guaraníes,\nen caso de aplicar el 25% de descuento correspondiente al nivel de ventas alcanzado.\n• Caso no llegues a la venta minima, Tranquila, ¡estamos para ayudarte! El monto mínimo\nes accesible y, además, te brindamos soporte constante, ideas, materiales,\nentrenamientos y acompañamiento para que puedas lograrlo fácilmente. Si por alguna\nrazón no lo alcanzás, solo pedimos que completes con una compra el monto minimo y\ndevuelvas las piezas no vendidas, sin problema para finalizar el contrato.\n• Beneficios adicionales que ofrecemos:\n🔸🔸Soporte constante\n🔸🔸Asesoría personalizada\n🔸🔸Material visual y promocional\n🔸🔸Incentivos y recompensas\n🔸🔸 Libertad de horarios\n• Las comisiones aumentan según tu nivel de ventas estas son nuestras tablas de descuento:\n¡Las joyas son tan lindas que se venden solas! Y ahora, cuanto más vendés, más\ndescuento tenés:\n• De $500.000 a $1.000.000: 25% de descuento\n• De $1.000.001 a $1.500.000: 30% de descuento\n• ¿Más de $1.500.000? ¡Te llevás un 40% de descuento!\nEs una propuesta pensada para ayudarte a conquistar tu independencia financiera.\n• Trabajamos con semijoyas bañadas en oro 18k, piezas modernas, delicadas y de excelente\ncalidad. Son perfectas para toda ocasión y se venden solas por su belleza 😍😍.\n• Las joyas están hechas de un material que tienen como base el latón, que luego\nrecibe un baño de oro 18k, logrando un acabado brillante, duradero y elegante ✨.\n• No somos una estafa, Somos una empresa seria que trabaja en todo Paraguay . Nuestro\ncompromiso es ayudar a muchas mujeres a mejorar su economía. Podés ver nuestras\nredes sociales y conocer a quienes ya forman parte de esta linda comunidad 💕💕.\nEste es el enlace de nuestro Instagram, donde compartimos novedades, tips, sorteos y muchas\ncosas lindas pensadas para ustedes:\nhttps://www.instagram.com/maryjhonsemijoyas?igsh=b3N4ZnJwcmFnbm1z\n¡Nos encantaría verte por allá! Te esperamos con mucho cariño.\n• La venta por consignación Significa que trabajás sin necesidad de comprar los productos\npor adelantado. Te los enviamos, y tenés 30 días para venderlos. Luego hacés tu\nrendimiento y ¡listo! Todo sin riesgo para vos 🙌🙌.\n• Preparamos un kit que se envía junto con un contrato y un pagaré. Al recibir el kit, la\nrevendedora debe firmar ambos documentos. Tanto el contrato como el pagaré tienen\nuna validez de un mes. Cada vez que se renueve el kit, se enviará un nuevo contrato y\npagaré para que sean firmados nuevamente. Así sucesivamente, en cada renovación.\nTodo este proceso será explicado detalladamente una vez que seas aprobada. Una de\nnuestras asesoras comerciales se pondrá en contacto contigo, ya sea por llamada\ntelefónica o videollamada, para explicarte cómo funciona el proceso de entrega.\n• Si eres ama de casa y no tenes experiencia con ventas! Muchas de nuestras\nrevendedoras empezaron así. Solo te pedimos que compartas un poco con\nnosotras:\n- ¿Tenés algún ingreso actualmente?\n- ¿Creés que podrías tener una buena salida con las joyas?\n- ¿Tenés en mente algunas personas a quienes podrías ofrecer los productos?\n• Mary Jhon Semijoyas es una empresa ubicada en Santa Rita, Alto Paraná, Paraguay.\nFabricamos nuestras propias semijoyas y realizamos el baño de oro 18K aquí mismo en\nSanta Rita.\n• Si querés ver nuestro catálogo digital, ingresá a este sitio:\nhttps://maryjhonsemijoyas.com.py/tienda\n• Condiciones de Pago - Mary Jhon Semijoyas: Informamos que el plazo para realizar el pago\ncorrespondiente a las ventas es de 30 días contados a partir de la fecha de recepción de la\nmaleta. Una vez que la revendedora recibe la maleta, dispone de 30 días para realizar sus\nventas. Al final de este período, se aplica el descuento de comisión correspondiente según\nel volumen vendido. Posteriormente, deberá realizar el pago a la empresa por el monto de\nlas piezas vendidas, ya con su porcentaje de ganancia descontado. Es importante aclarar\nque la forma y el plazo de cobro a sus propias clientas quedan bajo responsabilidad de la\nrevendedora. Sin embargo, la obligación de pago con la empresa es fija y debe ser\ncumplida siempre 30 días después de la entrega de la maleta, con base en el valor de las\npiezas efectivamente vendidas.\n\nEn caso quieras comunicarte con nuestro equipo de Soporte de Mary Jhon, podés entrar en contacto con el número +595 983 160 480 para hablar con nuestra asesora.\n\n\nPara pagos depósitos o transferencias te passo cuentas bancarias\nJhony De Lima Ortiz\nAlias C.I: 5152427\n\nBanco Ueno Cuenta N: 7296464\nBanco Basa Cuenta N: 1855006438\nBanco Familiar Cuenta N: 81-5287303\nGiros Tigo: 0981239989\n\n</Información_de_la_Empresa>\n\n\n<security>\n🔒 **REGLAS DE SEGURIDAD Y COMPORTAMIENTO ÉTICO**\n\n1. No menciones que eres una inteligencia artificial. Siempre te identificas como \"Mary, asistente virtual de Mary Jhon Semijoias\".\n\n2. No guardes ni solicites datos sensibles que no estén relacionados con el proceso de calificación.\n\n3. Sé siempre profesional, respetuosa y empática. Nada de bromas ofensivas ni consejos personales.\n\n4. Siempre que la acción sea “create” o “update”, usa la herramienta “Think”.\n</security>\n\n<your_capabilities>\n1. Registrar nuevas revendedoras para Mary Jhon Semijoias\n2. Calificar leads antes del registro completo\n3. Responder dudas comunes sobre el modelo de negocio\n</your_capabilities>",
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        420,
+        100
+      ],
+      "id": "57b465e2-d3ef-4c84-bc80-e8f0fa75dc77",
+      "name": "Main Agent",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ],
+      "id": "66dff2dc-8ee6-4df7-921e-ee1c7fbe6025",
+      "name": "No Operation 2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "main3",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        40,
+        100
+      ],
+      "id": "612db973-4a55-4fe9-963f-56838db352fe",
+      "name": "Core Input",
+      "webhookId": "006367a9-b1a1-4cc3-a93f-60dabfbae291"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4.1-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        760
+      ],
+      "id": "68f02c1e-b661-484b-b1d1-c52989b2bda8",
+      "name": "OpenRouter",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OKBVbV3h0JCNgM8u",
+          "name": "MaryJhon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 1160,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d8c3fc10-314e-415d-8c68-22f059dbb518",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Fluxo Core, responsável pelo processamento da AI",
+        "height": 80,
+        "width": 260,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f1076980-3a04-4ddf-9964-a8a9f8f001d6",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "name": "restart_history",
+        "description": "=Invoque essa tool para iniciar uma nova conversa para o user, assim ignorando o histórico passado. Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\n\n// Converte o mapeamento recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin; caso contrário, retorna erro\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n/**\n * Função que espera pelo tempo especificado.\n * @param {number} ms - Milissegundos a aguardar.\n * @returns {Promise<void>}\n */\nconst delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\n/**\n * Função para enviar a requisição para criar uma conversa no Directus.\n * Tenta até 3 vezes em caso de falha, com delay de 1 segundo entre as tentativas.\n * @returns {Promise<object>} - Objeto com sucesso ou erro.\n */\nasync function sendRequest() {\n  const url = `http://${mapping.system.directus_service}:8055/items/conversations`;\n  const data = {\n    user_id: mapping.chatwoot.contact_id,\n    date_created: new Date().toISOString()\n  };\n  const headers = {\n    Authorization: `Bearer ${mapping.system.directus_token}`,\n    'Content-Type': 'application/json'\n  };\n\n  let attempt = 0;\n  let lastError = null;\n\n  while (attempt < 3) {\n    try {\n      const response = await axios.post(url, data, { headers });\n      console.log(`Requisição realizada com sucesso na tentativa ${attempt + 1}.`);\n      return { success: true, data: response.data };\n    } catch (error) {\n      attempt++;\n      lastError = error;\n      console.error(`Tentativa ${attempt} falhou:`, error.response ? error.response.data : error.message);\n      if (attempt < 3) {\n        console.log(\"Aguardando 1 segundo antes da nova tentativa...\");\n        await delay(1000);\n      }\n    }\n  }\n  \n  return { success: false, error: lastError.response ? lastError.response.data : lastError.message };\n}\n\nreturn sendRequest().then(result => JSON.stringify(result));"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        360
+      ],
+      "id": "33678d1b-cd93-4945-b4de-5bbf6a21d52a",
+      "name": "Restart History"
+    },
+    {
+      "parameters": {
+        "name": "set_timer",
+        "description": "Invoque essa tool para configurar um timer que iniciará uma ação após o tempo especificado. Apenas usuários admin podem usar essa tool. O tempo deve ser informado com valor e unidade (s, m, h). Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\nconst dayjs = require('dayjs');\nconst duration = require('dayjs/plugin/duration');\ndayjs.extend(duration);\n\n/**\n * Esta tool configura um timer via webhook.\n * Ela envia, para o endpoint, todo o objeto mapping (obtido em Core Input)\n * e o tempo em segundos calculado a partir dos parâmetros \"timer_value\" e \"timer_unit\".\n * Apenas usuários admin podem utilizar esta tool.\n */\n\n// Converte o mapping recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n// Obtém os parâmetros do timer a partir do input (query)\nconst timerValue = query.timer_value;  // Número (ex: 30)\nconst timerUnit = query.timer_unit;      // \"s\", \"m\" ou \"h\"\n\n// Calcula o tempo em segundos usando dayjs.duration\nconst timerSeconds = dayjs.duration(timerValue, timerUnit).asSeconds();\n\n// Prepara o payload para o webhook\nconst payload = {\n  mapping: mapping,\n  timer_seconds: timerSeconds\n};\n\n// URL do webhook substituindo 'n8n_webhook' pelo valor da variável no mapping\nconst url = `http://${mapping.system.n8n_webhook_service}:5678/webhook/timer`;\n\n/**\n * Função para enviar a requisição ao webhook.\n * Tenta enviar uma única vez e retorna o resultado.\n */\nasync function sendTimerRequest() {\n  try {\n    console.log(`Enviando requisição para configurar o timer para ${timerSeconds} segundos...`);\n    const response = await axios.post(url, payload, {\n      headers: { 'Content-Type': 'application/json' }\n    });\n    console.log(\"Timer configurado com sucesso.\");\n    return { success: true, message: `Timer configurado com sucesso. Ele será acionado em ${timerSeconds} segundos.` };\n  } catch (error) {\n    console.error(\"Erro ao configurar o timer:\", error.response ? error.response.data : error.message);\n    return { success: false, error: error.response ? error.response.data : error.message };\n  }\n}\n\nreturn sendTimerRequest().then(result => JSON.stringify(result));",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"timer_value\": {\n      \"type\": \"number\",\n      \"description\": \"Valor do timer. Exemplo: 30\"\n    },\n    \"timer_unit\": {\n      \"type\": \"string\",\n      \"description\": \"Unidade de tempo para o timer: 's' para segundos, 'm' para minutos, 'h' para horas.\",\n      \"enum\": [\"s\", \"m\", \"h\"]\n    }\n  },\n  \"required\": [\"timer_value\", \"timer_unit\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        360
+      ],
+      "id": "4d5785c8-da57-404d-adaa-cd1bc6f82857",
+      "name": "Set Timer"
+    },
+    {
+      "parameters": {
+        "description": "Esta herramienta se activará en momentos que requieran un razonamiento más complejo. Se utilizará en dos situaciones: al crear el registro inicial (con nombre, correo electrónico y teléfono) y al actualizar los datos del usuario. No modifica directamente la base de datos — solo registra el pensamiento en el log. Ideal para decisiones que requieren memoria o contexto."
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        820,
+        360
+      ],
+      "id": "b548fa81-41a8-4dde-9ed0-d8dae69d416a",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "whatsapp",
+              "value": "={{ JSON.parse($item(\"0\").$node[\"Core Input\"].json[\"body\"][\"mapping\"]).chatwoot.phone_number.replace(\"+\", \"\") }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        220,
+        100
+      ],
+      "id": "ca608e08-f616-4033-894f-d1189f12b240",
+      "name": "Execution Data"
+    },
+    {
+      "parameters": {
+        "description": "use essa tool para cadastrar e update usuários",
+        "workflowId": {
+          "__rl": true,
+          "value": "3Ya2PSoSYieSkb3G",
+          "mode": "list",
+          "cachedResultName": "[MaryJhon] GestãoContatos"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', ``, 'string') }}",
+            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', ``, 'string') }}",
+            "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', ``, 'string') }}",
+            "city": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('city', ``, 'string') }}",
+            "address1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('address1', ``, 'string') }}",
+            "contact.referencia_comercial_3": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencia_comercial_3', ``, 'string') }}",
+            "contact.referencia_comercial_2": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencia_comercial_2', ``, 'string') }}",
+            "contact.referencia_comercial_1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencia_comercial_1', ``, 'string') }}",
+            "contact.referencia_personal_3": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencia_personal_3', ``, 'string') }}",
+            "contact.referencia_personal_2": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencia_personal_2', ``, 'string') }}",
+            "contact.referencia_personal_1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_referencia_personal_1', ``, 'string') }}",
+            "contact.numero_documento": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_numero_documento', ``, 'string') }}",
+            "contact.tem_experiencia": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_tem_experiencia', ``, 'string') }}",
+            "contact.fale_sobre_vc": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_fale_sobre_vc', ``, 'string') }}",
+            "source": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('source', ``, 'string') }}",
+            "conversationHistory": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conversationHistory', ``, 'string') }}",
+            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', `se a operação é \"create\" ou \"update\"`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operação",
+              "displayName": "operação",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "firstName",
+              "displayName": "firstName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "lastName",
+              "displayName": "lastName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "address1",
+              "displayName": "address1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.fale_sobre_vc",
+              "displayName": "contact.fale_sobre_vc",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.tem_experiencia",
+              "displayName": "contact.tem_experiencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.numero_documento",
+              "displayName": "contact.numero_documento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencia_personal_1",
+              "displayName": "contact.referencia_personal_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencia_personal_2",
+              "displayName": "contact.referencia_personal_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencia_personal_3",
+              "displayName": "contact.referencia_personal_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencia_comercial_1",
+              "displayName": "contact.referencia_comercial_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencia_comercial_2",
+              "displayName": "contact.referencia_comercial_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "contact.referencia_comercial_3",
+              "displayName": "contact.referencia_comercial_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "conversationHistory",
+              "displayName": "conversationHistory",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        680,
+        360
+      ],
+      "id": "2f1edd6f-b026-4dbb-99fd-efe8a7120bad",
+      "name": "cadastroUsers"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        560
+      ],
+      "id": "250a8150-ec9a-4106-b1d8-ddd1d75f1adc",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        560
+      ],
+      "id": "889210ab-1d24-41c3-b9d4-9cc52e2d69b1",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ \n  $node[\"Edit Fields\"].json.execution.url\n    .replace(/^https?:\\/\\/webhook\\./, \"https://flow.\") \n}}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        880,
+        560
+      ],
+      "id": "06836943-0ccc-456e-8466-d354a6336124",
+      "name": "Evolution API1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        540,
+        560
+      ],
+      "id": "3a727f33-b520-4cab-9553-638ec587ecbf",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        820
+      ],
+      "id": "bc500dcd-21d0-4ccd-8ecc-3c205f8d0618",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        1000
+      ],
+      "id": "1a045073-ce59-4c04-a393-e2c022afb409",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Agent": {
+      "main": [
+        [
+          {
+            "node": "No Operation 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Core Input": {
+      "main": [
+        [
+          {
+            "node": "Execution Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart History": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Timer": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execution Data": {
+      "main": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cadastroUsers": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evolution API1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "d31iwhZTQrzGd3pU"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "5e6dd9f8-d884-48cf-ac2f-500440d51e56",
+  "triggerCount": 1,
+  "tags": [
+    {
+      "createdAt": "2025-03-30T10:59:35.636Z",
+      "updatedAt": "2025-03-30T10:59:35.636Z",
+      "id": "wHM3VgOrO93ETOcS",
+      "name": "MaryJohn"
+    }
+  ]
+}
