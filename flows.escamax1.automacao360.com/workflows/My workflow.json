@@ -1,0 +1,241 @@
+{
+  "createdAt": "2025-03-30T20:50:35.853Z",
+  "updatedAt": "2025-04-10T17:28:39.563Z",
+  "id": "JSdgbmiWybvtSA3c",
+  "name": "My workflow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "disparador_whatsapp",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        20
+      ],
+      "id": "90f59bf7-a71c-4bdb-843f-f75e49bacdb6",
+      "name": "Webhook",
+      "webhookId": "c72f2611-8843-4dc5-afb2-07b8e15ca132"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "56173f46-d32a-4156-bc7d-6e071f4925ee",
+              "name": "body.full_name",
+              "value": "={{ $json.body.full_name }}",
+              "type": "string"
+            },
+            {
+              "id": "56f77e94-5cbe-4b89-b933-a91f22e4c995",
+              "name": "body.contact_id",
+              "value": "={{ $json.body.contact_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -40,
+        20
+      ],
+      "id": "0e0e2288-41e5-490f-8ad3-a5ac69d7c4b8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Mensagem: {{ $('Webhook').item.json.body.customData['mensagem '] }}",
+        "options": {
+          "systemMessage": "=🧠 Prompt para IA Agente – Tema: Agência Onda IA\n\nVocê é um agente de mensagens automáticas no WhatsApp, representando a Agência Onda IA. Sua missão é gerar mensagens variadas e únicas, sempre abordando o mesmo tema:\n\nASSUNTO: { $('Webhook').item.json.body.customData['mensagem '] }}\n\nCada mensagem deve:\n\t•\tSer única e diferente da anterior (variações de tom, estilo e estrutura).\n\t•\tTer linguagem humanizada e natural, como se fosse enviada por uma pessoa real.\n\t•\tManter o foco no benefício: mostrar que a Onda IA impulsiona vendas com o uso de IA.\n\t•\tUsar emojis de forma estratégica e moderada, para dar um tom leve e atual.\n\t•\tVariar entre abordagens diretas, perguntas, chamadas para ação e frases de impacto.\n\t•\tNunca parecer robótica ou repetitiva.\n\nGere uma nova mensagem aleatória sobre esse tema, com até 3 frases curtas."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        160,
+        20
+      ],
+      "id": "d6d3d57b-0a44-4033-8247-01bbf4d54b9c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Randomiza um tempo entre 10 segundos e 5 minutos\nconst min = 3; // segundos\nconst max = 10; // segundos (5 minutos)\n\nconst delay = Math.floor(Math.random() * (max - min + 1)) + min;\n\nreturn [\n  {\n    json: {\n      delayInSeconds: delay,\n      delayInMilliseconds: delay * 1000\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        20
+      ],
+      "id": "ca95a00f-d6e1-4d88-8b1a-d5395abfba64",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        240
+      ],
+      "id": "eab103bf-ce2d-4382-9c3c-79eaa8055ab2",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": "={{ $json.delayInSeconds }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        20
+      ],
+      "id": "a7abe2fe-3428-48a9-9224-c96124a0d626",
+      "name": "Wait",
+      "webhookId": "2bd820ad-f39f-493b-aa90-be9301a2c212"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/conversations/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6InNwRklxQkNJVlA2TDVsWUwwVkVTIiwidmVyc2lvbiI6MSwiaWF0IjoxNzQxNDY1ODI4MTM2LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.6VmVFjcFae10AwJaMSe-NQZV537hfFWkXfPPDk-13pI"
+            },
+            {
+              "name": "VERSION",
+              "value": "2021-04-15"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"type\": \"WhatsApp\",\n  \"contactId\": \"{{ $('Webhook').item.json.body.contact_id }}\",\n  \"body\": \"{{ $('AI Agent').item.json.output }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        20
+      ],
+      "id": "6e513d11-94b3-4244-a62e-d800ea416ef1",
+      "name": "HTTP Request",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "F6kcGhzJInozXUHz",
+          "name": "Mary Jhon SemiJoias"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "c97b350e-fe71-4f21-9dcf-1182a75620ac",
+  "triggerCount": 0,
+  "tags": []
+}
