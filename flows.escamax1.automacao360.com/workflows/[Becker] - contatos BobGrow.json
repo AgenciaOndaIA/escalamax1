@@ -1,0 +1,658 @@
+{
+  "createdAt": "2025-04-06T19:40:10.312Z",
+  "updatedAt": "2025-04-06T20:50:34.298Z",
+  "id": "MkSocGvEBwtZLU6h",
+  "name": "[Becker] - contatos BobGrow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "09658367-e0f1-4c57-94fe-0b8fcff743c9",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5ca12ef7-fc0f-4ee3-82c5-7a28b77b8b00",
+              "name": "locationId",
+              "value": "nkEXNzXYOlw8Wh8RkU9J",
+              "type": "string"
+            },
+            {
+              "id": "f9051ba6-3cd8-406f-84fc-9935d07444c1",
+              "name": "Token",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im5rRVhOelhZT2x3OFdoOFJrVTlKIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4NzY1MDIyNDc3LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.9SDXh20Cs79v5lQCmLAPskIgEFmaVh8HP4yXzMmG1Uc",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        60,
+        80
+      ],
+      "id": "2bfb9a6b-029e-405c-853b-b447e5a76e7e",
+      "name": "credenciais"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9243e483-de5b-43b6-b677-fded6053e2f4",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        380
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Ferramentas de contatos",
+        "height": 640,
+        "width": 1200,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        -60
+      ],
+      "typeVersion": 1,
+      "id": "83182b0e-88ea-4cdf-bd49-9e0d3fa61875",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=chat:{{ $('Execute Workflow Trigger').item.json.query.contactData.phone }}",
+        "tableName": "Becker",
+        "contextWindowLength": 50
+      },
+      "id": "3f68cebd-f221-4724-922b-4f392ddd057a",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1,
+      "position": [
+        60,
+        380
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "ZlVXa1ALIDyPy882",
+          "name": "Postgres escalamax1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "810fefde-f00e-4036-ab07-47b9c691f0d8",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($node[\"Execute Workflow Trigger\"].json[\"query\"]) }}",
+        "options": {
+          "systemMessage": "=<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Prompt de Cadastro - Agente IA</title>\n</head>\n<body>\n    <h1>Prompt do Agente de Cadastro</h1>\n    <p>\n        Bem-vindo! Sou o agente de cadastro responsável por gerenciar os contatos no sistema <strong>BOBGROW</strong>. Minha função é garantir que todas as informações sejam precisas e organizadas. 😊\n    </p>\n\n    <h2>Fluxo de Trabalho Atualizado</h2>\n    <ol>\n        <li>\n            <strong>Receber Solicitação:</strong>\n            <ul>\n                <li>Identificar a ação desejada (buscar, criar ou atualizar um contato).</li>\n                <li>Verificar os parâmetros necessários para a ação solicitada.</li>\n            </ul>\n        </li>\n        <li>\n            <strong>Validar Dados Fornecidos:</strong>\n            <ul>\n                <li>Confirmar que as informações fornecidas sejam coerentes.</li>\n                <li><strong>Observação:</strong> Não há campos obrigatórios, mas todos os dados fornecidos devem ser considerados para a atualização.</li>\n            </ul>\n        </li>\n        <li>\n            <strong>Buscar Contato Antes de Criar:</strong>\n            <ul>\n                <li>Utilizar a ferramenta <strong>buscarContatos</strong> para verificar se já existe um cadastro com:</li>\n                <ul>\n                    <li>Nome.</li>\n                    <li>Telefone.</li>\n                    <li>E-mail.</li>\n                </ul>\n                <li><strong>Resultados possíveis:</strong>\n                    <ul>\n                        <li><strong>Contato encontrado:</strong> Retornar os dados do contato existente e não criar um novo registro, incluindo o <strong>ContactID</strong>.</li>\n                        <li><strong>Contato não encontrado:</strong> Continuar para o próximo passo (criação).</li>\n                    </ul>\n                </li>\n            </ul>\n        </li>\n        <li>\n            <strong>Criar Contato (se necessário):</strong>\n            <ul>\n                <li>Utilizar a ferramenta <strong>CriaContatos</strong> para registrar um novo contato no sistema.</li>\n                <li><strong>Dados necessários:</strong>\n                    <ul>\n                        <li>firstName.</li>\n                        <li>lastName.</li>\n                        <li>Email.</li>\n                        <li>Phone.</li>\n                        <li>(Opcional) Tags para categorização.</li>\n                    </ul>\n                </li>\n                <li>Retornar uma confirmação com os dados registrados, incluindo o <strong>ContactID</strong>.</li>\n            </ul>\n        </li>\n        <li>\n            <strong>Atualizar Contato:</strong>\n            <ul>\n                <li>Utilizar a ferramenta <strong>UpDateContato</strong> para modificar informações de um contato existente.</li>\n                <li><strong>Dados necessários:</strong>\n                    <ul>\n                        <li>ID do contato.</li>\n                        <li>Campos a serem atualizados (Nome, Sobrenome, E-mail, Telefone ou Tags).</li>\n                    </ul>\n                </li>\n                <li>Retornar os dados atualizados do contato, incluindo o <strong>ContactID</strong>.</li>\n            </ul>\n        </li>\n        <li>\n            <strong>Retornar Resposta:</strong>\n            <ul>\n                <li>Enviar uma confirmação ou os resultados da ação realizada.</li>\n                <li><strong>Exemplo de Resposta:</strong>\n                    <pre>\n                    </pre>\n                </li>\n            </ul>\n        </li>\n    </ol>\n\n    <h2>Regras Adicionais</h2>\n    <ul>\n        <li><strong>Sempre buscar contatos antes de criar um novo cadastro.</strong></li>\n        <li>Evitar duplicidade retornando os dados de contatos existentes, quando encontrados.</li>\n        <li><strong>Atualizar sempre o contato existente.</strong> Nunca é necessário aguardar campos obrigatórios para fazer atualizações.</li>\n        <li>Caso os dados fornecidos estejam incompletos ou incorretos, solicitar a correção antes de continuar.</li>\n    </ul>\n</body>\n</html>\n",
+          "returnIntermediateSteps": false
+        }
+      },
+      "id": "42f1e42e-6c10-4a69-9fe8-20488c999eb6",
+      "name": "Gestor  de Contatos",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        280,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "toolDescription": "=<tool name=\"buscarContatos\">\n<description>Localiza contatos no sistema (BOBGROW) com base em filtros: Nome, E-mail ou Telefone. Permite acesso rápido e organizado aos dados.</description>\n<howItWorks>\n<step 1>Forneça Nome, E-mail ou Telefone para buscar. Sem filtros, lista todos os contatos.</step>\n<step 2>Localiza contatos que atendem aos critérios. Múltiplos filtros combinam resultados.</step>\n</howItWorks>\n<requirements>Informe ao menos um filtro válido: Nome, E-mail ou Telefone.</requirements>\n<commonErrors>Falta de filtros, formato inválido (ex.: e-mail incorreto ou telefone sem código).</commonErrors>\n</tool>",
+        "url": "https://services.leadconnectorhq.com/contacts/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendQuery": true,
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "locationId",
+              "valueProvider": "fieldValue",
+              "value": "={{ $('credenciais').item.json.locationId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "={{ $('credenciais').item.json.Token }}"
+            },
+            {
+              "name": "Version",
+              "valueProvider": "fieldValue",
+              "value": "2021-07-28"
+            }
+          ]
+        }
+      },
+      "id": "ee40fa7f-adff-4a1a-a53a-3f98ab79e099",
+      "name": "buscarContatos",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        380
+      ],
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "uspw0Len3PwRlDN0",
+          "name": "Becker Joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "=<tool name=\"CriaContatos\">\n<description>Registra novos contatos no sistema (BOBGROW), permitindo adicionar dados obrigatórios e opcionais para organização e armazenamento correto.</description>\n<howItWorks>\n<step 1>Forneça Nome, Sobrenome, E-mail válido e Telefone (+55). Tags são opcionais.</step>\n<step 2>Valida as informações e registra o contato no sistema, associando dados opcionais.</step>\n</howItWorks>\n<requirements>Nome, Sobrenome, E-mail e Telefone são obrigatórios. Tags são opcionais.</requirements>\n<commonErrors>Falta de dados obrigatórios, formato inválido (e-mail/telefone) ou duplicação de contato.</commonErrors>\n</tool>",
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Accept",
+              "valueProvider": "fieldValue",
+              "value": "=application/json"
+            },
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "={{ $('credenciais').item.json.Token }}"
+            },
+            {
+              "name": "Version",
+              "valueProvider": "fieldValue",
+              "value": "=2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  firstName\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.firstName }}\",\n  \"lastName\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.lastName }}\"\",\n  \"email\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.email }}\",\n  \"phone\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.phone }}\",\n  \"locationId\": \"{{ $('credenciais').item.json.locationId }}\",\n  \"tags\": [\n    \"Atendida pela IA\"\n  ]\n}"
+      },
+      "id": "541c23bc-2053-4d0f-b029-76e705efd0ac",
+      "name": "CriaContatos",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        380
+      ],
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "uspw0Len3PwRlDN0",
+          "name": "Becker Joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Consume HighLevel API v2 e preencha todos os campos",
+        "operation": "update",
+        "contactId": "={{ $fromAI('Contact_ID', 'string') }}",
+        "updateFields": {
+          "address1": "={{ $fromAI('Address', 'string') }}",
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "ugSVyN8XuYcqb9k4L7em",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('Field_Value', `contact.instagram`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "ZwWaHqkPqdEvnvlrMZv3",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('Vendas', `Ja trabalhou com vendas?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SRWHzjtTipvmzmHNBpfO",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('tempo_trabalha_vendas', `Quanto tempo trabalha com vendas?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "aVecJUwPhONUZSsxwfvQ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('tem_cartao', `Você trabalha com cartão de crédito?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "5QduUgCqYqWrYXtl9kLi",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('oportunidade_vendas', `O que mais te atrai na oportunidade de revender semijoias no consignado?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "w69r1L9kNcbOMhccDxRC",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('ja_trabalhou_consignado', `Você já trabalhou com produtos no consignado?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "B8FV5RXdo94AdfO3R51e",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('o_que_ja_vendeu', `Quais produtos você já vendeu antes?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "jtthAicgaPQ4wYbl9lQs",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('e_organizado', `Como você lida com compromissos financeiros e prazos de pagamento?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "AX6KpseRtWG2rBMtNPjX",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('contato_01', `contato - 01`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "NymIrbU6YmdoMvDndSbR",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('contato_02', `Contato -02`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "JjnYdl04EZrumjanwKqm",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('contato_03', `Contato - 03`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "fSO39dVkXwmkpEQKSHDq",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('tem_casa_propria', `Você possui casa própria?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "1LTipnh7bbqJnJ7FraK6",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('tem_recurso_guardado', `Caso uma cliente compre e não pague. de onde você pretende tirar os recursos para cobrir essa dívida.`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "VNd38kHgd3j37TBw690f",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('tem_outro_trabalho', `Você possui algum trabalho atualmente?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "V4Y6fs48hzrta2o8flLg",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('com_que_trabalha', `Com o que trabalha?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "tMZ3r4QDkrhdJqLX9BbJ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('tem_disponibilidade', `Quanto tempo na semana você está disposta a dedicar para vender as semijoias?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "lZTWUlDFWbjxEkhsZWgi",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('enfrenta_desafios', `Quais desafios você acha que pode enfrentar o começar como revendedora e como pretende superá-los?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "lEhuk4iuV8CyBUEnbkv6",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('pode_comecar_ja', `Você está pronta para começar imediatamente, caso seja aprovada?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "TmtNvVkQDOAfmc97SxUU",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('podeparticipar_de_treinamentos', `Você está disposta a participar de treinamentos para aprender mais sobre as vendas e produtos?`, 'string') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "9Sg85rh2JSVsInHM6oAD",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $fromAI('como_vai_divulgar', `Como você pretende divulgar e vender as semijoias?`, 'string') }}"
+              }
+            ]
+          },
+          "lastName": "={{ $fromAI('Last_Name', 'string') }}",
+          "name": "={{ $fromAI('Name','string') }}",
+          "postalCode": "={{ $fromAI('Postal_Code','string') }}"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevelTool",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        780
+      ],
+      "id": "516cc4f5-aab1-4011-859e-109f8f17cbbb",
+      "name": "updateContatos2",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "TzV76Ju4J42MfSaS",
+          "name": "DeBona"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "=invoque essa tool para fazer update das informções do usuário",
+        "method": "PUT",
+        "url": "=https://services.leadconnectorhq.com/contacts/{contactid}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelOAuth2Api",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Accept",
+              "valueProvider": "fieldValue",
+              "value": "=application/json"
+            },
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "={{ $('credenciais').item.json.Token }}"
+            },
+            {
+              "name": "Version",
+              "valueProvider": "fieldValue",
+              "value": "=2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"firstName\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.firstName }}\",\n  \"lastName\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.lastName }}\",\n  \"email\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.email }}\",\n  \"phone\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.phone }}\",\n  \"dateOfBirth\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.dateOfBirth }}\",\n  \"source\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.source }}\",\n  \"address1\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.address1 }}\",\n  \"city\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.city }}\",\n  \"state\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.state }}\",\n  \"country\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.country }}\",\n  \"postalCode\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.postalCode }}\",\n  \"customFields\": [\n    {\n      \"id\": \"ugSVyN8XuYcqb9k4L7em\",\n      \"key\": \"contact.instagram\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.instagram'] }}\"\n    },\n    {\n      \"id\": \"pu6x4I2qcxCeU0aoMPCc\",\n      \"key\": \"contact.estado_civil\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.estado_civil'] }}\"\n    },\n    {\n      \"id\": \"ZwWaHqkPqdEvnvlrMZv3\",\n      \"key\": \"contact.ja_trabalhou_com_vendas\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.ja_trabalhou_com_vendas'] }}\"\n    },\n    {\n      \"id\": \"aVecJUwPhONUZSsxwfvQ\",\n      \"key\": \"contact.voc_trabalha_com_carto_de_crdito\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.voc_trabalha_com_carto_de_crdito'] }}\"\n    },\n    {\n      \"id\": \"SRWHzjtTipvmzmHNBpfO\",\n      \"key\": \"contact.quanto_tempo_trabalha_com_vendas\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.quanto_tempo_trabalha_com_vendas'] }}\"\n    },\n    {\n      \"id\": \"5QduUgCqYqWrYXtl9kLi\",\n      \"key\": \"contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado'] }}\"\n    },\n    {\n      \"id\": \"w69r1L9kNcbOMhccDxRC\",\n      \"key\": \"contact.voc_j_trabalhou_com_produtos_no_consignado\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.voc_j_trabalhou_com_produtos_no_consignado'] }}\"\n    },\n    {\n      \"id\": \"B8FV5RXdo94AdfO3R51e\",\n      \"key\": \"contact.quais_produtos_voc_j_vendeu_antes\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.quais_produtos_voc_j_vendeu_antes'] }}\"\n    },\n    {\n      \"id\": \"jtthAicgaPQ4wYbl9lQs\",\n      \"key\": \"contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento'] }}\"\n    },\n    {\n      \"id\": \"AX6KpseRtWG2rBMtNPjX\",\n      \"key\": \"contact.contato__01\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.contato__01'] }}\"\n    },\n    {\n      \"id\": \"NymIrbU6YmdoMvDndSbR\",\n      \"key\": \"contact.contato_02\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.contato_02'] }}\"\n    },\n    {\n      \"id\": \"JjnYdl04EZrumjanwKqm\",\n      \"key\": \"contact.contato__03\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.contato__03'] }}\"\n    },\n    {\n      \"id\": \"fSO39dVkXwmkpEQKSHDq\",\n      \"key\": \"contact.voc_possui_casa_prpria\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.voc_possui_casa_prpria'] }}\"\n    },\n    {\n      \"id\": \"1LTipnh7bbqJnJ7FraK6\",\n      \"key\": \"contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida'] }}\"\n    },\n    {\n      \"id\": \"VNd38kHgd3j37TBw690f\",\n      \"key\": \"contact.voc_possui_algum_trabalho_atualmente\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.voc_possui_algum_trabalho_atualmente'] }}\"\n    },\n    {\n      \"id\": \"V4Y6fs48hzrta2o8flLg\",\n      \"key\": \"contact.com_o_que_trabalha\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.com_o_que_trabalha'] }}\"\n    },\n    {\n      \"id\": \"tMZ3r4QDkrhdJqLX9BbJ\",\n      \"key\": \"contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias'] }}\"\n    },\n    {\n      \"id\": \"lZTWUlDFWbjxEkhsZWgi\",\n      \"key\": \"contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos'] }}\"\n    },\n    {\n      \"id\": \"lEhuk4iuV8CyBUEnbkv6\",\n      \"key\": \"contact.voc_est_pronta_para_comear_imediatamente_caso_seja_aprovada\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.voc_est_pronta_para_comear_imediatamente_caso_seja_aprovada'] }}\"\n    },\n    {\n      \"id\": \"TmtNvVkQDOAfmc97SxUU\",\n      \"key\": \"contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos'] }}\"\n    },\n    {\n      \"id\": \"9Sg85rh2JSVsInHM6oAD\",\n      \"key\": \"contact.como_voc_pretende_divulgar_e_vender_as_semijoias\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.como_voc_pretende_divulgar_e_vender_as_semijoias'] }}\"\n    },\n    {\n      \"id\": \"XpR4zFhp9p3akFFj7jgw\",\n      \"key\": \"contact.cpf\",\n      \"field_value\": \"{{ $('Execute Workflow Trigger').item.json.query.contactData.customFields['contact.cpf'] }}\"\n    }\n  ]\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "contactid",
+              "description": "id do contato",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "079d4f67-0ec7-4ca5-8f32-e7d2af80cf06",
+      "name": "updateContatos",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        600,
+        380
+      ],
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "uspw0Len3PwRlDN0",
+          "name": "Becker Joias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://rest.gohighlevel.com/v1/custom-fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im5rRVhOelhZT2x3OFdoOFJrVTlKIiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4NzY1MDIyNDc3LCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.9SDXh20Cs79v5lQCmLAPskIgEFmaVh8HP4yXzMmG1Uc"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1560,
+        280
+      ],
+      "id": "4f4ac7ef-3cff-46ac-8350-77da9c26f50b",
+      "name": "HTTP Request",
+      "credentials": {
+        "highLevelApi": {
+          "id": "1E0tTCfiMLulYCCo",
+          "name": "Api Becker"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "contactId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Contact_ID', ``, 'string') }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevelTool",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        620
+      ],
+      "id": "0c4aaae8-755d-4e67-a36d-6403216e25bb",
+      "name": "HighLevel",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "TzV76Ju4J42MfSaS",
+          "name": "DeBona"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=chat:{{ $('Execute Workflow Trigger').item.json.query.contactData.phone }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1560,
+        480
+      ],
+      "id": "8ddfcac1-308a-444f-8562-d486bccea015",
+      "name": "Simple Memory"
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "credenciais",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "credenciais": {
+      "main": [
+        [
+          {
+            "node": "Gestor  de Contatos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Gestor  de Contatos",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Gestor  de Contatos",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gestor  de Contatos": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscarContatos": {
+      "ai_tool": [
+        [
+          {
+            "node": "Gestor  de Contatos",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CriaContatos": {
+      "ai_tool": [
+        [
+          {
+            "node": "Gestor  de Contatos",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateContatos": {
+      "ai_tool": [
+        [
+          {
+            "node": "Gestor  de Contatos",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "345afc32-a4f6-4c19-98eb-f7f997cc8533",
+  "triggerCount": 0,
+  "tags": []
+}
