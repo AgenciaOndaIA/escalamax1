@@ -1,0 +1,869 @@
+{
+  "createdAt": "2025-05-03T19:27:31.781Z",
+  "updatedAt": "2025-05-19T09:44:02.436Z",
+  "id": "3Ya2PSoSYieSkb3G",
+  "name": "[MaryJhon] GestãoContatos",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
+              "name": "response",
+              "value": "={{ $item(\"0\").$node[\"Merge\"].json }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "50947aab-0735-48aa-bbf3-4bcbb4b9b176",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        820,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5204bb98-c216-43c7-b7d6-c43d8ec122f0",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -780,
+        40
+      ],
+      "id": "e40980c3-dfc5-401f-baa4-3cf2b29de621",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        600,
+        -20
+      ],
+      "id": "aad8c070-dc92-4366-8d4a-61751069f612",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "phone": "={{ $json.number }}",
+        "additionalFields": {
+          "city": "={{ $('Execute Workflow Trigger').item.json.city }}",
+          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstName }}",
+          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastName }}",
+          "tags": "atendida pela ia"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -100
+      ],
+      "id": "6590cd34-9bc8-4c9c-8ef2-9b4f0abcf585",
+      "name": "CreateContact",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "F6kcGhzJInozXUHz",
+          "name": "Mary Jhon SemiJoias"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "phone": "={{ $('Execute Workflow Trigger').item.json.phone }}",
+        "additionalFields": {
+          "address1": "={{ $('Execute Workflow Trigger').item.json.address1 }}",
+          "city": "={{ $('Execute Workflow Trigger').item.json.city }}",
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "EukNTQZ6lRjRzObEt7Kc",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.numero_documento'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "q6kTKjVUV78LCsDb7h76",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.fale_sobre_vc'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "75UBopZh6xfIcMAZJe53",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_personal_1'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "Z7CLrqRWK3U5MQ6f7DPj",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_personal_2'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "k8TgC3U9NIm5DAl8NDat",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_personal_3'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "pioJAQ2Cmot5ui0mkDel",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_comercial_1'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "kwaqcAkKmDWMM4LOqD9W",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_comercial_2'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "qR0oMu3mDmYxIlIsU2Ik",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_comercial_3'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "kRtYEzICbgETgJfQcWRI",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json.conversationHistory }}"
+              }
+            ]
+          },
+          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstName }}",
+          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastName }}",
+          "source": "Entrevista com o IA",
+          "tags": "registro finalizado"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        320,
+        60
+      ],
+      "id": "7282a2c4-b37b-4fb4-a1bd-3ea204dee1dd",
+      "name": "UpdateContacts",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "F6kcGhzJInozXUHz",
+          "name": "Mary Jhon SemiJoias"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "query": "={{ $json.firstName }} {{ $json.lastName }}"
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        -980,
+        40
+      ],
+      "id": "015a21e1-66d8-4821-b1bd-5a141289a725",
+      "name": "Busca",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "F6kcGhzJInozXUHz",
+          "name": "Mary Jhon SemiJoias"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "operação"
+            },
+            {
+              "name": "firstName"
+            },
+            {
+              "name": "lastName"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "phone"
+            },
+            {
+              "name": "city"
+            },
+            {
+              "name": "address1"
+            },
+            {
+              "name": "source"
+            },
+            {
+              "name": "contact.fale_sobre_vc"
+            },
+            {
+              "name": "contact.tem_experiencia"
+            },
+            {
+              "name": "contact.numero_documento"
+            },
+            {
+              "name": "contact.referencia_personal_1"
+            },
+            {
+              "name": "contact.referencia_personal_2"
+            },
+            {
+              "name": "contact.referencia_personal_3"
+            },
+            {
+              "name": "contact.referencia_comercial_1"
+            },
+            {
+              "name": "contact.referencia_comercial_2"
+            },
+            {
+              "name": "contact.referencia_comercial_3"
+            },
+            {
+              "name": "conversationHistory"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1180,
+        40
+      ],
+      "id": "a50d0d25-e5d6-46c3-8b72-63dc63e20204",
+      "name": "Execute Workflow Trigger"
+    },
+    {
+      "parameters": {
+        "content": "# Verifica whatsapp",
+        "height": 280,
+        "width": 540,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        -300
+      ],
+      "typeVersion": 1,
+      "id": "f64427af-e0ca-4bb1-9d67-7ef3609d50b5",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evolution.escamax1.automacao360.com/chat/whatsappNumbers/maryjhon",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=239A1C16855D73C57525DD951AC3C"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"numbers\": [\n    \"{{ $json.phone }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "5019f9dc-c48b-4d22-90cb-5562982fd4a8",
+      "name": "Whatsapp válido?",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -240,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json[\"exists\"] }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "37a8f45d-dabf-48d4-990a-61cc95b14db8",
+      "name": "É válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41f4cd6a-1fb4-454f-af12-46a506dadb48",
+              "name": "response",
+              "value": "={{ \"número de whatsapp é inválido = \" + $json.number }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        -340
+      ],
+      "id": "9f96effd-8cf0-4a5d-82de-fde30904fc94",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  // 1) Garante string  +  remove tudo que NÃO é dígito (parênteses, espaço, hífen, +)\n  const digits = String(item.json.phone ?? '')\n                  .replace(/\\D/g, '');  // só dígitos\n\n  // 2) Determina o número sem o prefixo internacional\n  let local;\n  if (digits.startsWith('595')) {\n    local = digits.slice(3);            // remove 595\n  } else if (digits.startsWith('0')) {\n    local = digits.replace(/^0+/, '');  // remove zero(s) à esquerda\n  } else {\n    local = digits;                     // ex: 981123456\n  }\n\n  // 3) Monta o número completo\n  const phone = '+595' + local;\n\n  // 4) (opcional) Validação de comprimento\n  if (local.length < 8 || local.length > 10) {\n    console.log('⚠️ Telefone fora do padrão:', digits);\n    // você decide se lança erro ou apenas segue o fluxo\n  }\n\n  return {\n    json: {\n      ...item.json,\n      phone,\n    },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -860,
+        -660
+      ],
+      "id": "355fb49f-5ecb-4160-bd2c-62e410ed52d7",
+      "name": "Code",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10772c94-caa3-4d05-b687-10bf15a12e69",
+              "name": "phone",
+              "value": "={{ $node[\"Execute Workflow Trigger\"].json.phone.startsWith('+595') \n  ? $node[\"Execute Workflow Trigger\"].json.phone \n  : '+595' + $node[\"Execute Workflow Trigger\"].json.phone.replace(/^0+/, '') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -440,
+        -200
+      ],
+      "id": "6c9a942f-ef2e-4758-b9ca-27892dbe47c1",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        420
+      ],
+      "id": "b9037a50-4cc7-47bd-aa77-b006d490fe89",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5204bb98-c216-43c7-b7d6-c43d8ec122f0",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -620,
+        -660
+      ],
+      "id": "da8848a1-b038-465b-bffb-0f387503f49b",
+      "name": "If1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evolution.escamax1.automacao360.com/chat/whatsappNumbers/maryjhon",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=239A1C16855D73C57525DD951AC3C"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"numbers\": [\n    \"{{ $json.phone }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "7e0015a9-1dc1-4786-b665-2e5095b30b33",
+      "name": "Whatsapp válido?1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -360,
+        -660
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Estou com esse erro: {{ $json.execution.error.stack }}",
+        "options": {
+          "systemMessage": "Você é um agente especializado em resolver erro do n8n.\nVocê tem toda a documentação na \"baseConhecimento\".\n\nChame a tool \"baseConhecimento\" para obter a solução para este erro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -180,
+        420
+      ],
+      "id": "80d5f571-6e47-47aa-9d00-dfa73896dbd4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "match_assistant_n8n",
+        "toolDescription": "Buscar informações sobre o n8n",
+        "tableName": {
+          "__rl": true,
+          "value": "assistant_n8n",
+          "mode": "list",
+          "cachedResultName": "assistant_n8n"
+        },
+        "options": {
+          "queryName": "match_assistant_n8n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        620
+      ],
+      "id": "1c45eac4-1135-4ecb-8b8a-3d03cda79603",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        180,
+        800
+      ],
+      "id": "f9cce5e1-c47c-470d-b850-e5e648a17466",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "268e2638-88fc-445c-9716-08fe51660dc3",
+              "name": "execution.url",
+              "value": "={{ $json.execution.url }}",
+              "type": "string"
+            },
+            {
+              "id": "0cc51b04-fb91-4af5-92a7-a459334d6e67",
+              "name": "execution.error.message",
+              "value": "={{ $json.execution.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "aa5851cd-c127-4fcd-b4a1-5567c2ca5942",
+              "name": "execution.error.stack",
+              "value": "={{ $json.execution.error.stack }}",
+              "type": "string"
+            },
+            {
+              "id": "1da5bad4-1f7a-41c0-a0b0-cdd58f34616a",
+              "name": "workflow.name",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -340,
+        420
+      ],
+      "id": "4f9237fc-deec-4a80-ae10-383dd54f69e9",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "suporteondaia",
+        "remoteJid": "5567999308787",
+        "messageText": "=Workflow: {{ $('Edit Fields4').item.json.workflow.name }}\n\nMensagem de erro : {{ $('Edit Fields4').item.json.execution.error.stack }}\n\nacesse o link para erro: {{ \n  $node[\"Edit Fields4\"].json.execution.url\n    .replace(/^https?:\\/\\/webhook\\./, \"https://flow.\") \n}}\n\nlog do erro: \n{{ $('Error Trigger').item.json.execution.error.errno }}\n{{ $('Error Trigger').item.json.execution.error.code }}\n{{ $('Error Trigger').item.json.execution.error.syscall }}\n{{ $('Error Trigger').item.json.execution.error.message }}\n\nResolução: {{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        180,
+        420
+      ],
+      "id": "48323344-f8b8-424f-a811-778d27f3d9f5",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "KKh2QKWo3vqF000N",
+          "name": "Agencia OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        600
+      ],
+      "id": "e4b17935-f581-44ed-a19d-aef27ef50e6b",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OKBVbV3h0JCNgM8u",
+          "name": "MaryJhon"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UpdateContacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateContact": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContacts": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Busca": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whatsapp válido?": {
+      "main": [
+        [
+          {
+            "node": "É válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É válido?": {
+      "main": [
+        [
+          {
+            "node": "CreateContact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Whatsapp válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "3Ya2PSoSYieSkb3G"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "fc792c93-1808-46be-a531-289307727758",
+  "triggerCount": 0,
+  "tags": []
+}
