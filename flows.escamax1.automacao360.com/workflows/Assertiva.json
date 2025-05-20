@@ -1,0 +1,309 @@
+{
+  "createdAt": "2025-04-25T19:43:16.508Z",
+  "updatedAt": "2025-05-02T18:50:00.968Z",
+  "id": "MF9zDj179q8imGhd",
+  "name": "Assertiva",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.assertivasolucoes.com.br/oauth2/v3/token",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "grant_type",
+              "value": "client_credentials"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "66781bd2-dcaf-4cd8-81a9-958ac0087847",
+      "name": "Get Assertiva Token",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -220,
+        -340
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "f443NbtKYvRMfBY8",
+          "name": "Token Assertiva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "token Assertiva",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "1"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "token",
+              "fieldValue": "={{ $json.access_token }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        -340
+      ],
+      "id": "fde4626f-c9f5-410f-8245-8614276bb7b7",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 25
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -440,
+        -340
+      ],
+      "id": "8855cf89-aa53-4875-a875-3fec36622fa6",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "path": "analise_de_credito",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        -100
+      ],
+      "id": "dcc02caa-9da8-4766-9f4d-dc53a813c3f6",
+      "name": "Webhook",
+      "webhookId": "23197b76-2990-4610-b58d-9de533385895"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "token Assertiva",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "1"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        -100
+      ],
+      "id": "b3238657-6e22-473a-91fb-f255addc4bef",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "MmwWW5IYycE2AaDQ",
+          "name": "Ag. OndaIA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.assertivasolucoes.com.br/mix-v3/pf/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "idFinalidade",
+              "value": "2"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        -100
+      ],
+      "id": "2ef8e26c-5ee6-42a2-a434-fabe38de8ea6",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f8780e1-7fd7-4525-b567-511f1d5fda93",
+              "name": "resposta.ocorrencias.debitos",
+              "value": "={{ $json.resposta.ocorrencias.debitos }}",
+              "type": "array"
+            },
+            {
+              "id": "c0189f29-93f5-4cf3-b088-9b1e16d8f5c5",
+              "name": "resposta.ocorrencias.score.score.faixa",
+              "value": "={{ $json.resposta.ocorrencias.score.score.faixa }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -100
+      ],
+      "id": "bdb31ea8-78dd-41d4-b6ad-0680882217e5",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "opportunity",
+        "operation": "update",
+        "updateFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        -100
+      ],
+      "id": "ead3300d-d6d1-4642-9c5c-4c281b48cad1",
+      "name": "HighLevel",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "TzV76Ju4J42MfSaS",
+          "name": "DeBona"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Get Assertiva Token": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Assertiva Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HighLevel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "12c8a00c-401b-4ece-a99e-13cc8fdab98c",
+  "triggerCount": 2,
+  "tags": []
+}
