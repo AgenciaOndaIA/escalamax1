@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-05-20T20:35:47.482Z",
+  "updatedAt": "2025-05-20T21:05:20.656Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -32,12 +32,12 @@
       "parameters": {
         "content": "",
         "height": 180,
-        "width": 740,
+        "width": 960,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        240,
+        20,
         320
       ],
       "typeVersion": 1,
@@ -99,8 +99,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -160,
-        760
+        320,
+        800
       ],
       "id": "68f02c1e-b661-484b-b1d1-c52989b2bda8",
       "name": "OpenRouter",
@@ -459,8 +459,7 @@
         560
       ],
       "id": "250a8150-ec9a-4106-b1d8-ddd1d75f1adc",
-      "name": "Edit Fields",
-      "disabled": true
+      "name": "Edit Fields"
     },
     {
       "parameters": {},
@@ -471,8 +470,7 @@
         560
       ],
       "id": "889210ab-1d24-41c3-b9d4-9cc52e2d69b1",
-      "name": "Error Trigger",
-      "disabled": true
+      "name": "Error Trigger"
     },
     {
       "parameters": {
@@ -495,8 +493,7 @@
           "id": "KKh2QKWo3vqF000N",
           "name": "Agencia OndaIA"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -513,8 +510,7 @@
         560
       ],
       "id": "3a727f33-b520-4cab-9553-638ec587ecbf",
-      "name": "AI Agent",
-      "disabled": true
+      "name": "AI Agent"
     },
     {
       "parameters": {
@@ -544,8 +540,7 @@
           "id": "MmwWW5IYycE2AaDQ",
           "name": "Ag. OndaIA"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -567,8 +562,57 @@
           "id": "3KUgCv31pjbgxYGk",
           "name": "EscalaMax"
         }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
       },
-      "disabled": true
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        360
+      ],
+      "id": "fdc941de-923b-4d31-a735-e5c7571165be",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        800
+      ],
+      "id": "15a6e1f3-c547-479f-a6ee-f1f6137da315",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
     }
   ],
   "connections": {
@@ -608,13 +652,7 @@
     },
     "OpenRouter": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Restart History": {
@@ -731,6 +769,28 @@
       "main": [
         []
       ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -743,7 +803,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "df6d3ee4-820e-4e3d-85aa-328deb3672d4",
+  "versionId": "388d151e-0036-48bb-a2ae-0c6bb904c786",
   "triggerCount": 1,
   "tags": [
     {
