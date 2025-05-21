@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-05-21T14:54:03.201Z",
+  "updatedAt": "2025-05-21T17:28:46.781Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -584,8 +584,8 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "3KUgCv31pjbgxYGk",
-          "name": "EscalaMax"
+          "id": "e7Y08iJ1FbEVOWTx",
+          "name": "MaryJhon"
         }
       }
     },
@@ -609,8 +609,8 @@
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "3KUgCv31pjbgxYGk",
-          "name": "EscalaMax"
+          "id": "e7Y08iJ1FbEVOWTx",
+          "name": "MaryJhon"
         }
       }
     }
@@ -803,7 +803,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e97d6c4e-8a45-486c-9a3f-5e05d157b075",
+  "versionId": "8d38c230-b872-473d-8b2f-fa03fcf25a67",
   "triggerCount": 1,
   "tags": [
     {
