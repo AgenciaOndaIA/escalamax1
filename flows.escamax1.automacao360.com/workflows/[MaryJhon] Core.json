@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-05-21T17:28:46.781Z",
+  "updatedAt": "2025-05-21T19:31:10.625Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -568,9 +568,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-4.1",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-4.1"
         },
         "options": {}
       },
@@ -803,7 +803,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "8d38c230-b872-473d-8b2f-fa03fcf25a67",
+  "versionId": "74ba393f-43f8-4c7e-a11f-4cd5d2d3d694",
   "triggerCount": 1,
   "tags": [
     {
