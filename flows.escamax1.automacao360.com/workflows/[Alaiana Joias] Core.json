@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T22:04:01.098Z",
-  "updatedAt": "2025-05-20T20:36:06.179Z",
+  "updatedAt": "2025-05-22T17:52:15.603Z",
   "id": "ICx4TaMAobnRWNzS",
   "name": "[Alaiana Joias] Core",
   "active": true,
@@ -80,8 +80,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        100,
-        380
+        -240,
+        800
       ],
       "id": "d60614fc-b311-4311-b56c-bbc07c3d4c7d",
       "name": "OpenRouter",
@@ -787,8 +787,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        380,
-        920
+        -220,
+        1000
       ],
       "id": "9350f67c-4873-4310-baa7-924bc3f143b0",
       "name": "OpenRouter Chat Model",
@@ -836,6 +836,56 @@
       "id": "38f71b7f-5014-4232-87d0-262da52d323f",
       "name": "Execution Data",
       "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        100,
+        380
+      ],
+      "id": "9e9f8d0b-02bb-45cf-a34f-7eee8eb75b5b",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        260,
+        1020
+      ],
+      "id": "8b0fdb52-dd9f-4c06-ae20-1c13864d25cd",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
     }
   ],
   "connections": {
@@ -863,13 +913,7 @@
     },
     "OpenRouter": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Restart History": {
@@ -973,13 +1017,7 @@
     },
     "OpenRouter Chat Model": {
       "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Core Input": {
@@ -1003,6 +1041,28 @@
           }
         ]
       ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1011,9 +1071,11 @@
     "errorWorkflow": "ICx4TaMAobnRWNzS"
   },
   "staticData": null,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "pinData": {},
-  "versionId": "fd5a03e0-e7c3-492f-b673-e549e59045ef",
+  "versionId": "489a30b8-8853-4288-ac21-dcd254d93404",
   "triggerCount": 1,
   "tags": [
     {
