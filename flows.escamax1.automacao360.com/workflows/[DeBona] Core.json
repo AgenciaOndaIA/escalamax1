@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-23T13:39:06.177Z",
+  "updatedAt": "2025-05-23T13:58:42.815Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -1243,7 +1243,13 @@
     },
     "Think": {
       "ai_tool": [
-        []
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
       ]
     },
     "Error Trigger": {
@@ -1347,13 +1353,7 @@
     },
     "createUsers": {
       "ai_tool": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -1371,7 +1371,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "078c2161-7d2e-49fd-8c8b-7e448bdef00c",
+  "versionId": "ada00aac-b222-4bea-9cd9-7efea0d9ab64",
   "triggerCount": 1,
   "tags": [
     {
