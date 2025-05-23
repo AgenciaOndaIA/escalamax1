@@ -1570,10 +1570,6 @@
               "value": "thudm/glm-z1-rumination-32b"
             },
             {
-              "text": "THUDM: GLM 4 9B (free)",
-              "value": "thudm/glm-4-9b:free"
-            },
-            {
               "text": "Microsoft: MAI DS R1 (free)",
               "value": "microsoft/mai-ds-r1:free"
             },
@@ -2912,20 +2908,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
