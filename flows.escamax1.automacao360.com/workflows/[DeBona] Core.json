@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-20T21:25:03.340Z",
+  "updatedAt": "2025-05-23T11:00:15.961Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -31,12 +31,12 @@
     {
       "parameters": {
         "content": "",
-        "width": 800,
+        "width": 940,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        40,
+        -100,
         240
       ],
       "typeVersion": 1,
@@ -55,7 +55,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        380,
+        340,
         0
       ],
       "id": "1cf818af-1611-4dae-8160-459e5c15e0eb",
@@ -66,7 +66,7 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        740,
+        700,
         0
       ],
       "id": "8f7c2166-d827-427b-8dae-79e204bdf0ba",
@@ -82,7 +82,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        0,
+        -40,
         0
       ],
       "id": "926a9c01-6371-41ec-80d1-ec1cbc0b5e4e",
@@ -97,7 +97,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        100,
+        -60,
         280
       ],
       "id": "a5a2a081-0665-41a7-a011-d44b9cbb77cb",
@@ -119,7 +119,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -60,
+        -100,
         -100
       ],
       "id": "4107e25c-e6b7-4b25-8ea9-4fe66d902f0d",
@@ -135,7 +135,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
+        -40,
         -100
       ],
       "id": "8411e66e-39aa-460a-8c78-6ca368316922",
@@ -345,7 +345,7 @@
       "type": "n8n-nodes-base.executionData",
       "typeVersion": 1,
       "position": [
-        180,
+        140,
         0
       ],
       "id": "2393c76e-a855-4002-a315-8e27c943ab2c",
@@ -769,8 +769,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -200,
-        360
+        80,
+        280
       ],
       "id": "681daffd-019f-4864-ae7f-0fd2188faebd",
       "name": "OpenAI Chat Model",
@@ -993,7 +993,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "0a6d451b-2fd4-4a54-b686-47cd06f10533",
+  "versionId": "cada490a-9b8e-41c7-b0fb-b4a0b620e793",
   "triggerCount": 1,
   "tags": [
     {
