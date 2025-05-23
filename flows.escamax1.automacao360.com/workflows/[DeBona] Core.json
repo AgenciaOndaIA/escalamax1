@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-23T12:20:48.859Z",
+  "updatedAt": "2025-05-23T13:39:06.177Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -744,9 +744,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-4.1",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-4.1"
         },
         "options": {}
       },
@@ -1243,13 +1243,7 @@
     },
     "Think": {
       "ai_tool": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Error Trigger": {
@@ -1377,7 +1371,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "96cd6e87-002d-4e25-a07e-dd8f5eb3c218",
+  "versionId": "078c2161-7d2e-49fd-8c8b-7e448bdef00c",
   "triggerCount": 1,
   "tags": [
     {
