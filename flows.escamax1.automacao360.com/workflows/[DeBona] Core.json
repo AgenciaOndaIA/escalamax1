@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-23T11:03:28.298Z",
+  "updatedAt": "2025-05-23T11:41:05.493Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -31,7 +31,7 @@
     {
       "parameters": {
         "content": "",
-        "width": 940,
+        "width": 1080,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -158,7 +158,7 @@
     },
     {
       "parameters": {
-        "description": "quando acionada sempre será para decidir entre criar ou atualizar o cadastro. \nQuando a resposta do usuário for email, será criar.\nquando for resposta do aceite dos termos, será atualizar"
+        "description": "Importante\n\"Quando a resposta do usuário for email, será criar.\"\n\"quando for resposta do aceite dos termos, será atualizar\""
       },
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1,
@@ -174,8 +174,8 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -100,
-        560
+        -60,
+        520
       ],
       "id": "3895c212-6ce3-4870-8bc9-d0654c0a3438",
       "name": "Error Trigger"
@@ -191,8 +191,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        280,
-        560
+        320,
+        520
       ],
       "id": "4eea4e81-64c7-4338-b9b2-f8300663e941",
       "name": "AI Agent"
@@ -215,8 +215,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        620,
-        840
+        580,
+        760
       ],
       "id": "3070de0e-6d08-424d-8b3f-d0bd4428ed83",
       "name": "Supabase Vector Store",
@@ -237,8 +237,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        640,
-        940
+        580,
+        900
       ],
       "id": "3d9c6302-6d13-460d-88f2-0b70264453bf",
       "name": "Embeddings OpenAI",
@@ -284,8 +284,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        120,
-        560
+        160,
+        520
       ],
       "id": "30bc5af7-c36e-414f-ad75-e35f8cb52484",
       "name": "Edit Fields4"
@@ -301,8 +301,8 @@
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        640,
-        560
+        680,
+        520
       ],
       "id": "1143dc63-c071-4931-a93c-0e8710a454fc",
       "name": "Evolution API",
@@ -345,10 +345,7 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', ``, 'string') }}",
-            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', ``, 'string') }}",
             "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
-            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', ``, 'string') }}",
             "dateOfBirth": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('dateOfBirth', `data de nascimento`, 'string') }}",
             "source": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('source', ``, 'string') }}",
             "address1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('address1', ``, 'string') }}",
@@ -402,7 +399,8 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": true
             },
             {
               "id": "lastName",
@@ -411,7 +409,8 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": true
             },
             {
               "id": "email",
@@ -429,7 +428,8 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": true
             },
             {
               "id": "dateOfBirth",
@@ -776,8 +776,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        300,
-        820
+        340,
+        780
       ],
       "id": "e6dd3997-bd05-4912-963a-6aa52f9fd65a",
       "name": "OpenAI Chat Model1",
@@ -1375,7 +1375,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e6fcb348-fda8-4307-9496-92a8d512471e",
+  "versionId": "e87a798d-81ca-4bd0-bec7-4811141fc66b",
   "triggerCount": 1,
   "tags": [
     {
