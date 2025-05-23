@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-23T11:00:15.961Z",
+  "updatedAt": "2025-05-23T11:03:28.298Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -158,24 +158,6 @@
     },
     {
       "parameters": {
-        "name": "set_timer",
-        "description": "Invoque essa tool para configurar um timer que iniciará uma ação após o tempo especificado. Apenas usuários admin podem usar essa tool. O tempo deve ser informado com valor e unidade (s, m, h). Apenas quando o user solicitar.",
-        "jsCode": "const axios = require('axios');\nconst dayjs = require('dayjs');\nconst duration = require('dayjs/plugin/duration');\ndayjs.extend(duration);\n\n/**\n * Esta tool configura um timer via webhook.\n * Ela envia, para o endpoint, todo o objeto mapping (obtido em Core Input)\n * e o tempo em segundos calculado a partir dos parâmetros \"timer_value\" e \"timer_unit\".\n * Apenas usuários admin podem utilizar esta tool.\n */\n\n// Converte o mapping recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n// Obtém os parâmetros do timer a partir do input (query)\nconst timerValue = query.timer_value;  // Número (ex: 30)\nconst timerUnit = query.timer_unit;      // \"s\", \"m\" ou \"h\"\n\n// Calcula o tempo em segundos usando dayjs.duration\nconst timerSeconds = dayjs.duration(timerValue, timerUnit).asSeconds();\n\n// Prepara o payload para o webhook\nconst payload = {\n  mapping: mapping,\n  timer_seconds: timerSeconds\n};\n\n// URL do webhook substituindo 'n8n_webhook' pelo valor da variável no mapping\nconst url = `http://${mapping.system.n8n_webhook_service}:5678/webhook/timer`;\n\n/**\n * Função para enviar a requisição ao webhook.\n * Tenta enviar uma única vez e retorna o resultado.\n */\nasync function sendTimerRequest() {\n  try {\n    console.log(`Enviando requisição para configurar o timer para ${timerSeconds} segundos...`);\n    const response = await axios.post(url, payload, {\n      headers: { 'Content-Type': 'application/json' }\n    });\n    console.log(\"Timer configurado com sucesso.\");\n    return { success: true, message: `Timer configurado com sucesso. Ele será acionado em ${timerSeconds} segundos.` };\n  } catch (error) {\n    console.error(\"Erro ao configurar o timer:\", error.response ? error.response.data : error.message);\n    return { success: false, error: error.response ? error.response.data : error.message };\n  }\n}\n\nreturn sendTimerRequest().then(result => JSON.stringify(result));",
-        "specifyInputSchema": true,
-        "schemaType": "manual",
-        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"timer_value\": {\n      \"type\": \"number\",\n      \"description\": \"Valor do timer. Exemplo: 30\"\n    },\n    \"timer_unit\": {\n      \"type\": \"string\",\n      \"description\": \"Unidade de tempo para o timer: 's' para segundos, 'm' para minutos, 'h' para horas.\",\n      \"enum\": [\"s\", \"m\", \"h\"]\n    }\n  },\n  \"required\": [\"timer_value\", \"timer_unit\"]\n}"
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolCode",
-      "typeVersion": 1.1,
-      "position": [
-        460,
-        280
-      ],
-      "id": "38fe7b7d-047c-405c-9761-64a06227587f",
-      "name": "Set Timer"
-    },
-    {
-      "parameters": {
         "description": "quando acionada sempre será para decidir entre criar ou atualizar o cadastro. \nQuando a resposta do usuário for email, será criar.\nquando for resposta do aceite dos termos, será atualizar"
       },
       "type": "@n8n/n8n-nodes-langchain.toolThink",
@@ -192,8 +174,8 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -60,
-        440
+        -100,
+        560
       ],
       "id": "3895c212-6ce3-4870-8bc9-d0654c0a3438",
       "name": "Error Trigger"
@@ -209,8 +191,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        320,
-        440
+        280,
+        560
       ],
       "id": "4eea4e81-64c7-4338-b9b2-f8300663e941",
       "name": "AI Agent"
@@ -233,8 +215,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        660,
-        720
+        620,
+        840
       ],
       "id": "3070de0e-6d08-424d-8b3f-d0bd4428ed83",
       "name": "Supabase Vector Store",
@@ -255,8 +237,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        680,
-        820
+        640,
+        940
       ],
       "id": "3d9c6302-6d13-460d-88f2-0b70264453bf",
       "name": "Embeddings OpenAI",
@@ -302,8 +284,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        160,
-        440
+        120,
+        560
       ],
       "id": "30bc5af7-c36e-414f-ad75-e35f8cb52484",
       "name": "Edit Fields4"
@@ -319,8 +301,8 @@
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        680,
-        440
+        640,
+        560
       ],
       "id": "1143dc63-c071-4931-a93c-0e8710a454fc",
       "name": "Evolution API",
@@ -353,7 +335,7 @@
     },
     {
       "parameters": {
-        "description": "invoque essa tool pra create ou update de contatos",
+        "description": "invoque essa tool para update de contatos",
         "workflowId": {
           "__rl": true,
           "value": "9jYLobJVEfBuWMkn",
@@ -750,7 +732,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        600,
+        620,
         280
       ],
       "id": "5045ba26-1ebe-4b42-b147-e347876b7a8a",
@@ -794,8 +776,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        340,
-        700
+        300,
+        820
       ],
       "id": "e6dd3997-bd05-4912-963a-6aa52f9fd65a",
       "name": "OpenAI Chat Model1",
@@ -805,6 +787,406 @@
           "name": "EscalaMax"
         }
       }
+    },
+    {
+      "parameters": {
+        "description": "invoque essa tool pra create ou update de contatos",
+        "workflowId": {
+          "__rl": true,
+          "value": "9jYLobJVEfBuWMkn",
+          "mode": "list",
+          "cachedResultName": "[DeBona]  contatos Bobgrow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', ``, 'string') }}",
+            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', ``, 'string') }}",
+            "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', ``, 'string') }}",
+            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', `create `, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operação",
+              "displayName": "operação",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "firstName",
+              "displayName": "firstName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "lastName",
+              "displayName": "lastName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "address1",
+              "displayName": "address1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "postalCode",
+              "displayName": "postalCode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "cpf",
+              "displayName": "cpf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.instagram",
+              "displayName": "contact.instagram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.estado_civil",
+              "displayName": "contact.estado_civil",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.ja_trabalhou_com_vendas",
+              "displayName": "contact.ja_trabalhou_com_vendas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.voc_trabalha_com_carto_de_crdito",
+              "displayName": "contact.voc_trabalha_com_carto_de_crdito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.quanto_tempo_trabalha_com_vendas",
+              "displayName": "contact.quanto_tempo_trabalha_com_vendas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado",
+              "displayName": "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.voc_j_trabalhou_com_produtos_no_consignado",
+              "displayName": "contact.voc_j_trabalhou_com_produtos_no_consignado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.quais_produtos_voc_j_vendeu_antes",
+              "displayName": "contact.quais_produtos_voc_j_vendeu_antes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento",
+              "displayName": "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.contato__01",
+              "displayName": "contact.contato__01",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.contato_02",
+              "displayName": "contact.contato_02",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.contato_03",
+              "displayName": "contact.contato_03",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.voc_possui_casa_prpria",
+              "displayName": "contact.voc_possui_casa_prpria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida",
+              "displayName": "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.voc_possui_algum_trabalho_atualmente",
+              "displayName": "contact.voc_possui_algum_trabalho_atualmente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.com_o_que_trabalha",
+              "displayName": "contact.com_o_que_trabalha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias",
+              "displayName": "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos",
+              "displayName": "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos",
+              "displayName": "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "contact.como_voc_pretende_divulgar_e_vender_as_semijoias",
+              "displayName": "contact.como_voc_pretende_divulgar_e_vender_as_semijoias",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "Você está pronta para começar imediatamente, caso seja aprovada?",
+              "displayName": "Você está pronta para começar imediatamente, caso seja aprovada?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "Informações adicionais",
+              "displayName": "Informações adicionais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "Resumo da IA",
+              "displayName": "Resumo da IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "aceita os termos?",
+              "displayName": "aceita os termos?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        280
+      ],
+      "id": "e97c2f37-0008-46db-80a7-6c96325faef5",
+      "name": "createUsers"
     }
   ],
   "connections": {
@@ -847,17 +1229,6 @@
       ]
     },
     "Restart History": {
-      "ai_tool": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Set Timer": {
       "ai_tool": [
         [
           {
@@ -977,6 +1348,17 @@
           }
         ]
       ]
+    },
+    "createUsers": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -993,7 +1375,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "cada490a-9b8e-41c7-b0fb-b4a0b620e793",
+  "versionId": "e6fcb348-fda8-4307-9496-92a8d512471e",
   "triggerCount": 1,
   "tags": [
     {
