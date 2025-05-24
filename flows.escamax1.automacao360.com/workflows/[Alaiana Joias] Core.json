@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T22:04:01.098Z",
-  "updatedAt": "2025-05-22T17:52:15.603Z",
+  "updatedAt": "2025-05-24T11:09:01.292Z",
   "id": "ICx4TaMAobnRWNzS",
   "name": "[Alaiana Joias] Core",
   "active": true,
@@ -80,8 +80,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -240,
-        800
+        -100,
+        1000
       ],
       "id": "d60614fc-b311-4311-b56c-bbc07c3d4c7d",
       "name": "OpenRouter",
@@ -1075,7 +1075,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "489a30b8-8853-4288-ac21-dcd254d93404",
+  "versionId": "07784c43-f8cb-44e4-9526-d47512648deb",
   "triggerCount": 1,
   "tags": [
     {
