@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-25T19:00:36.783Z",
+  "updatedAt": "2025-05-25T19:22:13.102Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -155,19 +155,6 @@
       ],
       "id": "d9b93277-430d-42cb-a65c-10bf2baa5938",
       "name": "Restart History"
-    },
-    {
-      "parameters": {
-        "description": "Importante\n\"Quando a resposta do usuário for email, será criar.\"\n\"quando for resposta do aceite dos termos, será atualizar\""
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolThink",
-      "typeVersion": 1,
-      "position": [
-        740,
-        280
-      ],
-      "id": "e6c77af4-606c-4ff0-bc58-a03b4fe03fc5",
-      "name": "Think"
     },
     {
       "parameters": {},
@@ -377,14 +364,15 @@
             "contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_quais_desafios_voc_acha_que_pode_enfrentar_o_comear_com', `resposta da pergunta: Quais desafios você acha que pode enfrentar ao começar e como pretende superá-los?`, 'string') }}",
             "contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_', `resposta da pergunta: Quanto tempo por semana você consegue dedicar à revenda de Semijoias?`, 'string') }}",
             "contact.com_o_que_trabalha": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('contact_com_o_que_trabalha', `resposta da pergunta: Se sim, qual é a sua função atual?`, 'string') }}",
-            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', `create ou update`, 'string') }}",
             "Informações adicionais": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Informa__es_adicionais', `resposta da pergunta: Gostaria de compartilhar mais alguma informação ou observação relevante sobre seu perfil ou rotina?`, 'string') }}",
             "Resumo da IA": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Resumo_da_IA', `Faça um resumo bem detalhado de todo atendimento, dando opinião em relação ao comprometimento do ususário `, 'string') }}",
             "aceita os termos?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('aceita_os_termos_', `resposta da pergunta: Você aceita os termos e condições para participar do nosso programa de revenda?   respostas possíveis. true ou false`, 'string') }}",
             "cpf": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('cpf', `cpf do usuário`, 'string') }}",
             "Você está pronta para começar imediatamente, caso seja aprovada?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Voc__est__pronta_para_come_ar_imediatamente__caso_seja_aprovada', `resposta da pergunta: Você está pronta para começar imediatamente, caso seja aprovada?`, 'string') }}",
             "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', `nome do usuário`, 'string') }}",
-            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', `sobrenome do usuário`, 'string') }}"
+            "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', `sobrenome do usuário`, 'string') }}",
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', `telefone do usuário`, 'string') }}",
+            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', `create ou update`, 'string') }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -435,7 +423,7 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "string",
-              "removed": true
+              "removed": false
             },
             {
               "id": "dateOfBirth",
@@ -738,7 +726,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        620,
+        500,
         280
       ],
       "id": "5045ba26-1ebe-4b42-b147-e347876b7a8a",
@@ -748,9 +736,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-4.1",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-4.1"
         },
         "options": {}
       },
@@ -1188,11 +1176,22 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        480,
+        1140,
         280
       ],
       "id": "e97c2f37-0008-46db-80a7-6c96325faef5",
       "name": "createUsers"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        680,
+        280
+      ],
+      "id": "28594e1e-de8d-46e6-8b8e-2cac46a58a08",
+      "name": "Think"
     }
   ],
   "connections": {
@@ -1235,17 +1234,6 @@
       ]
     },
     "Restart History": {
-      "ai_tool": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Think": {
       "ai_tool": [
         [
           {
@@ -1359,6 +1347,17 @@
       "ai_tool": [
         []
       ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1375,7 +1374,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "6733deeb-cd4f-4050-8478-968964489a67",
+  "versionId": "42b5ad3b-4a49-4e8e-92f6-4f62c1cab0ac",
   "triggerCount": 1,
   "tags": [
     {
