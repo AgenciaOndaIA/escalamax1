@@ -1410,6 +1410,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Sarvam AI: Sarvam-M",
+              "value": "sarvamai/sarvam-m"
+            },
+            {
               "text": "TheDrummer: Valkyrie 49B V1",
               "value": "thedrummer/valkyrie-49b-v1"
             },
@@ -2138,12 +2142,12 @@
               "value": "anthropic/claude-3.5-haiku-20241022"
             },
             {
-              "text": "NeverSleep: Lumimaid v0.2 70B",
-              "value": "neversleep/llama-3.1-lumimaid-70b"
-            },
-            {
               "text": "Magnum v4 72B",
               "value": "anthracite-org/magnum-v4-72b"
+            },
+            {
+              "text": "NeverSleep: Lumimaid v0.2 70B",
+              "value": "neversleep/llama-3.1-lumimaid-70b"
             },
             {
               "text": "Anthropic: Claude 3.5 Sonnet (self-moderated)",
@@ -2178,24 +2182,24 @@
               "value": "nvidia/llama-3.1-nemotron-70b-instruct"
             },
             {
-              "text": "Inflection: Inflection 3 Pi",
-              "value": "inflection/inflection-3-pi"
-            },
-            {
               "text": "Inflection: Inflection 3 Productivity",
               "value": "inflection/inflection-3-productivity"
+            },
+            {
+              "text": "Inflection: Inflection 3 Pi",
+              "value": "inflection/inflection-3-pi"
             },
             {
               "text": "Google: Gemini 1.5 Flash 8B",
               "value": "google/gemini-flash-1.5-8b"
             },
             {
-              "text": "Magnum v2 72B",
-              "value": "anthracite-org/magnum-v2-72b"
-            },
-            {
               "text": "TheDrummer: Rocinante 12B",
               "value": "thedrummer/rocinante-12b"
+            },
+            {
+              "text": "Magnum v2 72B",
+              "value": "anthracite-org/magnum-v2-72b"
             },
             {
               "text": "Liquid: LFM 40B MoE",
@@ -2214,20 +2218,20 @@
               "value": "meta-llama/llama-3.2-90b-vision-instruct"
             },
             {
-              "text": "Meta: Llama 3.2 3B Instruct (free)",
-              "value": "meta-llama/llama-3.2-3b-instruct:free"
-            },
-            {
-              "text": "Meta: Llama 3.2 3B Instruct",
-              "value": "meta-llama/llama-3.2-3b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.2 11B Vision Instruct (free)",
               "value": "meta-llama/llama-3.2-11b-vision-instruct:free"
             },
             {
               "text": "Meta: Llama 3.2 11B Vision Instruct",
               "value": "meta-llama/llama-3.2-11b-vision-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 3B Instruct (free)",
+              "value": "meta-llama/llama-3.2-3b-instruct:free"
+            },
+            {
+              "text": "Meta: Llama 3.2 3B Instruct",
+              "value": "meta-llama/llama-3.2-3b-instruct"
             },
             {
               "text": "Qwen2.5 72B Instruct (free)",
@@ -2920,12 +2924,12 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
