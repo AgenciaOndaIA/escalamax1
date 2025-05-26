@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:50:45.384Z",
-  "updatedAt": "2025-05-15T17:44:16.740Z",
+  "updatedAt": "2025-05-26T08:29:40.301Z",
   "id": "WdDXZS46qi8VKBEj",
   "name": "[Alaiane]  contatos Bobgrow",
   "active": false,
@@ -53,7 +53,7 @@
     },
     {
       "parameters": {
-        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "email": "={{ $('Execute Workflow Trigger').item.json.email.replace('YOU', '') }}",
         "phone": "={{ $('Execute Workflow Trigger').item.json.phone }}",
         "additionalFields": {
           "firstName": "={{ $('Execute Workflow Trigger').item.json.firstName }}",
@@ -80,7 +80,7 @@
     },
     {
       "parameters": {
-        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "email": "={{ $('Execute Workflow Trigger').item.json.email.replace('YOU', '') }}",
         "phone": "={{ $('Execute Workflow Trigger').item.json.phone }}",
         "additionalFields": {
           "address1": "={{ $('Execute Workflow Trigger').item.json.address1 }}",
@@ -669,7 +669,7 @@
       "credentials": {
         "openRouterApi": {
           "id": "OJT1sLLEsazPFgVw",
-          "name": "OpenRouter escalamax1"
+          "name": "OpenRouter escalamax"
         }
       }
     }
@@ -825,7 +825,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "f338b152-3004-425f-b326-b1fd2cd990a5",
+  "versionId": "2e4024d5-7694-420a-bffd-50e573d258a2",
   "triggerCount": 0,
   "tags": [
     {
