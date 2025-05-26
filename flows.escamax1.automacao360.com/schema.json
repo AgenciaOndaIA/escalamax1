@@ -2466,10 +2466,6 @@
               "value": "allenai/olmo-7b-instruct"
             },
             {
-              "text": "NeverSleep: Llama 3 Lumimaid 8B (extended)",
-              "value": "neversleep/llama-3-lumimaid-8b:extended"
-            },
-            {
               "text": "NeverSleep: Llama 3 Lumimaid 8B",
               "value": "neversleep/llama-3-lumimaid-8b"
             },
@@ -2916,16 +2912,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
