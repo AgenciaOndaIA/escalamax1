@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-05-03T19:27:31.781Z",
-  "updatedAt": "2025-05-19T09:44:02.436Z",
+  "updatedAt": "2025-05-26T11:22:12.930Z",
   "id": "3Ya2PSoSYieSkb3G",
   "name": "[MaryJhon] GestãoContatos",
   "active": false,
@@ -863,7 +863,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "fc792c93-1808-46be-a531-289307727758",
+  "versionId": "bdc18507-82d3-4ee3-b079-4e0e314ccaf8",
   "triggerCount": 0,
   "tags": []
 }
