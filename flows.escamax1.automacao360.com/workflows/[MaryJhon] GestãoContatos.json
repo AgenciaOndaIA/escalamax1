@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-05-03T19:27:31.781Z",
-  "updatedAt": "2025-05-26T11:22:12.930Z",
+  "updatedAt": "2025-05-26T19:10:39.478Z",
   "id": "3Ya2PSoSYieSkb3G",
   "name": "[MaryJhon] GestãoContatos",
   "active": false,
@@ -183,6 +183,22 @@
                   "mode": "id"
                 },
                 "fieldValue": "={{ $('Execute Workflow Trigger').item.json.conversationHistory }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "opQbVmUAtdfNlDVZGY1V",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Actualmente estás trabajando? Y si no es molestia, ¿podés contarme un poquito dónde y qué estás haciendo?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "5G8Kk1toRXjb3QgSRnZU",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Disculpá que te moleste, pero quería consultarte si estás registrada en Inforconf.'] }}"
               }
             ]
           },
@@ -290,6 +306,12 @@
             },
             {
               "name": "contact.referencia_comercial_3"
+            },
+            {
+              "name": "Disculpá que te moleste, pero quería consultarte si estás registrada en Inforconf."
+            },
+            {
+              "name": "Actualmente estás trabajando? Y si no es molestia, ¿podés contarme un poquito dónde y qué estás haciendo?"
             },
             {
               "name": "conversationHistory"
@@ -863,7 +885,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "bdc18507-82d3-4ee3-b079-4e0e314ccaf8",
+  "versionId": "f2e3845a-9753-455a-9bcf-a453a4d06423",
   "triggerCount": 0,
   "tags": []
 }
