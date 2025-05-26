@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T22:08:39.109Z",
-  "updatedAt": "2025-05-25T18:59:49.604Z",
+  "updatedAt": "2025-05-26T08:29:18.500Z",
   "id": "9jYLobJVEfBuWMkn",
   "name": "[DeBona]  contatos Bobgrow",
   "active": false,
@@ -53,7 +53,7 @@
     },
     {
       "parameters": {
-        "email": "={{ $('When Executed by Another Workflow').item.json.email }}",
+        "email": "={{ $('When Executed by Another Workflow').item.json.email.replace('YOU', '') }}",
         "phone": "={{ $('When Executed by Another Workflow').item.json.phone }}",
         "additionalFields": {
           "firstName": "={{ $('When Executed by Another Workflow').item.json.firstName }}",
@@ -81,7 +81,7 @@
     },
     {
       "parameters": {
-        "email": "={{ $('When Executed by Another Workflow').item.json.email }}",
+        "email": "={{ $('When Executed by Another Workflow').item.json.email.replace('YOU', '') }}",
         "phone": "={{ $('When Executed by Another Workflow').item.json.phone }}",
         "additionalFields": {
           "address1": "={{ $('When Executed by Another Workflow').item.json.address1 }}",
@@ -834,7 +834,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "a00086da-7f26-413c-a506-0804afb726b2",
+  "versionId": "23fd3e55-6a14-4e76-94f3-9924ffdf000d",
   "triggerCount": 0,
   "tags": [
     {
