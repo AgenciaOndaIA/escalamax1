@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-05-25T18:48:44.565Z",
+  "updatedAt": "2025-05-26T18:06:40.268Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -530,8 +530,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        760,
-        820
+        780,
+        760
       ],
       "id": "bc500dcd-21d0-4ccd-8ecc-3c205f8d0618",
       "name": "Supabase Vector Store",
@@ -552,8 +552,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        880,
-        1000
+        960,
+        940
       ],
       "id": "1a045073-ce59-4c04-a393-e2c022afb409",
       "name": "Embeddings OpenAI",
@@ -803,7 +803,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "c2b0bec9-6155-4ea7-b47f-20b532d26120",
+  "versionId": "fac6bee5-fe65-4312-a51f-47a6e00fcec8",
   "triggerCount": 1,
   "tags": [
     {
