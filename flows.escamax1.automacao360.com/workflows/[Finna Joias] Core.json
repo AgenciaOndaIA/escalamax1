@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-04-06T20:51:34.112Z",
-  "updatedAt": "2025-05-20T23:28:45.944Z",
+  "updatedAt": "2025-05-28T21:44:49.962Z",
   "id": "Op1RR3U4qIupUBQz",
   "name": "[Finna Joias] Core",
   "active": true,
@@ -31,12 +31,12 @@
     {
       "parameters": {
         "content": "",
-        "width": 860,
+        "width": 1040,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -180,
+        -340,
         240
       ],
       "typeVersion": 1,
@@ -428,7 +428,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -300,
+        -280,
         260
       ],
       "id": "bf535ff8-d340-4c92-b31b-875affcd2188",
@@ -555,7 +555,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "e4106c38-1d3d-4649-87dc-9232454e9d44",
+  "versionId": "ff367525-cb8a-4f8b-b46b-133898d53be3",
   "triggerCount": 1,
   "tags": []
 }
