@@ -1410,6 +1410,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Google: Gemma 2 2B",
+              "value": "google/gemma-2b-it"
+            },
+            {
               "text": "DeepSeek: R1 0528 (free)",
               "value": "deepseek/deepseek-r1-0528:free"
             },
@@ -2912,8 +2916,8 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v1",
@@ -2924,8 +2928,8 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
