@@ -8,7 +8,7 @@ services:
       ## Idioma das mensagens
       - LANGUAGE=pt-BR
       # Antigamente a versão ficava em: https://web.whatsapp.com/check-update?version=0&platform=web mas atualmente usamos uma versão diferente
-      - CONFIG_SESSION_PHONE_VERSION=2.3000.1015901307
+      - CONFIG_SESSION_PHONE_VERSION=2.3000.1020885143
 
       - CONFIG_SESSION_PHONE_CLIENT="Unilumini"
       - CONFIG_SESSION_PHONE_NAME=Safari
