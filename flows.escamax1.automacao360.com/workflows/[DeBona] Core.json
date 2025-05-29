@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-29T12:38:09.333Z",
+  "updatedAt": "2025-05-29T16:14:01.450Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -736,9 +736,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-4.1",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-4.1"
         },
         "options": {}
       },
@@ -1374,7 +1374,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e9a65c9e-efe3-498c-a9b4-4e41e039823c",
+  "versionId": "1f896760-0839-4612-a0aa-8429feaa41ba",
   "triggerCount": 1,
   "tags": [
     {
