@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-26T18:37:43.412Z",
+  "updatedAt": "2025-05-29T11:19:05.940Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -1374,7 +1374,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "8d631f24-170a-47f8-98f9-07b068a6a431",
+  "versionId": "6e7f6d6a-39a3-4438-98e2-c2998d83c19e",
   "triggerCount": 1,
   "tags": [
     {
