@@ -1882,6 +1882,10 @@
               "value": "anthropic/claude-3.7-sonnet:beta"
             },
             {
+              "text": "Anthropic: Claude 3.7 Sonnet (thinking)",
+              "value": "anthropic/claude-3.7-sonnet:thinking"
+            },
+            {
               "text": "Perplexity: R1 1776",
               "value": "perplexity/r1-1776"
             },
@@ -2924,12 +2928,12 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
