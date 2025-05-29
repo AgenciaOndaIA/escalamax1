@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:42:46.598Z",
-  "updatedAt": "2025-05-29T16:14:01.450Z",
+  "updatedAt": "2025-05-29T17:15:21.109Z",
   "id": "H8xdfPgtUqdau6IU",
   "name": "[DeBona] Core",
   "active": true,
@@ -371,8 +371,7 @@
             "Você está pronta para começar imediatamente, caso seja aprovada?": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Voc__est__pronta_para_come_ar_imediatamente__caso_seja_aprovada', `resposta da pergunta: Você está pronta para começar imediatamente, caso seja aprovada?`, 'string') }}",
             "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('firstName', `nome do usuário`, 'string') }}",
             "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('lastName', `sobrenome do usuário`, 'string') }}",
-            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', `telefone do usuário`, 'string') }}",
-            "operação": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('opera__o', `create ou update`, 'string') }}"
+            "phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phone', `telefone do usuário`, 'string') }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -384,7 +383,7 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "string",
-              "removed": false
+              "removed": true
             },
             {
               "id": "firstName",
@@ -1350,13 +1349,7 @@
     },
     "Think": {
       "ai_tool": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -1374,7 +1367,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "1f896760-0839-4612-a0aa-8429feaa41ba",
+  "versionId": "b70d9845-96f3-4523-b793-d9c52d3d4244",
   "triggerCount": 1,
   "tags": [
     {
