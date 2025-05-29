@@ -1410,6 +1410,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "DeepSeek: Deepseek R1 0528 Qwen3 8B (free)",
+              "value": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+            },
+            {
               "text": "Google: Gemma 2 2B",
               "value": "google/gemma-2b-it"
             },
@@ -2924,12 +2928,12 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
