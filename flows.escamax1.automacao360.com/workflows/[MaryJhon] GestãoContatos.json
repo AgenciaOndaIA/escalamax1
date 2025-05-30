@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-05-03T19:27:31.781Z",
-  "updatedAt": "2025-05-26T19:10:39.478Z",
+  "updatedAt": "2025-05-30T14:49:05.018Z",
   "id": "3Ya2PSoSYieSkb3G",
   "name": "[MaryJhon] GestãoContatos",
   "active": false,
@@ -57,7 +57,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -780,
+        -660,
         40
       ],
       "id": "e40980c3-dfc5-401f-baa4-3cf2b29de621",
@@ -239,7 +239,7 @@
       "type": "n8n-nodes-base.highLevel",
       "typeVersion": 2,
       "position": [
-        -980,
+        -860,
         40
       ],
       "id": "015a21e1-66d8-4821-b1bd-5a141289a725",
@@ -322,7 +322,7 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1180,
+        -1060,
         40
       ],
       "id": "a50d0d25-e5d6-46c3-8b72-63dc63e20204",
@@ -337,8 +337,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -500,
-        -300
+        -460,
+        -260
       ],
       "typeVersion": 1,
       "id": "f64427af-e0ca-4bb1-9d67-7ef3609d50b5",
@@ -367,8 +367,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        -240,
-        -200
+        -200,
+        -160
       ]
     },
     {
@@ -387,8 +387,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        -80,
-        -200
+        -40,
+        -160
       ]
     },
     {
@@ -445,8 +445,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -440,
-        -200
+        -400,
+        -160
       ],
       "id": "6c9a942f-ef2e-4758-b9ca-27892dbe47c1",
       "name": "Edit Fields2"
@@ -456,8 +456,8 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -520,
-        420
+        60,
+        280
       ],
       "id": "b9037a50-4cc7-47bd-aa77-b006d490fe89",
       "name": "Error Trigger"
@@ -536,8 +536,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        -180,
-        420
+        400,
+        280
       ],
       "id": "80d5f571-6e47-47aa-9d00-dfa73896dbd4",
       "name": "AI Agent"
@@ -560,8 +560,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        80,
-        620
+        660,
+        480
       ],
       "id": "1c45eac4-1135-4ecb-8b8a-3d03cda79603",
       "name": "Supabase Vector Store",
@@ -582,8 +582,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        180,
-        800
+        760,
+        660
       ],
       "id": "f9cce5e1-c47c-470d-b850-e5e648a17466",
       "name": "Embeddings OpenAI",
@@ -629,8 +629,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -340,
-        420
+        240,
+        280
       ],
       "id": "4f9237fc-deec-4a80-ae10-383dd54f69e9",
       "name": "Edit Fields4"
@@ -646,8 +646,8 @@
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        180,
-        420
+        760,
+        280
       ],
       "id": "48323344-f8b8-424f-a811-778d27f3d9f5",
       "name": "Evolution API",
@@ -665,8 +665,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -160,
-        600
+        420,
+        460
       ],
       "id": "e4b17935-f581-44ed-a19d-aef27ef50e6b",
       "name": "OpenRouter Chat Model",
@@ -885,7 +885,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "f2e3845a-9753-455a-9bcf-a453a4d06423",
+  "versionId": "b6b7988e-e03a-4f2f-a707-1a211de05199",
   "triggerCount": 0,
   "tags": []
 }
