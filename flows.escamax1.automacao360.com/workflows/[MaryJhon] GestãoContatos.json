@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-05-03T19:27:31.781Z",
-  "updatedAt": "2025-05-30T14:49:05.018Z",
+  "updatedAt": "2025-05-31T12:19:29.152Z",
   "id": "3Ya2PSoSYieSkb3G",
   "name": "[MaryJhon] GestãoContatos",
   "active": false,
@@ -199,6 +199,20 @@
                   "mode": "id"
                 },
                 "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Disculpá que te moleste, pero quería consultarte si estás registrada en Inforconf.'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "",
+                  "mode": "id"
+                }
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "",
+                  "mode": "id"
+                }
               }
             ]
           },
@@ -296,16 +310,10 @@
               "name": "contact.referencia_personal_2"
             },
             {
-              "name": "contact.referencia_personal_3"
-            },
-            {
               "name": "contact.referencia_comercial_1"
             },
             {
               "name": "contact.referencia_comercial_2"
-            },
-            {
-              "name": "contact.referencia_comercial_3"
             },
             {
               "name": "Disculpá que te moleste, pero quería consultarte si estás registrada en Inforconf."
@@ -314,7 +322,22 @@
               "name": "Actualmente estás trabajando? Y si no es molestia, ¿podés contarme un poquito dónde y qué estás haciendo?"
             },
             {
+              "name": "Actualmente estás trabajando?"
+            },
+            {
+              "name": "¿Tenés experiencia en ventas? Si es así, ¿qué productos vendiste, durante cuánto tiempo y cuál era tu promedio mensual de ventas?"
+            },
+            {
+              "name": "¿Estarías de acuerdo con una meta mínima mensual de ventas de 375.000 Gs? Es un monto que podés alcanzar vendiendo solo 3 productos."
+            },
+            {
+              "name": "Para activar tu registro después de ser aprobada como consultora, se solicita un único aporte de 45.000 Gs para cubrir gastos administrativos como contratos, registros y consultas (no es por productos). ¿Estás de acuerdo?"
+            },
+            {
               "name": "conversationHistory"
+            },
+            {
+              "name": "descricao_entrevista"
             }
           ]
         }
@@ -885,7 +908,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "b6b7988e-e03a-4f2f-a707-1a211de05199",
+  "versionId": "f5ed25fb-0f54-4b71-a8d9-69596544658d",
   "triggerCount": 0,
   "tags": []
 }
