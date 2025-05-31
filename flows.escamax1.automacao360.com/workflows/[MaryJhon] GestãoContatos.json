@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-05-03T19:27:31.781Z",
-  "updatedAt": "2025-05-31T12:19:29.152Z",
+  "updatedAt": "2025-05-31T12:38:44.473Z",
   "id": "3Ya2PSoSYieSkb3G",
   "name": "[MaryJhon] GestãoContatos",
   "active": false,
@@ -147,14 +147,6 @@
               {
                 "fieldId": {
                   "__rl": true,
-                  "value": "k8TgC3U9NIm5DAl8NDat",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_personal_3'] }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
                   "value": "pioJAQ2Cmot5ui0mkDel",
                   "mode": "id"
                 },
@@ -167,14 +159,6 @@
                   "mode": "id"
                 },
                 "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_comercial_2'] }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "qR0oMu3mDmYxIlIsU2Ik",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.referencia_comercial_3'] }}"
               },
               {
                 "fieldId": {
@@ -203,23 +187,49 @@
               {
                 "fieldId": {
                   "__rl": true,
-                  "value": "",
+                  "value": "q6kTKjVUV78LCsDb7h76",
                   "mode": "id"
-                }
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json.descricao_entrevista }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
-                  "value": "",
+                  "value": "kRtYEzICbgETgJfQcWRI",
                   "mode": "id"
-                }
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json.conversationHistory }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "nfpRBvQF0oq7URO2tkfL",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Para activar tu registro después de ser aprobada como consultora, se solicita un único aporte de 45.000 Gs para cubrir gastos administrativos como contratos, registros y consultas (no es por productos). ¿Estás de acuerdo?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "ZOltedfOYeLIuGy0giPu",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['¿Estarías de acuerdo con una meta mínima mensual de ventas de 375.000 Gs? Es un monto que podés alcanzar vendiendo solo 3 productos.'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "DVglqXnQ5gfr8q6sKZXc",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Actualmente estás trabajando? Y si no es molestia, ¿podés contarme un poquito dónde y qué estás haciendo?'] }}"
               }
             ]
           },
           "firstName": "={{ $('Execute Workflow Trigger').item.json.firstName }}",
           "lastName": "={{ $('Execute Workflow Trigger').item.json.lastName }}",
           "source": "Entrevista com o IA",
-          "tags": "registro finalizado"
+          "tags": "analise"
         },
         "requestOptions": {}
       },
@@ -317,9 +327,6 @@
             },
             {
               "name": "Disculpá que te moleste, pero quería consultarte si estás registrada en Inforconf."
-            },
-            {
-              "name": "Actualmente estás trabajando? Y si no es molestia, ¿podés contarme un poquito dónde y qué estás haciendo?"
             },
             {
               "name": "Actualmente estás trabajando?"
@@ -908,7 +915,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "f5ed25fb-0f54-4b71-a8d9-69596544658d",
+  "versionId": "de576878-2c59-41ee-91f1-8d1b329e66d0",
   "triggerCount": 0,
   "tags": []
 }
