@@ -1410,6 +1410,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "SentientAGI: Dobby Mini Plus Llama 3.1 8B",
+              "value": "sentientagi/dobby-mini-unhinged-plus-llama-3.1-8b"
+            },
+            {
               "text": "DeepSeek: R1 Distill Qwen 7B",
               "value": "deepseek/deepseek-r1-distill-qwen-7b"
             },
@@ -2928,12 +2932,12 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
