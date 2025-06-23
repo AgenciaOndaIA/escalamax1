@@ -1414,6 +1414,10 @@
               "value": "mistralai/mistral-small-3.2-24b-instruct:free"
             },
             {
+              "text": "Mistral: Mistral Small 3.2 24B",
+              "value": "mistralai/mistral-small-3.2-24b-instruct"
+            },
+            {
               "text": "MiniMax: MiniMax M1 (extended)",
               "value": "minimax/minimax-m1:extended"
             },
@@ -2924,20 +2928,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
