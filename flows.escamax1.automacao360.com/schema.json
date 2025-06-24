@@ -1534,10 +1534,6 @@
               "value": "openai/codex-mini"
             },
             {
-              "text": "Meta: Llama 3.3 8B Instruct (free)",
-              "value": "meta-llama/llama-3.3-8b-instruct:free"
-            },
-            {
               "text": "Mistral: Mistral Medium 3",
               "value": "mistralai/mistral-medium-3"
             },
@@ -2936,12 +2932,12 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
