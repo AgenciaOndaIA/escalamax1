@@ -1570,28 +1570,20 @@
               "value": "arcee-ai/arcee-blitz"
             },
             {
-              "text": "Microsoft: Phi 4 Reasoning Plus (free)",
-              "value": "microsoft/phi-4-reasoning-plus:free"
-            },
-            {
               "text": "Microsoft: Phi 4 Reasoning Plus",
               "value": "microsoft/phi-4-reasoning-plus"
-            },
-            {
-              "text": "Microsoft: Phi 4 Reasoning (free)",
-              "value": "microsoft/phi-4-reasoning:free"
             },
             {
               "text": "Inception: Mercury Coder Small Beta",
               "value": "inception/mercury-coder-small-beta"
             },
             {
-              "text": "OpenGVLab: InternVL3 14B (free)",
-              "value": "opengvlab/internvl3-14b:free"
+              "text": "OpenGVLab: InternVL3 14B",
+              "value": "opengvlab/internvl3-14b"
             },
             {
-              "text": "OpenGVLab: InternVL3 2B (free)",
-              "value": "opengvlab/internvl3-2b:free"
+              "text": "OpenGVLab: InternVL3 2B",
+              "value": "opengvlab/internvl3-2b"
             },
             {
               "text": "DeepSeek: DeepSeek Prover V2",
@@ -2006,10 +1998,6 @@
               "value": "mistralai/mistral-small-24b-instruct-2501"
             },
             {
-              "text": "DeepSeek: R1 Distill Qwen 32B (free)",
-              "value": "deepseek/deepseek-r1-distill-qwen-32b:free"
-            },
-            {
               "text": "DeepSeek: R1 Distill Qwen 32B",
               "value": "deepseek/deepseek-r1-distill-qwen-32b"
             },
@@ -2248,10 +2236,6 @@
             {
               "text": "Liquid: LFM 40B MoE",
               "value": "liquid/lfm-40b"
-            },
-            {
-              "text": "Meta: Llama 3.2 3B Instruct (free)",
-              "value": "meta-llama/llama-3.2-3b-instruct:free"
             },
             {
               "text": "Meta: Llama 3.2 3B Instruct",
@@ -2912,20 +2896,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
