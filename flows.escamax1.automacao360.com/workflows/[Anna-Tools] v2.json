@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-06T14:15:16.966Z",
-  "updatedAt": "2025-05-20T15:40:51.521Z",
+  "updatedAt": "2025-06-26T12:47:56.599Z",
   "id": "syfSXxLs84m5gUa0",
   "name": "[Anna-Tools] v2",
   "active": true,
@@ -1183,7 +1183,7 @@
       "credentials": {
         "openRouterApi": {
           "id": "OJT1sLLEsazPFgVw",
-          "name": "OpenRouter escalamax1"
+          "name": "OpenRouter escalamax"
         },
         "openAiApi": {
           "id": "MDEnRr5fnEmSW1ZW",
@@ -1619,7 +1619,7 @@
   },
   "meta": null,
   "pinData": {},
-  "versionId": "6c76c303-a8ae-4279-ae0c-31e334391779",
+  "versionId": "5b583e4e-2f02-4b69-aa96-c047d4e72d3b",
   "triggerCount": 5,
   "tags": []
 }
