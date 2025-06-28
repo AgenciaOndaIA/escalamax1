@@ -1414,7 +1414,7 @@
               "value": "inception/mercury"
             },
             {
-              "text": "Morph: Morph V2",
+              "text": "Morph: Fast Apply",
               "value": "morph/morph-v2"
             },
             {
@@ -2904,8 +2904,8 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
@@ -2916,8 +2916,8 @@
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
