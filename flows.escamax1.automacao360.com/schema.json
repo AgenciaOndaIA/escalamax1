@@ -1434,10 +1434,6 @@
               "value": "mistralai/mistral-small-3.2-24b-instruct"
             },
             {
-              "text": "MiniMax: MiniMax M1 (extended)",
-              "value": "minimax/minimax-m1:extended"
-            },
-            {
               "text": "MiniMax: MiniMax M1",
               "value": "minimax/minimax-m1"
             },
@@ -1484,10 +1480,6 @@
             {
               "text": "Google: Gemini 2.5 Pro Preview 06-05",
               "value": "google/gemini-2.5-pro-preview"
-            },
-            {
-              "text": "SentientAGI: Dobby Mini Plus Llama 3.1 8B",
-              "value": "sentientagi/dobby-mini-unhinged-plus-llama-3.1-8b"
             },
             {
               "text": "DeepSeek: R1 Distill Qwen 7B",
@@ -2912,20 +2904,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
