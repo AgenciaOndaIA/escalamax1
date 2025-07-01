@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:31:17.420Z",
-  "updatedAt": "2025-07-01T19:27:00.302Z",
+  "updatedAt": "2025-07-01T19:43:33.478Z",
   "id": "R9yHA9VSBTwcGQ0w",
   "name": "[Alina Semijoias] Core",
   "active": true,
@@ -882,13 +882,7 @@
     },
     "Think": {
       "ai_tool": [
-        [
-          {
-            "node": "Main Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "cadastroUser": {
@@ -1001,7 +995,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "ca9e89fd-ed9d-4502-81b5-e9cb4bd16f2a",
+  "versionId": "75b924c5-786d-4151-88ab-2db1d1ea4d29",
   "triggerCount": 1,
   "tags": [
     {
