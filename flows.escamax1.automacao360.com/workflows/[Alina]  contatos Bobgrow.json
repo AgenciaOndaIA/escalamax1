@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-01T18:36:45.313Z",
+  "updatedAt": "2025-07-01T19:38:39.210Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": false,
@@ -13,7 +13,7 @@
             {
               "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
               "name": "response",
-              "value": "={{ $json.output }}",
+              "value": "=número de telefone não tem Whatsapp",
               "type": "string"
             }
           ]
@@ -315,7 +315,10 @@
           },
           "firstName": "={{ $('Execute Workflow Trigger').item.json.firstname }}",
           "lastName": "={{ $('Execute Workflow Trigger').item.json.lastname }}",
+          "postalCode": "={{ $json.postalCode }}",
           "source": "Entrevista com o IA",
+          "state": "={{ $json.state }}",
+          "notes": "={{ $json.dateOfBirth }}",
           "tags": "registro finalizado"
         },
         "requestOptions": {}
@@ -907,7 +910,7 @@
         ],
         [
           {
-            "node": "Edit Fields",
+            "node": "CreateContact",
             "type": "main",
             "index": 0
           }
@@ -1210,7 +1213,7 @@
       }
     ]
   },
-  "versionId": "9f9c3eb9-520d-49e2-a634-522498b9a102",
+  "versionId": "421327bb-8aa1-465f-9213-4127a26b850d",
   "triggerCount": 0,
   "tags": [
     {
