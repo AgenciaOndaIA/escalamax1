@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:31:17.420Z",
-  "updatedAt": "2025-06-26T13:16:25.188Z",
+  "updatedAt": "2025-07-01T18:35:47.664Z",
   "id": "R9yHA9VSBTwcGQ0w",
   "name": "[Alina Semijoias] Core",
   "active": true,
@@ -750,25 +750,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-      "typeVersion": 1,
-      "position": [
-        120,
-        640
-      ],
-      "id": "2c3783a1-a794-464d-9910-40f270687044",
-      "name": "OpenRouter Chat Model",
-      "credentials": {
-        "openRouterApi": {
-          "id": "OJT1sLLEsazPFgVw",
-          "name": "OpenRouter escalamax"
-        }
-      }
-    },
-    {
-      "parameters": {
         "dataToSave": {
           "values": [
             {
@@ -805,6 +786,31 @@
       ],
       "id": "f847065e-855d-4005-83d8-ca05e9ed6474",
       "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "3KUgCv31pjbgxYGk",
+          "name": "EscalaMax"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -40,
+        660
+      ],
+      "id": "0ae27d0a-71f4-446e-9e34-e49e9b483118",
+      "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
           "id": "3KUgCv31pjbgxYGk",
@@ -951,17 +957,6 @@
         ]
       ]
     },
-    "OpenRouter Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Execution Data1": {
       "main": [
         [
@@ -983,6 +978,17 @@
           }
         ]
       ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -995,7 +1001,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "6b238d07-3d93-4856-b0f9-258ea3fa85a6",
+  "versionId": "0e8e6650-ef50-4e2f-b4fa-68ee371f5314",
   "triggerCount": 1,
   "tags": [
     {
