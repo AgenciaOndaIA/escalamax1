@@ -1590,8 +1590,8 @@
               "value": "microsoft/phi-4-reasoning-plus"
             },
             {
-              "text": "Inception: Mercury Coder Small Beta",
-              "value": "inception/mercury-coder-small-beta"
+              "text": "Inception: Mercury Coder",
+              "value": "inception/mercury-coder"
             },
             {
               "text": "OpenGVLab: InternVL3 14B",
@@ -2908,20 +2908,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
