@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-06-26T13:09:32.105Z",
+  "updatedAt": "2025-07-02T14:12:07.931Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -61,7 +61,8 @@
       ],
       "id": "57b465e2-d3ef-4c84-bc80-e8f0fa75dc77",
       "name": "Main Agent",
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {},
@@ -908,7 +909,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "2e57992c-4b38-40ce-a31c-3f50bf53d9e8",
+  "versionId": "19c350a5-c58b-497b-bdfd-0326ce30cae7",
   "triggerCount": 1,
   "tags": [
     {
