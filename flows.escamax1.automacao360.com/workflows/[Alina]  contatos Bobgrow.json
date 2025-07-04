@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-04T14:01:15.185Z",
+  "updatedAt": "2025-07-04T14:24:54.205Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": true,
@@ -666,7 +666,8 @@
         1200
       ],
       "id": "13f7a079-cbfb-46df-9dcd-4795c84965f1",
-      "name": "Error Trigger"
+      "name": "Error Trigger",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1168,8 +1169,8 @@
       "type": "n8n-nodes-base.highLevel",
       "typeVersion": 2,
       "position": [
-        1120,
-        2140
+        1340,
+        2400
       ],
       "id": "d28668ff-e0f2-4c05-90d5-30d922b6a3b4",
       "name": "UpdateContacts1",
@@ -1367,6 +1368,246 @@
       "typeVersion": 1,
       "id": "a2a1dff3-1427-48fc-9ca5-ab33ccb44b4f",
       "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "phone": "={{ $json.phone }}",
+        "additionalFields": {
+          "address1": "={{ $('Webhook').item.json.body.endereco_residencial }}",
+          "city": "={{ $('Webhook').item.json.body.cidade }}",
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "zXja0lR7TbjnZlLldDrQ",
+                  "mode": "list",
+                  "cachedResultName": "instagram"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.instagram ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "4vfgbSYDgl0gQEAHK6c4",
+                  "mode": "list",
+                  "cachedResultName": "Você possui algum emprego atualmente?"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "3ncTkoYXEyc7c68Y3sfa",
+                  "mode": "list",
+                  "cachedResultName": "Você já trabalhou com vendas antes?"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.experiencia_vendas ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "apKjUBLBbTXlUvSXlRdz",
+                  "mode": "list",
+                  "cachedResultName": "há quanto tempo trabalha com vendas?"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.tempo_experiencia ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "nStRyvSgHhWJIa7fUoPh",
+                  "mode": "list",
+                  "cachedResultName": "O que mais te atrai na oportunidade de revender semijoias no consignado?"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.motivacao ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "OrPrWgUT5BWSO99515LB",
+                  "mode": "list",
+                  "cachedResultName": "Você já trabalhou com produtos no consignado antes?"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.experiencia_consignado ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "5Zhhhapklj6WeRu8gmxY",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.organizacao_financeira ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "NUmnOAUx2wrpCo9MM4nh",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.responsabilidade ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "cDEnpyUfQmh2V64sXsRE",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[0] ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "JqPFutud5YGraTc0Rf6i",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[1] ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "gJXBnLJop9tUO8ICm8Et",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[2] ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "wHX0zg4mj6hofX8VKw3M",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.cobertura_divida ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "4vfgbSYDgl0gQEAHK6c4",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "V4Y6fs48hzrta2o8flLg",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "mVQqDTIARtAuIy8MQpEm",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.tempo_dedicacao ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "soBjJL6gvArc0bbin07t",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.desafios ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "9RUuRTRsUJhgcOJrBiRZ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.disponibilidade ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "xA6dTzRThjsS8duFqcHN",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.interesse_treinamento ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SoJwYYu3Jgc5t8Q3Ew23",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.estrategia_divulgacao ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "rLvv89SVVC8Zhad0Ekw5",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.estado_civil ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "6Gx8JoUTv8dsLRy5crM8",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.cpf ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "51lY8wZtHdJH95JDxxgX",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.endereco_trabalho ?? null}}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "UiEAMxgnO9wC04lJBcf8",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.endereco_trabalho ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "NcybLaphcZlg1dB9EV9a",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SfCXFY2hPWuqR8BZ3AK5",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.aceitou_termos ?? null}}"
+              }
+            ]
+          },
+          "name": "={{ $('Webhook').item.json.body.nome }}",
+          "source": "Entrevista com o IA",
+          "state": "={{ $('Webhook').item.json.body.estado ?? null }}",
+          "tags": "registro finalizado"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        920,
+        2140
+      ],
+      "id": "92909294-f952-46bc-82ee-8ecd74e67d1b",
+      "name": "UpdateContacts2",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "DIE67zIMAh6q3flN",
+          "name": "Aline Concept"
+        }
+      }
     }
   ],
   "connections": {
@@ -1576,7 +1817,7 @@
         ],
         [
           {
-            "node": "UpdateContacts1",
+            "node": "UpdateContacts2",
             "type": "main",
             "index": 0
           }
@@ -1607,13 +1848,7 @@
     },
     "UpdateContacts1": {
       "main": [
-        [
-          {
-            "node": "Merge1",
-            "type": "main",
-            "index": 1
-          }
-        ]
+        []
       ]
     },
     "Busca1": {
@@ -1674,6 +1909,17 @@
             "node": "Respond to Webhook",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContacts2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
           }
         ]
       ]
@@ -2115,7 +2361,7 @@
       }
     ]
   },
-  "versionId": "ab317583-5188-4467-9197-60f57d04e4e8",
+  "versionId": "3bb23938-ea54-48df-a28b-926146dc2768",
   "triggerCount": 1,
   "tags": [
     {
