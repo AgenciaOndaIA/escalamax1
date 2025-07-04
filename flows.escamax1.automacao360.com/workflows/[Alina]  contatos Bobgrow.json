@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-04T17:16:09.726Z",
+  "updatedAt": "2025-07-04T17:33:14.180Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": true,
@@ -27,7 +27,8 @@
       "position": [
         1000,
         540
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -61,7 +62,8 @@
         940
       ],
       "id": "20138756-c309-43df-97f2-c41f06da7c9c",
-      "name": "If"
+      "name": "If",
+      "disabled": true
     },
     {
       "parameters": {},
@@ -72,7 +74,8 @@
         940
       ],
       "id": "f152dac2-0802-4538-81e8-17a3ac06b9a8",
-      "name": "Merge"
+      "name": "Merge",
+      "disabled": true
     },
     {
       "parameters": {
@@ -100,6 +103,7 @@
           "name": "Aline Concept"
         }
       },
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -337,7 +341,8 @@
           "id": "DIE67zIMAh6q3flN",
           "name": "Aline Concept"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -363,7 +368,8 @@
           "id": "DIE67zIMAh6q3flN",
           "name": "Aline Concept"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -379,7 +385,8 @@
       ],
       "typeVersion": 1,
       "id": "1ca2078c-b984-4012-8640-f420190153c4",
-      "name": "Sticky Note14"
+      "name": "Sticky Note14",
+      "disabled": true
     },
     {
       "parameters": {
@@ -406,7 +413,8 @@
       "position": [
         500,
         720
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -426,7 +434,8 @@
       "position": [
         680,
         720
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -449,7 +458,8 @@
       "position": [
         1520,
         940
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -472,7 +482,8 @@
         720
       ],
       "id": "88735987-b051-40cd-9fda-1ccf0cc74a35",
-      "name": "Edit Fields2"
+      "name": "Edit Fields2",
+      "disabled": true
     },
     {
       "parameters": {
@@ -655,15 +666,16 @@
       ],
       "typeVersion": 1,
       "id": "4b8053c7-33a6-416e-a0b5-fe6788b8c19b",
-      "name": "Sticky Note1"
+      "name": "Sticky Note1",
+      "disabled": true
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        80,
-        1200
+        1960,
+        1760
       ],
       "id": "13f7a079-cbfb-46df-9dcd-4795c84965f1",
       "name": "Error Trigger",
@@ -680,8 +692,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        480,
-        1200
+        2360,
+        1760
       ],
       "id": "cb13f48f-75a8-49e6-ac52-ec19a8bd6b5a",
       "name": "AI Agent",
@@ -705,8 +717,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        740,
-        1400
+        2620,
+        1960
       ],
       "id": "14d45321-ad77-409c-82b2-145e2cb7b548",
       "name": "Supabase Vector Store",
@@ -727,8 +739,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        840,
-        1580
+        2880,
+        2180
       ],
       "id": "cf6801bc-7910-41c7-bebe-e44f49d0fc32",
       "name": "Embeddings OpenAI",
@@ -774,8 +786,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        320,
-        1200
+        2200,
+        1760
       ],
       "id": "ea3d13f0-a55b-4083-962c-d8284b54b81a",
       "name": "Edit Fields4"
@@ -791,8 +803,8 @@
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        840,
-        1200
+        2720,
+        1760
       ],
       "id": "20a8822e-3c5a-4d9b-a1c7-e6c4a20fefaa",
       "name": "Evolution API",
@@ -810,8 +822,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        500,
-        1380
+        2380,
+        1940
       ],
       "id": "a303cead-5bbc-4775-b17a-a2d4affd8a85",
       "name": "OpenRouter Chat Model",
@@ -847,7 +859,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.3,
       "position": [
-        1920,
+        1480,
         2120
       ],
       "id": "84499e68-764b-4aa5-98d6-5d07aa017d84",
@@ -915,7 +927,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        1440,
+        1060,
         2120
       ],
       "id": "0ebd5625-f029-4cf4-a509-969b107a701c",
@@ -934,8 +946,8 @@
       "type": "n8n-nodes-base.highLevel",
       "typeVersion": 2,
       "position": [
-        1100,
-        1880
+        860,
+        1940
       ],
       "id": "6536ee89-2fb4-4af1-9a25-f32daea85466",
       "name": "CreateContact1",
@@ -983,7 +995,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        360,
+        220,
         1800
       ],
       "typeVersion": 1,
@@ -1013,7 +1025,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        600,
+        460,
         1900
       ]
     },
@@ -1033,7 +1045,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        780,
+        640,
         1900
       ]
     },
@@ -1056,7 +1068,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1620,
+        1240,
         2120
       ]
     },
@@ -1077,7 +1089,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        420,
+        280,
         1900
       ],
       "id": "7b3e9001-00a8-4401-9232-84262cb96b88",
@@ -1134,246 +1146,6 @@
       "typeVersion": 1,
       "id": "a2a1dff3-1427-48fc-9ca5-ab33ccb44b4f",
       "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
-        "email": "={{ $json.email }}",
-        "phone": "={{ $json.phone }}",
-        "additionalFields": {
-          "address1": "={{ $('Webhook').item.json.body.endereco_residencial }}",
-          "city": "={{ $('Webhook').item.json.body.cidade }}",
-          "customFields": {
-            "values": [
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "zXja0lR7TbjnZlLldDrQ",
-                  "mode": "list",
-                  "cachedResultName": "instagram"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.instagram ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "4vfgbSYDgl0gQEAHK6c4",
-                  "mode": "list",
-                  "cachedResultName": "Você possui algum emprego atualmente?"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "3ncTkoYXEyc7c68Y3sfa",
-                  "mode": "list",
-                  "cachedResultName": "Você já trabalhou com vendas antes?"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.experiencia_vendas ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "apKjUBLBbTXlUvSXlRdz",
-                  "mode": "list",
-                  "cachedResultName": "há quanto tempo trabalha com vendas?"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.tempo_experiencia ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "nStRyvSgHhWJIa7fUoPh",
-                  "mode": "list",
-                  "cachedResultName": "O que mais te atrai na oportunidade de revender semijoias no consignado?"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.motivacao ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "OrPrWgUT5BWSO99515LB",
-                  "mode": "list",
-                  "cachedResultName": "Você já trabalhou com produtos no consignado antes?"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.experiencia_consignado ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "5Zhhhapklj6WeRu8gmxY",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.organizacao_financeira ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "NUmnOAUx2wrpCo9MM4nh",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.responsabilidade ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "cDEnpyUfQmh2V64sXsRE",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[0] ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "JqPFutud5YGraTc0Rf6i",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[1] ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "gJXBnLJop9tUO8ICm8Et",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[2] ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "wHX0zg4mj6hofX8VKw3M",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.cobertura_divida ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "4vfgbSYDgl0gQEAHK6c4",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "V4Y6fs48hzrta2o8flLg",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "mVQqDTIARtAuIy8MQpEm",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.tempo_dedicacao ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "soBjJL6gvArc0bbin07t",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.desafios ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "9RUuRTRsUJhgcOJrBiRZ",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.disponibilidade ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "xA6dTzRThjsS8duFqcHN",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.interesse_treinamento ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "SoJwYYu3Jgc5t8Q3Ew23",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.estrategia_divulgacao ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "rLvv89SVVC8Zhad0Ekw5",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.estado_civil ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "6Gx8JoUTv8dsLRy5crM8",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.cpf ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "51lY8wZtHdJH95JDxxgX",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.endereco_trabalho ?? null}}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "UiEAMxgnO9wC04lJBcf8",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.endereco_trabalho ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "NcybLaphcZlg1dB9EV9a",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null }}"
-              },
-              {
-                "fieldId": {
-                  "__rl": true,
-                  "value": "SfCXFY2hPWuqR8BZ3AK5",
-                  "mode": "id"
-                },
-                "fieldValue": "={{ $('Webhook').item.json.body.aceitou_termos ?? null}}"
-              }
-            ]
-          },
-          "name": "={{ $('Webhook').item.json.body.nome }}",
-          "source": "Entrevista com o IA",
-          "state": "={{ $('Webhook').item.json.body.estado ?? null }}",
-          "tags": "registro finalizado"
-        },
-        "requestOptions": {}
-      },
-      "type": "n8n-nodes-base.highLevel",
-      "typeVersion": 2,
-      "position": [
-        920,
-        2140
-      ],
-      "id": "92909294-f952-46bc-82ee-8ecd74e67d1b",
-      "name": "UpdateContacts2",
-      "alwaysOutputData": true,
-      "credentials": {
-        "highLevelOAuth2Api": {
-          "id": "DIE67zIMAh6q3flN",
-          "name": "Aline Concept"
-        }
-      }
     },
     {
       "parameters": {
@@ -1451,7 +1223,8 @@
                 "fieldId": {
                   "__rl": true,
                   "value": "NUmnOAUx2wrpCo9MM4nh",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Você se considera uma pessoa responsável e de confiança? Por quê?"
                 },
                 "fieldValue": "={{ $('Webhook').item.json.body.responsabilidade ?? null}}"
               },
@@ -1459,142 +1232,160 @@
                 "fieldId": {
                   "__rl": true,
                   "value": "cDEnpyUfQmh2V64sXsRE",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Referência 01"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato__01'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[0] ?? null }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "JqPFutud5YGraTc0Rf6i",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Referência 02"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato_02'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[1] ?? null }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "gJXBnLJop9tUO8ICm8Et",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Referência 03"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato__03'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[2] ?? null }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "wHX0zg4mj6hofX8VKw3M",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Caso uma cliente compre e não pague, de onde você pretende tirar os recursos para cobrir essa dívida?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.cobertura_divida ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "4vfgbSYDgl0gQEAHK6c4",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Você possui algum emprego atualmente?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_possui_algum_trabalho_atualmente'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
-                  "value": "V4Y6fs48hzrta2o8flLg",
-                  "mode": "id"
+                  "value": "4vfgbSYDgl0gQEAHK6c4",
+                  "mode": "list",
+                  "cachedResultName": "Você possui algum emprego atualmente?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.com_o_que_trabalha'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "mVQqDTIARtAuIy8MQpEm",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Quanto tempo por semana você está disposta a dedicar para vender as semijoias?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.tempo_dedicacao ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "soBjJL6gvArc0bbin07t",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Quais desafios você acha que pode enfrentar ao começar como revendedora e como pretende superá-los?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.desafios ?? null }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "9RUuRTRsUJhgcOJrBiRZ",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Você está pronta para começar imediatamente, caso seja aprovada?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_est_pronta_para_comear_imediatamente_caso_seja_aprovada\",       \"field_value'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.disponibilidade ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "xA6dTzRThjsS8duFqcHN",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Você está disposta a participar de treinamentos para aprender mais sobre as vendas e o produto?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.interesse_treinamento ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "SoJwYYu3Jgc5t8Q3Ew23",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Como você pretende divulgar e vender as semijoias?"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.como_voc_pretende_divulgar_e_vender_as_semijoias'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.estrategia_divulgacao ?? null }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "rLvv89SVVC8Zhad0Ekw5",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Estado civil"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.estado_civil'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.estado_civil ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "6Gx8JoUTv8dsLRy5crM8",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "CPF"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.cpf'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.cpf ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "51lY8wZtHdJH95JDxxgX",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Endereço do trabalho"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Endereço do trabalho'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.endereco_trabalho ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "UiEAMxgnO9wC04lJBcf8",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Endereço residencial com número"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Endereço residencial com número'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.endereco_residencial ?? null}}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "NcybLaphcZlg1dB9EV9a",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "descreva o que faz no emprego"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['descreva o que faz no emprego'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null }}"
               },
               {
                 "fieldId": {
                   "__rl": true,
                   "value": "SfCXFY2hPWuqR8BZ3AK5",
-                  "mode": "id"
+                  "mode": "list",
+                  "cachedResultName": "Para finalizar leia e aceite os termos"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Para finalizar leia e aceite os termos'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.aceitou_termos }}"
               }
             ]
           },
-          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstname }}",
-          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastname }}",
+          "firstName": "={{ $json.firstName ?? null }}",
+          "lastName": "={{ $json.lastName ?? null}}",
+          "name": "={{ $('Webhook').item.json.body.nome ?? null}}",
           "postalCode": "={{ $json.postalCode }}",
           "source": "Entrevista com o IA",
           "state": "={{ $json.state }}",
@@ -1606,8 +1397,8 @@
       "type": "n8n-nodes-base.highLevel",
       "typeVersion": 2,
       "position": [
-        660,
-        2400
+        460,
+        2140
       ],
       "id": "f3518e5c-9c21-497f-af1d-3d563608708d",
       "name": "UpdateContacts1",
@@ -1918,7 +1709,7 @@
         ]
       ]
     },
-    "UpdateContacts2": {
+    "UpdateContacts1": {
       "main": [
         [
           {
@@ -2364,64 +2155,9 @@
           }
         }
       }
-    ],
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "webhook.escamax1.automacao360.com",
-            "user-agent": "axios/1.8.3",
-            "content-length": "1308",
-            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
-            "accept-encoding": "gzip, compress, deflate, br",
-            "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
-            "x-forwarded-host": "webhook.escamax1.automacao360.com",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "1e5eb03f4121",
-            "x-real-ip": "172.18.0.1"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "operação": "atualizar",
-            "nome": "Daniele Lima dos passos",
-            "whatsapp": "51982179952",
-            "email": "danielelimapss01@YOUgmail.com",
-            "cpf": "045.578.260-16",
-            "idade": "24/07/2000",
-            "estado_civil": "Solteira",
-            "cidade": "Gravatai",
-            "estado": "Rio Grande do Sul",
-            "instagram": "Não tenho",
-            "ocupacao_atual": "Sim, trabalho com revenda",
-            "experiencia_vendas": "Sim, já trabalhei vendendo outros produtos.",
-            "tempo_experiencia": "De 6 meses a 1 ano",
-            "motivacao": "Fazer uma renda extra",
-            "experiencia_consignado": "Sim, e sempre cumpri com os pagamentos corretamente.",
-            "produtos_vendidos": "Já vendi lingerie",
-            "organizacao_financeira": "Sou muito organizada",
-            "responsabilidade": "Sim, pois consigo sempre honrar com meus compromissos",
-            "referencias": "Simone, mãe 51985234217 | Jonas, companheiro 51982179952 | Gabriele, irmã 51984597590",
-            "cobertura_divida": "Tenho reserva financeira",
-            "endereco_trabalho": "Hugo Rangel 332 vila imperial",
-            "endereco_residencial": "Hugo Rangel 332 vila imperial gravatai",
-            "funcao_atual": "Vendo lingeries",
-            "tempo_dedicacao": "Mais de 20 horas",
-            "estrategia_divulgacao": "Para amigas e conhecidas e outras clientes que já vendo lingerie",
-            "desafios": "Não vejo problemas",
-            "disponibilidade": "Sim, posso começar imediatamente.",
-            "interesse_treinamento": "Sim, quero aprender e me desenvolver.",
-            "aceitou_termos": "Aceito"
-          },
-          "webhookUrl": "https://webhook.escamax1.automacao360.com/webhook/alina_semi_joias",
-          "executionMode": "production"
-        }
-      }
     ]
   },
-  "versionId": "ff9cad1f-0e41-4aeb-ab0a-120bcd68565f",
+  "versionId": "bbcbecf2-1b29-495f-b7e3-256ce296e540",
   "triggerCount": 1,
   "tags": [
     {
