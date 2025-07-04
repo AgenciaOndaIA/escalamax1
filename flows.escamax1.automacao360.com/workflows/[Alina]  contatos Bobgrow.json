@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-04T17:33:14.180Z",
+  "updatedAt": "2025-07-04T17:48:39.429Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": true,
@@ -678,8 +678,7 @@
         1760
       ],
       "id": "13f7a079-cbfb-46df-9dcd-4795c84965f1",
-      "name": "Error Trigger",
-      "disabled": true
+      "name": "Error Trigger"
     },
     {
       "parameters": {
@@ -696,8 +695,7 @@
         1760
       ],
       "id": "cb13f48f-75a8-49e6-ac52-ec19a8bd6b5a",
-      "name": "AI Agent",
-      "disabled": true
+      "name": "AI Agent"
     },
     {
       "parameters": {
@@ -832,8 +830,7 @@
           "id": "OKBVbV3h0JCNgM8u",
           "name": "MaryJhon"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1079,7 +1076,7 @@
             {
               "id": "10772c94-caa3-4d05-b687-10bf15a12e69",
               "name": "phone",
-              "value": "={{ $('Webhook').item.json.body.whatsapp.startsWith('+55') ? $('Webhook').item.json.body.whatsapp : '+55' + $('Webhook').item.json.body.whatsapp }}",
+              "value": "={{ $('Webhook').last().json.body.whatsapp.startsWith('+55') ? $('Webhook').last().json.body.whatsapp : '+55' + $('Webhook').last().json.body.whatsapp }}",
               "type": "string"
             }
           ]
@@ -2122,42 +2119,9 @@
           ]
         }
       }
-    ],
-    "Error Trigger": [
-      {
-        "json": {
-          "execution": {
-            "id": "1130500",
-            "url": "https://webhook.escamax1.automacao360.com/workflow/xE00zQwUnJwp2PIx/executions/1130500",
-            "error": {
-              "level": "warning",
-              "tags": {},
-              "context": {
-                "runIndex": 0,
-                "itemIndex": 0,
-                "messageTemplate": "No path back to referenced node",
-                "descriptionKey": "pairedItemNoConnection",
-                "type": "paired_item_no_connection",
-                "nodeCause": "Execute Workflow Trigger"
-              },
-              "functionality": "pairedItem",
-              "name": "ExpressionError",
-              "timestamp": 1751634189696,
-              "message": "Invalid expression",
-              "stack": "ExpressionError: Invalid expression\n    at createExpressionError (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/WorkflowDataProxy.ts:774:11)\n    at createNoConnectionError (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/WorkflowDataProxy.ts:817:11)\n    at Object.get (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/WorkflowDataProxy.ts:1133:16)\n    at Proxy.eval (eval at getFunction (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+tournament@1.0.6/node_modules/@n8n/tournament/src/FunctionEvaluator.ts:13:16), <anonymous>:6:71)\n    at FunctionEvaluator.evaluate (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+tournament@1.0.6/node_modules/@n8n/tournament/src/FunctionEvaluator.ts:20:13)\n    at Tournament.execute (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+tournament@1.0.6/node_modules/@n8n/tournament/src/index.ts:45:25)\n    at evaluateExpression (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/ExpressionEvaluatorProxy.ts:20:9)\n    at Expression.renderExpression (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/Expression.ts:331:29)\n    at Expression.resolveSimpleParameterValue (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/Expression.ts:310:28)\n    at Expression.getParameterValue (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-workflow@file+packages+workflow/node_modules/n8n-workflow/src/Expression.ts:521:16)"
-            },
-            "lastNodeExecuted": "UpdateContacts1",
-            "mode": "webhook"
-          },
-          "workflow": {
-            "id": "xE00zQwUnJwp2PIx",
-            "name": "[Alina]  contatos Bobgrow"
-          }
-        }
-      }
     ]
   },
-  "versionId": "bbcbecf2-1b29-495f-b7e3-256ce296e540",
+  "versionId": "0cb23332-5a8c-4679-9539-0170b50a4ccf",
   "triggerCount": 1,
   "tags": [
     {
