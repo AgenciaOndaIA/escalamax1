@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-04T14:00:18.797Z",
+  "updatedAt": "2025-07-04T14:01:15.185Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": true,
@@ -2113,64 +2113,9 @@
           }
         }
       }
-    ],
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "webhook.escamax1.automacao360.com",
-            "user-agent": "axios/1.8.3",
-            "content-length": "1308",
-            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
-            "accept-encoding": "gzip, compress, deflate, br",
-            "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
-            "x-forwarded-host": "webhook.escamax1.automacao360.com",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "1e5eb03f4121",
-            "x-real-ip": "172.18.0.1"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "operação": "atualizar",
-            "nome": "Daniele Lima dos passos",
-            "whatsapp": "51982179952",
-            "email": "danielelimapss01@YOUgmail.com",
-            "cpf": "045.578.260-16",
-            "idade": "24/07/2000",
-            "estado_civil": "Solteira",
-            "cidade": "Gravatai",
-            "estado": "Rio Grande do Sul",
-            "instagram": "Não tenho",
-            "ocupacao_atual": "Sim, trabalho com revenda",
-            "experiencia_vendas": "Sim, já trabalhei vendendo outros produtos.",
-            "tempo_experiencia": "De 6 meses a 1 ano",
-            "motivacao": "Fazer uma renda extra",
-            "experiencia_consignado": "Sim, e sempre cumpri com os pagamentos corretamente.",
-            "produtos_vendidos": "Já vendi lingerie",
-            "organizacao_financeira": "Sou muito organizada",
-            "responsabilidade": "Sim, pois consigo sempre honrar com meus compromissos",
-            "referencias": "Simone, mãe 51985234217 | Jonas, companheiro 51982179952 | Gabriele, irmã 51984597590",
-            "cobertura_divida": "Tenho reserva financeira",
-            "endereco_trabalho": "Hugo Rangel 332 vila imperial",
-            "endereco_residencial": "Hugo Rangel 332 vila imperial gravatai",
-            "funcao_atual": "Vendo lingeries",
-            "tempo_dedicacao": "Mais de 20 horas",
-            "estrategia_divulgacao": "Para amigas e conhecidas e outras clientes que já vendo lingerie",
-            "desafios": "Não vejo problemas",
-            "disponibilidade": "Sim, posso começar imediatamente.",
-            "interesse_treinamento": "Sim, quero aprender e me desenvolver.",
-            "aceitou_termos": "Aceito"
-          },
-          "webhookUrl": "https://webhook.escamax1.automacao360.com/webhook/alina_semi_joias",
-          "executionMode": "production"
-        }
-      }
     ]
   },
-  "versionId": "99267925-13aa-4de9-ae40-4ec437b52db3",
+  "versionId": "ab317583-5188-4467-9197-60f57d04e4e8",
   "triggerCount": 1,
   "tags": [
     {
