@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-04T12:18:21.958Z",
+  "updatedAt": "2025-07-04T12:26:59.320Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": true,
@@ -344,7 +344,7 @@
         "operation": "getAll",
         "returnAll": true,
         "filters": {
-          "query": "={{ $json.firstname }} {{ $json.lastname }}"
+          "query": "={{ $json.body.firstName }} {{ $json.body.laststName }}"
         },
         "options": {},
         "requestOptions": {}
@@ -822,17 +822,552 @@
     {
       "parameters": {
         "path": "alina_semi_joias",
+        "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -680,
-        660
+        -380,
+        2120
       ],
       "id": "1696c380-5487-4865-815c-87893007cdc4",
       "name": "Webhook",
       "webhookId": "1ce69184-e137-4435-8330-853b0ea22d57"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        1920,
+        2120
+      ],
+      "id": "84499e68-764b-4aa5-98d6-5d07aa017d84",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
+              "name": "response",
+              "value": "=número de telefone não tem Whatsapp",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7188612c-b716-4942-8947-44ef948dc423",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        1720
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5204bb98-c216-43c7-b7d6-c43d8ec122f0",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        60,
+        2120
+      ],
+      "id": "8d5b8685-a21a-4a39-a006-96900f97b9c4",
+      "name": "If1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1440,
+        2120
+      ],
+      "id": "0ebd5625-f029-4cf4-a509-969b107a701c",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Execute Workflow Trigger').item.json.email }}",
+        "phone": "={{ $json.number }}",
+        "additionalFields": {
+          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstname }}",
+          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastname }}",
+          "tags": "atendida pela ia"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        1880
+      ],
+      "id": "6536ee89-2fb4-4af1-9a25-f32daea85466",
+      "name": "CreateContact1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "DIE67zIMAh6q3flN",
+          "name": "Aline Concept"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Execute Workflow Trigger').item.json.email.replace(/YOU/gi, '').trim() }}",
+        "phone": "={{ $('Execute Workflow Trigger').item.json.phone }}",
+        "additionalFields": {
+          "address1": "={{ $('Execute Workflow Trigger').item.json.address1 }}",
+          "city": "={{ $('Execute Workflow Trigger').item.json.city }}",
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "zXja0lR7TbjnZlLldDrQ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.instagram'].replace(/YOU/gi, '') }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "3ncTkoYXEyc7c68Y3sfa",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.ja_trabalhou_com_vendas'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "apKjUBLBbTXlUvSXlRdz",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quanto_tempo_trabalha_com_vendas'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "nStRyvSgHhWJIa7fUoPh",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "OrPrWgUT5BWSO99515LB",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_j_trabalhou_com_produtos_no_consignado'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "On7i1hVAcWNZ5tMCWGOL",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quais_produtos_voc_j_vendeu_antes'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "5Zhhhapklj6WeRu8gmxY",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "NUmnOAUx2wrpCo9MM4nh",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Você se considera uma pessoa responsável e de confiança? Por quê?'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "cDEnpyUfQmh2V64sXsRE",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato__01'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "JqPFutud5YGraTc0Rf6i",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato_02'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "gJXBnLJop9tUO8ICm8Et",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato__03'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "wHX0zg4mj6hofX8VKw3M",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "4vfgbSYDgl0gQEAHK6c4",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_possui_algum_trabalho_atualmente'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "V4Y6fs48hzrta2o8flLg",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.com_o_que_trabalha'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "mVQqDTIARtAuIy8MQpEm",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "soBjJL6gvArc0bbin07t",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "9RUuRTRsUJhgcOJrBiRZ",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_est_pronta_para_comear_imediatamente_caso_seja_aprovada\",       \"field_value'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "xA6dTzRThjsS8duFqcHN",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SoJwYYu3Jgc5t8Q3Ew23",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.como_voc_pretende_divulgar_e_vender_as_semijoias'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "rLvv89SVVC8Zhad0Ekw5",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.estado_civil'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "6Gx8JoUTv8dsLRy5crM8",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.cpf'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "51lY8wZtHdJH95JDxxgX",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Endereço do trabalho'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "UiEAMxgnO9wC04lJBcf8",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Endereço residencial com número'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "NcybLaphcZlg1dB9EV9a",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['descreva o que faz no emprego'] }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "SfCXFY2hPWuqR8BZ3AK5",
+                  "mode": "id"
+                },
+                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Para finalizar leia e aceite os termos'] }}"
+              }
+            ]
+          },
+          "firstName": "={{ $('Execute Workflow Trigger').item.json.firstname }}",
+          "lastName": "={{ $('Execute Workflow Trigger').item.json.lastname }}",
+          "postalCode": "={{ $json.postalCode }}",
+          "source": "Entrevista com o IA",
+          "state": "={{ $json.state }}",
+          "notes": "={{ $json.dateOfBirth }}",
+          "tags": "registro finalizado"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        2140
+      ],
+      "id": "d28668ff-e0f2-4c05-90d5-30d922b6a3b4",
+      "name": "UpdateContacts1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "DIE67zIMAh6q3flN",
+          "name": "Aline Concept"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "query": "={{ $json.body.firstName }} {{ $json.body.laststName }}"
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        -140,
+        2120
+      ],
+      "id": "a2d275d8-e596-45ab-8fc3-e9c96b68386d",
+      "name": "Busca1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "DIE67zIMAh6q3flN",
+          "name": "Aline Concept"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Verifica whatsapp",
+        "height": 280,
+        "width": 560,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        360,
+        1800
+      ],
+      "typeVersion": 1,
+      "id": "0af10117-2751-4f64-8aa7-1c58faeed975",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evolution.escamax1.automacao360.com/chat/whatsappNumbers/maryjhon",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=239A1C16855D73C57525DD951AC3C"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"numbers\": [\n    \"{{ $json.phone }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "1baa66bf-c784-4e19-8166-469617eda700",
+      "name": "Whatsapp válido?1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        600,
+        1900
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json[\"exists\"] }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "bcfdae6d-ace5-4d3b-9864-57e873bab590",
+      "name": "É válido?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        780,
+        1900
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7151d45b-619f-4fe5-87d8-0a43faf166f2",
+              "name": "response",
+              "value": "={{ $item(\"0\").$node[\"Merge1\"].json }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "121ac532-9a88-4d70-a18a-6b5a7d9ef0b5",
+      "name": "Edit Fields5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1620,
+        2120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10772c94-caa3-4d05-b687-10bf15a12e69",
+              "name": "phone",
+              "value": "={{ $node[\"Execute Workflow Trigger\"].json.phone.startsWith('+55') \n  ? $node[\"Execute Workflow Trigger\"].json.phone \n  : '+55' + $node[\"Execute Workflow Trigger\"].json.phone.replace(/^0+/, '') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        420,
+        1900
+      ],
+      "id": "7b3e9001-00a8-4401-9232-84262cb96b88",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "url": "https://rest.gohighlevel.com/v1/custom-fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "highLevelApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6Im01NTFjQkJNSElNTGpQSFVYeU81IiwidmVyc2lvbiI6MSwiaWF0IjoxNzQyNDI1MTg1MzYzLCJzdWIiOiJXcVVES29hTm5wQXBneDV2UDBVbCJ9.b8uy3N_R2-IpTKTutzpP4Coi86n1o0_0LHsuK0L0bro"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        1760
+      ],
+      "id": "2d8dd835-875e-4f3a-a196-a7521b5e86e5",
+      "name": "HTTP Request1",
+      "credentials": {
+        "highLevelApi": {
+          "id": "nTI2khzYnfGc1Q8D",
+          "name": "API -DeBona"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Ferramentas de contatos",
+        "height": 640,
+        "width": 2180,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -360,
+        1660
+      ],
+      "typeVersion": 1,
+      "id": "a2a1dff3-1427-48fc-9ca5-ab33ccb44b4f",
+      "name": "Sticky Note2"
     }
   ],
   "connections": {
@@ -1015,6 +1550,130 @@
           {
             "node": "AI Agent",
             "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Busca1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UpdateContacts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateContact1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContacts1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Busca1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whatsapp válido?1": {
+      "main": [
+        [
+          {
+            "node": "É válido?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É válido?1": {
+      "main": [
+        [
+          {
+            "node": "CreateContact1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CreateContact1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Whatsapp válido?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
             "index": 0
           }
         ]
@@ -1226,9 +1885,235 @@
           ]
         }
       }
+    ],
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "webhook.escamax1.automacao360.com",
+            "user-agent": "axios/1.8.3",
+            "content-length": "113",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "webhook.escamax1.automacao360.com",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "1e5eb03f4121",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "operação": "criar",
+            "nome": "Erica Coelho boeira",
+            "whatsapp": "4999989136",
+            "email": "Coelhoerica241@YOUgmail.com"
+          },
+          "webhookUrl": "https://webhook.escamax1.automacao360.com/webhook/alina_semi_joias",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "HTTP Request1": [
+      {
+        "json": {
+          "customFields": [
+            {
+              "id": "rLvv89SVVC8Zhad0Ekw5",
+              "name": "Estado civil",
+              "fieldKey": "contact.estado_civil",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 50
+            },
+            {
+              "id": "zXja0lR7TbjnZlLldDrQ",
+              "name": "instagram",
+              "fieldKey": "contact.instagram",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 150
+            },
+            {
+              "id": "3ncTkoYXEyc7c68Y3sfa",
+              "name": "Você já trabalhou com vendas antes?",
+              "fieldKey": "contact.voc_j_trabalhou_com_vendas_antes",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 100
+            },
+            {
+              "id": "apKjUBLBbTXlUvSXlRdz",
+              "name": "há quanto tempo trabalha com vendas?",
+              "fieldKey": "contact.h_quanto_tempo_trabalha_com_vendas",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 150
+            },
+            {
+              "id": "nStRyvSgHhWJIa7fUoPh",
+              "name": "O que mais te atrai na oportunidade de revender semijoias no consignado?",
+              "fieldKey": "contact.o_que_mais_te_atrai_na_oportunidade_de_revender_semijoias_no_consignado",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 200
+            },
+            {
+              "id": "OrPrWgUT5BWSO99515LB",
+              "name": "Você já trabalhou com produtos no consignado antes?",
+              "fieldKey": "contact.voc_j_trabalhou_com_produtos_no_consignado_antes",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 250
+            },
+            {
+              "id": "On7i1hVAcWNZ5tMCWGOL",
+              "name": "Quais produtos você já vendeu antes?",
+              "fieldKey": "contact.quais_produtos_voc_j_vendeu_antes",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 300
+            },
+            {
+              "id": "5Zhhhapklj6WeRu8gmxY",
+              "name": "Como você lida com compromissos financeiros e prazos de pagamento?",
+              "fieldKey": "contact.como_voc_lida_com_compromissos_financeiros_e_prazos_de_pagamento",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 350
+            },
+            {
+              "id": "NUmnOAUx2wrpCo9MM4nh",
+              "name": "Você se considera uma pessoa responsável e de confiança? Por quê?",
+              "fieldKey": "contact.voc_se_considera_uma_pessoa_responsvel_e_de_confiana_por_qu",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 400
+            },
+            {
+              "id": "cDEnpyUfQmh2V64sXsRE",
+              "name": "Referência 01",
+              "fieldKey": "contact.referncia_01",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 450
+            },
+            {
+              "id": "JqPFutud5YGraTc0Rf6i",
+              "name": "Referência 02",
+              "fieldKey": "contact.referncia_02",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 500
+            },
+            {
+              "id": "gJXBnLJop9tUO8ICm8Et",
+              "name": "Referência 03",
+              "fieldKey": "contact.referncia_03",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 550
+            },
+            {
+              "id": "wHX0zg4mj6hofX8VKw3M",
+              "name": "Caso uma cliente compre e não pague, de onde você pretende tirar os recursos para cobrir essa dívida?",
+              "fieldKey": "contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 600
+            },
+            {
+              "id": "4vfgbSYDgl0gQEAHK6c4",
+              "name": "Você possui algum emprego atualmente?",
+              "fieldKey": "contact.voc_possui_algum_emprego_atualmente",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 650
+            },
+            {
+              "id": "51lY8wZtHdJH95JDxxgX",
+              "name": "Endereço do trabalho",
+              "fieldKey": "contact.endereo_do_trabalho",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 700
+            },
+            {
+              "id": "UiEAMxgnO9wC04lJBcf8",
+              "name": "Endereço residencial com número",
+              "fieldKey": "contact.endereo_residencial_com_nmero",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 750
+            },
+            {
+              "id": "NcybLaphcZlg1dB9EV9a",
+              "name": "descreva o que faz no emprego",
+              "fieldKey": "contact.descreva_o_que_faz_no_emprego",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 800
+            },
+            {
+              "id": "mVQqDTIARtAuIy8MQpEm",
+              "name": "Quanto tempo por semana você está disposta a dedicar para vender as semijoias?",
+              "fieldKey": "contact.quanto_tempo_por_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 850
+            },
+            {
+              "id": "SoJwYYu3Jgc5t8Q3Ew23",
+              "name": "Como você pretende divulgar e vender as semijoias?",
+              "fieldKey": "contact.como_voc_pretende_divulgar_e_vender_as_semijoias",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 900
+            },
+            {
+              "id": "soBjJL6gvArc0bbin07t",
+              "name": "Quais desafios você acha que pode enfrentar ao começar como revendedora e como pretende superá-los?",
+              "fieldKey": "contact.quais_desafios_voc_acha_que_pode_enfrentar_ao_comear_como_revendedora_e_como_pretende_superlos",
+              "placeholder": "",
+              "dataType": "LARGE_TEXT",
+              "position": 950
+            },
+            {
+              "id": "9RUuRTRsUJhgcOJrBiRZ",
+              "name": "Você está pronta para começar imediatamente, caso seja aprovada?",
+              "fieldKey": "contact.voc_est_pronta_para_comear_imediatamente_caso_seja_aprovada",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 1000
+            },
+            {
+              "id": "xA6dTzRThjsS8duFqcHN",
+              "name": "Você está disposta a participar de treinamentos para aprender mais sobre as vendas e o produto?",
+              "fieldKey": "contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_o_produto",
+              "placeholder": "",
+              "dataType": "TEXT",
+              "position": 1050
+            },
+            {
+              "id": "SfCXFY2hPWuqR8BZ3AK5",
+              "name": "Para finalizar leia e aceite os termos",
+              "fieldKey": "contact.para_finalizar_leia_e_aceite_os_termos",
+              "placeholder": "",
+              "dataType": "CHECKBOX",
+              "position": 1100,
+              "picklistOptions": [
+                "Aceito",
+                "Não aceito"
+              ]
+            }
+          ]
+        }
+      }
     ]
   },
-  "versionId": "35f1c3c6-cb66-42fc-8582-d225e37ad046",
+  "versionId": "43bc5601-f34d-4364-a89f-e44a14bcbb3f",
   "triggerCount": 1,
   "tags": [
     {
