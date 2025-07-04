@@ -1,9 +1,9 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-01T19:38:39.210Z",
+  "updatedAt": "2025-07-04T12:18:21.958Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -818,6 +818,21 @@
           "name": "MaryJhon"
         }
       }
+    },
+    {
+      "parameters": {
+        "path": "alina_semi_joias",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -680,
+        660
+      ],
+      "id": "1696c380-5487-4865-815c-87893007cdc4",
+      "name": "Webhook",
+      "webhookId": "1ce69184-e137-4435-8330-853b0ea22d57"
     }
   ],
   "connections": {
@@ -1213,8 +1228,8 @@
       }
     ]
   },
-  "versionId": "421327bb-8aa1-465f-9213-4127a26b850d",
-  "triggerCount": 0,
+  "versionId": "35f1c3c6-cb66-42fc-8582-d225e37ad046",
+  "triggerCount": 1,
   "tags": [
     {
       "createdAt": "2025-03-19T22:09:50.746Z",
