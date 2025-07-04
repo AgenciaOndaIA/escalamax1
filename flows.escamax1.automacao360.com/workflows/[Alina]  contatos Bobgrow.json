@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T10:56:45.180Z",
-  "updatedAt": "2025-07-04T13:19:39.576Z",
+  "updatedAt": "2025-07-04T14:00:18.797Z",
   "id": "xE00zQwUnJwp2PIx",
   "name": "[Alina]  contatos Bobgrow",
   "active": true,
@@ -952,8 +952,8 @@
         "email": "={{ $json.email }}",
         "phone": "={{ $json.phone }}",
         "additionalFields": {
-          "address1": "={{ $json.address1 }}",
-          "city": "={{ $json.city }}",
+          "address1": "={{ $('Webhook').item.json.body.endereco_residencial }}",
+          "city": "={{ $('Webhook').item.json.body.cidade }}",
           "customFields": {
             "values": [
               {
@@ -1026,7 +1026,7 @@
                   "value": "cDEnpyUfQmh2V64sXsRE",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato__01'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[0] ?? null }}"
               },
               {
                 "fieldId": {
@@ -1034,7 +1034,7 @@
                   "value": "JqPFutud5YGraTc0Rf6i",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato_02'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[1] ?? null }}"
               },
               {
                 "fieldId": {
@@ -1042,7 +1042,7 @@
                   "value": "gJXBnLJop9tUO8ICm8Et",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.contato__03'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.referencias.split(' | ')[2] ?? null }}"
               },
               {
                 "fieldId": {
@@ -1050,7 +1050,7 @@
                   "value": "wHX0zg4mj6hofX8VKw3M",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.caso_uma_cliente_compre_e_no_pague_de_onde_voc_pretende_tirar_os_recursos_para_cobrir_essa_dvida'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.cobertura_divida ?? null}}"
               },
               {
                 "fieldId": {
@@ -1058,7 +1058,7 @@
                   "value": "4vfgbSYDgl0gQEAHK6c4",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_possui_algum_trabalho_atualmente'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.ocupacao_atual ?? null}}"
               },
               {
                 "fieldId": {
@@ -1066,7 +1066,7 @@
                   "value": "V4Y6fs48hzrta2o8flLg",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.com_o_que_trabalha'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null}}"
               },
               {
                 "fieldId": {
@@ -1074,7 +1074,7 @@
                   "value": "mVQqDTIARtAuIy8MQpEm",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quanto_tempo_na_semana_voc_est_disposta_a_dedicar_para_vender_as_semijoias'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.tempo_dedicacao ?? null}}"
               },
               {
                 "fieldId": {
@@ -1082,7 +1082,7 @@
                   "value": "soBjJL6gvArc0bbin07t",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.quais_desafios_voc_acha_que_pode_enfrentar_o_comear_como_revendedora_e_como_pretende_superlos'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.desafios ?? null }}"
               },
               {
                 "fieldId": {
@@ -1090,7 +1090,7 @@
                   "value": "9RUuRTRsUJhgcOJrBiRZ",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_est_pronta_para_comear_imediatamente_caso_seja_aprovada\",       \"field_value'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.disponibilidade ?? null}}"
               },
               {
                 "fieldId": {
@@ -1098,7 +1098,7 @@
                   "value": "xA6dTzRThjsS8duFqcHN",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.voc_est_disposta_a_participar_de_treinamentos_para_aprender_mais_sobre_as_vendas_e_produtos'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.interesse_treinamento ?? null}}"
               },
               {
                 "fieldId": {
@@ -1106,7 +1106,7 @@
                   "value": "SoJwYYu3Jgc5t8Q3Ew23",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.como_voc_pretende_divulgar_e_vender_as_semijoias'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.estrategia_divulgacao ?? null }}"
               },
               {
                 "fieldId": {
@@ -1114,7 +1114,7 @@
                   "value": "rLvv89SVVC8Zhad0Ekw5",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.estado_civil'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.estado_civil ?? null}}"
               },
               {
                 "fieldId": {
@@ -1122,7 +1122,7 @@
                   "value": "6Gx8JoUTv8dsLRy5crM8",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['contact.cpf'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.cpf ?? null }}"
               },
               {
                 "fieldId": {
@@ -1138,7 +1138,7 @@
                   "value": "UiEAMxgnO9wC04lJBcf8",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['Endereço residencial com número'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.endereco_trabalho ?? null }}"
               },
               {
                 "fieldId": {
@@ -1146,7 +1146,7 @@
                   "value": "NcybLaphcZlg1dB9EV9a",
                   "mode": "id"
                 },
-                "fieldValue": "={{ $('Execute Workflow Trigger').item.json['descreva o que faz no emprego'] }}"
+                "fieldValue": "={{ $('Webhook').item.json.body.funcao_atual ?? null }}"
               },
               {
                 "fieldId": {
@@ -1158,12 +1158,9 @@
               }
             ]
           },
-          "firstName": "=",
-          "lastName": "={{ $json.lastName ?? null}}",
-          "postalCode": "={{ $json.postalCode ?? null}}",
+          "name": "={{ $('Webhook').item.json.body.nome }}",
           "source": "Entrevista com o IA",
-          "state": "={{ $json.state ?? null }}",
-          "notes": "={{ $json.dateOfBirth ?? null}}",
+          "state": "={{ $('Webhook').item.json.body.estado ?? null }}",
           "tags": "registro finalizado"
         },
         "requestOptions": {}
@@ -2173,7 +2170,7 @@
       }
     ]
   },
-  "versionId": "801ac978-292f-462d-87c2-563718250923",
+  "versionId": "99267925-13aa-4de9-ae40-4ec437b52db3",
   "triggerCount": 1,
   "tags": [
     {
