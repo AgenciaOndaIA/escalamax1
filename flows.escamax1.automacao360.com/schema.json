@@ -1598,10 +1598,6 @@
               "value": "opengvlab/internvl3-14b"
             },
             {
-              "text": "OpenGVLab: InternVL3 2B",
-              "value": "opengvlab/internvl3-2b"
-            },
-            {
               "text": "DeepSeek: DeepSeek Prover V2",
               "value": "deepseek/deepseek-prover-v2"
             },
