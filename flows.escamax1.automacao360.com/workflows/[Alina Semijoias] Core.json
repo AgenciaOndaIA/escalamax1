@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:31:17.420Z",
-  "updatedAt": "2025-07-04T17:34:17.902Z",
+  "updatedAt": "2025-07-04T17:49:06.329Z",
   "id": "R9yHA9VSBTwcGQ0w",
   "name": "[Alina Semijoias] Core",
   "active": true,
@@ -97,8 +97,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -480,
-        220
+        840,
+        260
       ],
       "id": "419dbd20-af46-4d85-a080-3c0877942c56",
       "name": "OpenRouter",
@@ -107,7 +107,8 @@
           "id": "YiVL7E1hgDcUCfGE",
           "name": "OpenRouter account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -816,7 +817,8 @@
         120
       ],
       "id": "78545b17-7925-436a-b7db-70fc6299fe26",
-      "name": "cadastroUser1"
+      "name": "cadastroUser1",
+      "disabled": true
     },
     {
       "parameters": {
@@ -830,7 +832,7 @@
       "typeVersion": 4.2,
       "position": [
         220,
-        200
+        220
       ],
       "id": "af89422b-25b6-4885-984b-5ab616c5470f",
       "name": "cadastroUser"
@@ -1023,7 +1025,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "2be8fe38-d134-4138-a2b1-f340c203fc73",
+  "versionId": "9c8533fc-7381-40c0-9f42-58d7f333c092",
   "triggerCount": 1,
   "tags": [
     {
