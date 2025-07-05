@@ -1762,10 +1762,6 @@
               "value": "meta-llama/llama-4-scout"
             },
             {
-              "text": "OpenHands LM 32B V0.1",
-              "value": "all-hands/openhands-lm-32b-v0.1"
-            },
-            {
               "text": "DeepSeek: DeepSeek V3 Base (free)",
               "value": "deepseek/deepseek-v3-base:free"
             },
@@ -2156,10 +2152,6 @@
             {
               "text": "SorcererLM 8x22B",
               "value": "raifle/sorcererlm-8x22b"
-            },
-            {
-              "text": "EVA Qwen2.5 32B",
-              "value": "eva-unit-01/eva-qwen-2.5-32b"
             },
             {
               "text": "TheDrummer: UnslopNemo 12B",
@@ -2888,16 +2880,16 @@
               "value": "eleven_monolingual_v1"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
