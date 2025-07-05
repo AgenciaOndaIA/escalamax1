@@ -2334,14 +2334,6 @@
               "value": "nothingiisreal/mn-celeste-12b"
             },
             {
-              "text": "Perplexity: Llama 3.1 Sonar 8B Online",
-              "value": "perplexity/llama-3.1-sonar-small-128k-online"
-            },
-            {
-              "text": "Perplexity: Llama 3.1 Sonar 70B Online",
-              "value": "perplexity/llama-3.1-sonar-large-128k-online"
-            },
-            {
               "text": "Meta: Llama 3.1 8B Instruct",
               "value": "meta-llama/llama-3.1-8b-instruct"
             },
@@ -2876,10 +2868,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
@@ -2890,6 +2878,10 @@
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
