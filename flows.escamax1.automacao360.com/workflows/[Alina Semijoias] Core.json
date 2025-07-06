@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:31:17.420Z",
-  "updatedAt": "2025-07-04T17:49:06.329Z",
+  "updatedAt": "2025-07-06T11:52:03.266Z",
   "id": "R9yHA9VSBTwcGQ0w",
   "name": "[Alina Semijoias] Core",
   "active": true,
@@ -825,7 +825,7 @@
         "url": "https://webhook.escamax1.automacao360.com/webhook/alina_semi_joias",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={ \nmapping\n}",
+        "jsonBody": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('JSON', `mapping com todas as respostas do contato`, 'json') }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequestTool",
@@ -1025,7 +1025,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "9c8533fc-7381-40c0-9f42-58d7f333c092",
+  "versionId": "e963ceff-401b-480b-81cc-827e5b193cce",
   "triggerCount": 1,
   "tags": [
     {
