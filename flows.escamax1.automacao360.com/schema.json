@@ -2174,10 +2174,6 @@
               "value": "anthropic/claude-3.5-haiku-20241022"
             },
             {
-              "text": "NeverSleep: Lumimaid v0.2 70B",
-              "value": "neversleep/llama-3.1-lumimaid-70b"
-            },
-            {
               "text": "Magnum v4 72B",
               "value": "anthracite-org/magnum-v4-72b"
             },
@@ -2868,20 +2864,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
