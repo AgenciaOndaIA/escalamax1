@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-04-06T20:51:34.112Z",
-  "updatedAt": "2025-07-04T11:31:46.315Z",
+  "updatedAt": "2025-07-08T14:17:10.197Z",
   "id": "Op1RR3U4qIupUBQz",
   "name": "[Finna Joias] Core",
   "active": true,
@@ -530,7 +530,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "2ced9431-85c9-480a-9d6d-e9a2aff5cfab",
+  "versionId": "5953cd54-18e6-4f80-8b5d-82d92993c9a6",
   "triggerCount": 1,
   "tags": []
 }
