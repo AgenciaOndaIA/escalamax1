@@ -2462,10 +2462,6 @@
               "value": "openai/gpt-4o-2024-05-13"
             },
             {
-              "text": "NeverSleep: Llama 3 Lumimaid 8B",
-              "value": "neversleep/llama-3-lumimaid-8b"
-            },
-            {
               "text": "Fimbulvetr 11B v2",
               "value": "sao10k/fimbulvetr-11b-v2"
             },
@@ -2880,16 +2876,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
