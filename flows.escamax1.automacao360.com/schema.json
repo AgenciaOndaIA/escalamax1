@@ -1550,12 +1550,12 @@
               "value": "anthropic/claude-sonnet-4"
             },
             {
-              "text": "Mistral: Devstral Small (free)",
-              "value": "mistralai/devstral-small:free"
+              "text": "Mistral: Devstral Small 2505 (free)",
+              "value": "mistralai/devstral-small-2505:free"
             },
             {
-              "text": "Mistral: Devstral Small",
-              "value": "mistralai/devstral-small"
+              "text": "Mistral: Devstral Small 2505",
+              "value": "mistralai/devstral-small-2505"
             },
             {
               "text": "Google: Gemma 3n 4B (free)",
@@ -2908,12 +2908,12 @@
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
