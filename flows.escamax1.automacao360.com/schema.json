@@ -1410,6 +1410,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "MoonshotAI: Kimi K2",
+              "value": "moonshotai/kimi-k2"
+            },
+            {
               "text": "THUDM: GLM 4.1V 9B Thinking",
               "value": "thudm/glm-4.1v-9b-thinking"
             },
@@ -2912,20 +2916,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
