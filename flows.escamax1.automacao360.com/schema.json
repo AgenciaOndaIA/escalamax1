@@ -1942,10 +1942,6 @@
               "value": "nousresearch/deephermes-3-llama-3-8b-preview:free"
             },
             {
-              "text": "OpenAI: GPT-4.5 (Preview)",
-              "value": "openai/gpt-4.5-preview"
-            },
-            {
               "text": "Google: Gemini 2.0 Flash Lite",
               "value": "google/gemini-2.0-flash-lite-001"
             },
@@ -2920,20 +2916,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
