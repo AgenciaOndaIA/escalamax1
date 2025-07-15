@@ -1966,6 +1966,10 @@
               "value": "cognitivecomputations/dolphin3.0-r1-mistral-24b:free"
             },
             {
+              "text": "Dolphin3.0 R1 Mistral 24B",
+              "value": "cognitivecomputations/dolphin3.0-r1-mistral-24b"
+            },
+            {
               "text": "Dolphin3.0 Mistral 24B (free)",
               "value": "cognitivecomputations/dolphin3.0-mistral-24b:free"
             },
@@ -2912,10 +2916,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
@@ -2926,6 +2926,10 @@
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
