@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-19T21:31:17.420Z",
-  "updatedAt": "2025-07-06T11:52:03.266Z",
+  "updatedAt": "2025-07-16T13:13:43.270Z",
   "id": "R9yHA9VSBTwcGQ0w",
   "name": "[Alina Semijoias] Core",
   "active": true,
@@ -372,8 +372,8 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "3KUgCv31pjbgxYGk",
-          "name": "EscalaMax"
+          "id": "e7Y08iJ1FbEVOWTx",
+          "name": "MaryJhon"
         }
       }
     },
@@ -1025,7 +1025,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e963ceff-401b-480b-81cc-827e5b193cce",
+  "versionId": "9261fec4-370a-4bec-8308-4cdb390d9633",
   "triggerCount": 1,
   "tags": [
     {
