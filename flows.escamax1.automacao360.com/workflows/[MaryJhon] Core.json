@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-03-30T11:01:46.238Z",
-  "updatedAt": "2025-07-15T20:42:54.550Z",
+  "updatedAt": "2025-07-16T10:09:48.974Z",
   "id": "d31iwhZTQrzGd3pU",
   "name": "[MaryJhon] Core",
   "active": true,
@@ -708,8 +708,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1280,
-        160
+        1240,
+        120
       ],
       "id": "6c31902d-84fc-45cd-8085-5b1c19298934",
       "name": "Agente com novos perguntas 01/06/",
@@ -949,7 +949,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "2a47d519-6a25-4599-8fac-98da81f6a4c5",
+  "versionId": "6ad5c634-f318-41ce-8e34-df9fc5cfdba3",
   "triggerCount": 1,
   "tags": [
     {
