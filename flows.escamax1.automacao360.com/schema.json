@@ -2674,6 +2674,10 @@
               "value": "gryphe/mythomax-l2-13b"
             },
             {
+              "text": "OpenAI: GPT-3.5 Turbo",
+              "value": "openai/gpt-3.5-turbo"
+            },
+            {
               "text": "OpenAI: GPT-4",
               "value": "openai/gpt-4"
             },
