@@ -1466,6 +1466,10 @@
               "value": "tngtech/deepseek-r1t2-chimera:free"
             },
             {
+              "text": "TNG: DeepSeek R1T2 Chimera",
+              "value": "tngtech/deepseek-r1t2-chimera"
+            },
+            {
               "text": "Morph: Morph V3 Large",
               "value": "morph/morph-v3-large"
             },
@@ -1606,6 +1610,10 @@
               "value": "openai/codex-mini"
             },
             {
+              "text": "Nous: DeepHermes 3 Mistral 24B Preview",
+              "value": "nousresearch/deephermes-3-mistral-24b-preview"
+            },
+            {
               "text": "Mistral: Mistral Medium 3",
               "value": "mistralai/mistral-medium-3"
             },
@@ -1688,10 +1696,6 @@
             {
               "text": "Qwen: Qwen3 14B",
               "value": "qwen/qwen3-14b"
-            },
-            {
-              "text": "Qwen: Qwen3 32B (free)",
-              "value": "qwen/qwen3-32b:free"
             },
             {
               "text": "Qwen: Qwen3 32B",
@@ -1804,10 +1808,6 @@
             {
               "text": "Meta: Llama 4 Scout",
               "value": "meta-llama/llama-4-scout"
-            },
-            {
-              "text": "DeepSeek: DeepSeek V3 Base (free)",
-              "value": "deepseek/deepseek-v3-base:free"
             },
             {
               "text": "Typhoon2 70B Instruct",
@@ -2100,10 +2100,6 @@
             {
               "text": "Microsoft: Phi 4",
               "value": "microsoft/phi-4"
-            },
-            {
-              "text": "DeepSeek: DeepSeek V3 (free)",
-              "value": "deepseek/deepseek-chat:free"
             },
             {
               "text": "DeepSeek: DeepSeek V3",
@@ -2892,20 +2888,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
