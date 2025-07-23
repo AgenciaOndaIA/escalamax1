@@ -1410,12 +1410,12 @@
           "allowOther": false,
           "choices": [
             {
-              "text": "Bytedance: UI-TARS 7B ",
-              "value": "bytedance/ui-tars-1.5-7b"
-            },
-            {
               "text": "Qwen: Qwen3 Coder ",
               "value": "qwen/qwen3-coder"
+            },
+            {
+              "text": "Bytedance: UI-TARS 7B ",
+              "value": "bytedance/ui-tars-1.5-7b"
             },
             {
               "text": "Google: Gemini 2.5 Flash Lite",
